@@ -76,7 +76,7 @@
 <script type="text/javascript">
     $(function () {
         $.formValidator.initConfig({formID: "form1",  onError: function (msg) {
-            cAlert(msg, 'error')
+            _alert(msg, 'error')
         }, inIframe: true});
 
         $("#user_name").formValidator({onShow: "请输入用户名", onFocus: "用户名不能为空", onCorrect: ""}).inputValidator({min: 1, onError: "用户名不能为空,请确认"});

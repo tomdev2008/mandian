@@ -62,23 +62,26 @@ define("projects/1.0.0/common", ['cookie' ], function (require) {
         }
     );
 
-
-    //全局的弹出窗
-    window.cShow = function (_c){
-        $.messager.show({
-            title:'提示',
-            msg: _c,
-            timeout:5000,
-            style:{
-                right:'',
-                top:document.body.scrollTop+document.documentElement.scrollTop,
-                bottom:''
-            }
+    window._alert = function( _c ){
+        art.dialog({
+            title: '提示',
+            content: _c,
+            icon: 'warning'
         });
     }
-
-    window.cAlert = function( _c, _y){
-        $.messager.alert('提示', _c, _y);
+    window._confirm = function( _c, _call ){
+        if(typeof _call != 'function' ){
+            _call = function(){}
+        }
+        art.dialog({
+            title: '提示',
+            content: _c,
+            icon: 'warning',
+            ok: function(){
+                _call();
+            },
+            cancel: function(){}
+        });
     }
 
     //退出

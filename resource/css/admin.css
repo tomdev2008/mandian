@@ -78,7 +78,7 @@ body{ background: url("/resource/images/bg.jpg") repeat scroll 0 0 #FBFBFB}
 .table-form tbody td, .table_form tbody th {  border-bottom: 1px solid #EEEEEE; background-color: #fff;}
 .table-form td, .table_form th { height: 35px; }
 
-.input-text, .measure-input, textarea, input.date, input.endDate, .input-focus {
+text-input small-input.input-text, .measure-input, textarea, input.date, input.endDate, .input-focus {
     background: url("../images/input.png") repeat-x scroll 0 0 #FFFFFF;
     border: 1px solid #D0D0D0;
     font-size: 12px;

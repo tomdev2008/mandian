@@ -93,7 +93,7 @@ class User extends CI_Admin
             $r = $this->user_bll->save_user($user);
         }
         if ($r) {
-            show_message('用户保存成功', '点击跳转', base_url() . '/default/user/user_list');
+            show_message('用户保存成功', '点击跳转', base_url() . '/system/user/user_list');
         } else {
             show_message('用户保存失败');
         }
@@ -108,9 +108,24 @@ class User extends CI_Admin
             $r = $this->user_bll->del_user($id);
         }
         if ($r) {
-            show_message('用户删除成功', '点击跳转', base_url() . '/default/user/user_list');
+            show_message('用户删除成功', '点击跳转', base_url() . '/system/user/user_list');
         } else {
             show_message('用户删除失败');
+        }
+    }
+
+    public function role_del($id = null)
+    {
+        //用户权限验证
+        $this->is_valiate();
+
+        if (!empty($id)) {
+            $r = $this->user_bll->del_role($id);
+        }
+        if ($r) {
+            show_message('删除成功', '点击跳转', base_url() . '/system/user/role_list');
+        } else {
+            show_message('删除失败');
         }
     }
 
@@ -121,9 +136,13 @@ class User extends CI_Admin
     {
         //用户权限验证
         $this->is_valiate();
+        $page = $this->input->get_post('p');
+        $rows = 20;
+        $r['rows'] = $this->user_bll->get_role_list($page, $rows);
+        $r['total'] = ceil( $this->user_bll->get_role_list_count() / $rows);
 
         $this->view( '/tpl/pager_header', $this->_sys);
-        $this->view( '/tpl/role_list');
+        $this->view( '/tpl/role_list', $r);
         $this->view( '/tpl/pager_footer');
     }
 
@@ -181,7 +200,7 @@ class User extends CI_Admin
             $r = $this->user_bll->save_role($role);
         }
         if ($r) {
-            show_message('角色保存成功', '点击跳转', base_url() . '/default/user/role_list');
+            show_message('角色保存成功', '点击跳转', base_url() . '/system/user/role_list');
         } else {
             show_message('角色保存失败');
         }

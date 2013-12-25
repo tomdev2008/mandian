@@ -18,6 +18,10 @@ class User_model extends CI_Model
         parent::__construct();
     }
 
+    public function del_role($id = null){
+        return $this->db->delete('crm_roles', array('role_id' => intval($id)));
+    }
+
     /**
      * 获取档期用户权限组
      * @param null $role_id

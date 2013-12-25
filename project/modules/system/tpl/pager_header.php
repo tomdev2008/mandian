@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Simpla Admin</title>
 
-    <!--                       CSS                       -->
+    <!-- css -->
     <!-- Reset Stylesheet -->
     <link rel="stylesheet" href="/resource/css/reset.css" type="text/css" media="screen" />
     <!-- Main Stylesheet -->
@@ -12,18 +12,21 @@
     <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
     <link rel="stylesheet" href="/resource/css/invalid.css" type="text/css" media="screen" />
 
-    <!-- easyui 1.3.4 -->
-    <link rel="stylesheet" type="text/css" href="/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/icon.css">
-
     <!-- jquery -->
     <script src="/resource/js/sea-modules/alias/jquery/jquery-1.8.3.min.js"></script>
-    <script src="/resource/js/sea-modules/alias/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
-    <script src="/resource/js/sea-modules/alias/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
+
+    <!-- art dialog -->
+    <script src="/resource/js/sea-modules/alias/artDialog4.1.7/jquery.artDialog.js?skin=aero"></script>
+    <script type="text/javascript" src="/resource/js/sea-modules/alias/artDialog4.1.7/plugins/iframeTools.js"></script> <!-- 对iframe的新工具 -->
 
     <!-- js模块 -->
     <script charset="utf-8" type="text/javascript" src="/resource/js/sea-modules/seajs/seajs/2.1.1/sea.js" id="seajsnode"></script>
     <script charset="utf-8" type="text/javascript">
+
+        $(function(){
+            //art.dialog({ content: '我支持HTML' });
+
+        })
         // Set configuration
         seajs.config({
             base: "<?php echo base_url(); ?>resource/js/sea-modules/",

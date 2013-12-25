@@ -1,6 +1,21 @@
 <div id="main-content">
 <!-- Main Content Section with everything -->
-<!-- Page Head -->
+    <!-- Page Head -->
+    <ul class="shortcut-buttons-set">
+        <li><a class="shortcut-button" href="<?php echo for_url('system','user','user_add') ?>"><span> <img src="/resource/images/icons/pencil_48.png" alt="icon" /><br />
+        添加新用户 </span></a></li>
+        <!--<li><a class="shortcut-button" href="#"><span> <img src="/resource/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
+        Create a New Page </span></a></li>
+        <li><a class="shortcut-button" href="#"><span> <img src="/resource/images/icons/image_add_48.png" alt="icon" /><br />
+        Upload an Image </span></a></li>
+        <li><a class="shortcut-button" href="#"><span> <img src="/resource/images/icons/clock_48.png" alt="icon" /><br />
+        Add an Event </span></a></li>
+        <li><a class="shortcut-button" href="#messages" rel="modal"><span> <img src="/resource/images/icons/comment_48.png" alt="icon" /><br />
+        Open Modal </span></a></li>-->
+    </ul>
+    <!-- End .shortcut-buttons-set -->
+
+    <!-- Page Head -->
 <div class="clear"></div>
 <!-- End .clear -->
 <div class="content-box">
@@ -76,11 +91,11 @@
                         echo '<td>'.$val['last_time'].'</td>';
                         echo '<td>'.$val['last_ip'].'</td>';
                         echo '<td>'.$val['visit_count'].'</td>';
-                        echo '<td>'.$val['enabled'].'</td>';
+                        echo '<td>'.(empty($val['enabled']) ? '<font style="color:red;">×</font>' : '<font style="color:green;">√</font>' ).'</td>';
                         echo '<td>';
-                        echo '<a href="',for_url('system','user','user_edit/'.$val['user_id']), '" title="Edit"><img src="/resource/images/icons/pencil.png" alt="Edit" /></a>';
-                        echo '<a href="javascript:if(confirm(\'确定要删除吗？\')) { location.href = \'',for_url('system','user','user_del/'.$val['user_id']),'\'; }" title="Delete"><img src="/resource/images/icons/cross.png" alt="Delete" /></a>';
-                        echo '<a href="',for_url('system','user','system_role/'.$val['user_id']), '" title="Edit Meta"><img src="/resource/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>';
+                        echo '<a href="',for_url('system','user','user_edit/'.$val['user_id']), '" title="Edit">[编辑]</a>&nbsp;';
+                        echo '<a href="javascript:_confirm(\'确认删除？\',function(){location.href = \'',for_url('system','user','user_del/'.$val['user_id']),'\';});" title="Delete">[删除]</a>&nbsp;';
+                        echo '<a href="',for_url('system','user','system_role/'.$val['user_id']), '" title="Edit Meta">[权限关联]</a>';
                         echo '</td>';
                         echo '</tr>';
                     }

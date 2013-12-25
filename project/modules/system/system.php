@@ -139,8 +139,9 @@ class System extends CI_Admin
         //用户权限验证
         $this->is_valiate();
 
+        $r['data'] = $this->system_bll->get_system_tree_list();
         $this->view('/tpl/pager_header', $this->_sys);
-        $this->view('/tpl/system_list');
+        $this->view('/tpl/system_list', $r);
         $this->view('/tpl/pager_footer');
     }
 

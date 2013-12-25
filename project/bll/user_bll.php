@@ -228,5 +228,9 @@ class User_bll extends CI_Bll
     {
         return $this->_model->get_role_by_id($id);
     }
+    public function del_role($id = null)
+    {
+        return $this->_model->del_role($id);
+    }
 
 }
