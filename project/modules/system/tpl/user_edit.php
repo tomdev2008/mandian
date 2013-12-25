@@ -16,25 +16,31 @@
             <div class="tab-content">
                 <form name="form1" id="form1" action="/system/user/user_save" method="post">
                     <fieldset>
-                        <p>
+                        <div>
                             <label>用户名</label>
-                            <input type="text" value="<?php echo $data['user_name'] ?>" size="30" class="text-input small-input" id="user_name" name="user[user_name]">
+                            <input type="text" value="<?php echo $data['user_name'] ?>" size="30"
+                                   class="text-input small-input" id="user_name" name="user[user_name]">
+
                             <div id="user_nameTip" class="input-tip"></div>
-                        </p>
+                        </div>
 
                         <?php if (empty($data['user_id'])) { ?>
-                            <p>
+                            <div>
                                 <label>密码</label>
-                                <input type="text" value="<?php echo $data['password'] ?>" size="30" class="text-input small-input" id="pwd" name="user[password]">
+                                <input type="text" value="<?php echo $data['password'] ?>" size="30"
+                                       class="text-input small-input" id="pwd" name="user[password]">
+
                                 <div id="pwdTip" class="input-tip"></div>
-                            </p>
+                            </div>
                         <?php } ?>
-                        <p>
+                        <div>
                             <label>E-mail</label>
-                            <input type="text" value="<?php echo $data['email'] ?>" size="30" id="email" class="text-input small-input" name="user[email]">
+                            <input type="text" value="<?php echo $data['email'] ?>" size="30" id="email"
+                                   class="text-input small-input" name="user[email]">
+
                             <div id="emailTip" class="input-tip"></div>
-                        </p>
-                        <p>
+                        </div>
+                        <div>
                             <label>注册状态</label>
                             <select name="user[enabled]" id="enabled">
                                 <?php if ($data['enabled']) { ?>
@@ -45,11 +51,11 @@
                                     <option selected value="0">否</option>
                                 <?php } ?>
                             </select>
-                        </p>
-                        <p>
+                        </div>
+                        <div>
                             <input class="button" type="submit" value="保存"/>
                             <input type="hidden" name="user[user_id]" value="<?php echo $data['user_id'] ?>">
-                        </p>
+                        </div>
                     </fieldset>
                     <div class="clear"></div>
                     <!-- End .clear -->
@@ -63,11 +69,13 @@
 </div>
 <!-- End #main-content -->
 
-<script src="/resource/js/sea-modules/alias/formValidator4.1.0/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
-<script src="/resource/js/sea-modules/alias/formValidator4.1.0/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
+<script src="/resource/js/sea-modules/alias/formValidator4.1.0/formValidator-4.1.0.js" type="text/javascript"
+        charset="UTF-8"></script>
+<script src="/resource/js/sea-modules/alias/formValidator4.1.0/formValidatorRegex.js" type="text/javascript"
+        charset="UTF-8"></script>
 <script type="text/javascript">
     $(function () {
-        $.formValidator.initConfig({formID: "form1", theme: 'ArrowSolidBox', mode: 'AutoTip', onError: function (msg) {
+        $.formValidator.initConfig({formID: "form1",  onError: function (msg) {
             cAlert(msg, 'error')
         }, inIframe: true});
 
