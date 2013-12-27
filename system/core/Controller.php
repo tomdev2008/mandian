@@ -94,8 +94,11 @@ class CI_Action extends CI_Controller
      * @param array $data
      * @param bool $return
      */
-    protected function view($act = '', $data = array(), $return = false)
+    protected function view($act = null, $data = array(), $return = false)
     {
+        if(empty($act)){
+            $act = '/' . $this->router->fetch_module() . '/' . $this->router->fetch_class();
+        }
         $this->load->view($this->module . $act, $data, $return);
     }
 
@@ -127,6 +130,7 @@ class CI_Admin extends CI_Action{
         $this->BLL('system_bll');
         $this->BLL('user_bll');
 
+
     }
 
     function init_header()
@@ -151,7 +155,7 @@ class CI_Admin extends CI_Action{
         //登录验证
         $r = $this->user_bll->is_login();
         if (!$r) {
-            show_message('请重新登录', '点击跳转', for_url('user', 'user_list') );
+            show_message('请重新登录', '点击跳转', for_url('system', 'user', 'user_list') );
         }
     }
 

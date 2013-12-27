@@ -14,7 +14,7 @@
         .box404 ul{float:left;width:100%;list-style: none;}
         .box404 ul li{font-size: 14px;line-height: 20px; margin-left: 5px; padding: 3px 1px;}
         .box404 ul li.title{ display: block; font-weight: bold; font-size: 14px; line-height: 25px; height: 25px; margin-bottom:10px; margin-right: 10px; border-bottom: 1px solid #ff8400; list-style-type: none;}
-        .box404 .left{float:left;width:200px;height:200px;background-image:url(/resource/images/sorry.gif) ;background-repeat:no-repeat;height:200px;}
+        .box404 .left{float:left;width:200px;height:200px;background-image:url(/public/resource/images/sorry.gif) ;background-repeat:no-repeat;height:200px;}
         .box404 .right{float:right;width:350px;height:200px;padding-left:20px;}
         a:link {
             color: #00438a;

@@ -25,6 +25,11 @@
  *
  * -------------------------------------------------------------------
  */
+
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
+
 define('ENVIRONMENT', 'development');
 if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {

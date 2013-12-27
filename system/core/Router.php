@@ -274,7 +274,7 @@ class CI_Router {
 		}
 
 		// Does the requested controller exist in the root folder?
-		if (file_exists(APPPATH.'modules/'.$segments[0].'/'.$segments[1].'.php'))
+		if (file_exists(APPPATH.'controllers/'.$segments[0].'/'.$segments[1].'.php'))
 		{
 			return $segments;
 		}
