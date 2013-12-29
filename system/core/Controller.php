@@ -97,7 +97,7 @@ class CI_Action extends CI_Controller
     protected function view($act = null, $data = array(), $return = false)
     {
         if(empty($act)){
-            $act = '/' . $this->router->fetch_module() . '/' . $this->router->fetch_class();
+            $act = '/' . $this->router->fetch_module() . '/' . $this->router->fetch_class() . '/' . $this->router->fetch_method();
         }
         $this->load->view($this->module . $act, $data, $return);
     }

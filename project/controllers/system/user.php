@@ -39,9 +39,9 @@ class User extends CI_Admin
         $r['rows'] = $this->user_bll->get_user_list($page, $rows);
         $r['total'] = ceil( $this->user_bll->get_user_list_count() / $rows);
 
-        $this->view( '/system/pager_header', $this->_sys);
-        $this->view( '/user/user_list', $r);
-        $this->view( '/system/pager_footer');
+        $this->view( '/system/public/pager_header', $this->_sys);
+        $this->view( '/system/user/user_list', $r);
+        $this->view( '/system/public/pager_footer');
     }
 
     public function user_add()
@@ -51,9 +51,9 @@ class User extends CI_Admin
 
         $user = array('user_id' => '', 'user_name' => '', 'password' => '', 'email' => '', 'enabled' => 1);
         $data['data'] = $user;
-        $this->view( '/system/pager_header', $this->_sys);
-        $this->view( '/user/user_edit', $data);
-        $this->view( '/system/pager_footer');
+        $this->view( '/system/public/pager_header', $this->_sys);
+        $this->view( '/system/user/user_edit', $data);
+        $this->view( '/system/public/pager_footer');
     }
 
     public function user_edit($id = null)
@@ -64,9 +64,9 @@ class User extends CI_Admin
         $user = $this->user_bll->get_user_by_id($id);
         if ($user) {
             $data['data'] = $user;
-            $this->view( '/system/pager_header', $this->_sys);
-            $this->view( '/user/user_edit', $data);
-            $this->view( '/system/pager_footer');
+            $this->view( '/system/public/pager_header', $this->_sys);
+            $this->view( '/system/user/user_edit', $data);
+            $this->view( '/system/public/pager_footer');
         } else {
             show_message('获取用户失败');
         }
@@ -140,9 +140,9 @@ class User extends CI_Admin
         $r['rows'] = $this->user_bll->get_role_list($page, $rows);
         $r['total'] = ceil( $this->user_bll->get_role_list_count() / $rows);
 
-        $this->view( '/system/pager_header', $this->_sys);
-        $this->view( '/system/role_list', $r);
-        $this->view( '/system/pager_footer');
+        $this->view( '/system/public/pager_header', $this->_sys);
+        $this->view( '/system/system/role_list', $r);
+        $this->view( '/system/public/pager_footer');
     }
 
     public function role_list_json()
@@ -163,9 +163,9 @@ class User extends CI_Admin
 
         $user = array('role_id' => '', 'role_name' => '', 'enabled' => '');
         $data['data'] = $user;
-        $this->view( '/system/pager_header', $this->_sys);
-        $this->view( '/system/role_edit', $data);
-        $this->view( '/system/pager_footer');
+        $this->view( '/system/public/pager_header', $this->_sys);
+        $this->view( '/system/system/role_edit', $data);
+        $this->view( '/system/public/pager_footer');
     }
 
     public function role_edit($id = null)
@@ -176,9 +176,9 @@ class User extends CI_Admin
         $user = $this->user_bll->get_role_by_id($id);
         if ($user) {
             $data['data'] = $user;
-            $this->view( '/system/pager_header', $this->_sys);
-            $this->view( '/system/role_edit', $data);
-            $this->view( '/system/pager_footer');
+            $this->view( '/system/public/pager_header', $this->_sys);
+            $this->view( '/system/system/role_edit', $data);
+            $this->view( '/system/public/pager_footer');
         } else {
             show_message('获取用户失败');
         }

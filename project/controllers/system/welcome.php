@@ -11,12 +11,12 @@ class Welcome extends CI_Admin
 
     public function index()
     {
-        $this->login();
+        $this->view();
     }
 
     public function login()
     {
-        $this->view('/user/user_login');
+        $this->view('/system/user/user_login');
     }
 
     function logout(){

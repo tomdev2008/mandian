@@ -35,9 +35,9 @@ class System extends CI_Admin
         $this->is_valiate();
         $data['type'] = 'backup';
         $data['file_list'] = $this->system_bll->get_backup_list();
-        $this->view('/system/pager_header', $this->_sys);
-        $this->view('/system/system_sqldump', $data);
-        $this->view('/system/pager_footer');
+        $this->view('/system/public/pager_header', $this->_sys);
+        $this->view('/system/system/system_sqldump', $data);
+        $this->view('/system/public/pager_footer');
     }
 
     function system_sqldump_act()
@@ -66,9 +66,9 @@ class System extends CI_Admin
         }
         $data['user'] = $user;
         $data['roles'] = $this->user_bll->get_role_list();
-        $this->view('/system/pager_header', $this->_sys);
-        $this->view('/system/system_role', $data);
-        $this->view('/system/pager_footer');
+        $this->view('/system/public/pager_header', $this->_sys);
+        $this->view('/system/system/system_role', $data);
+        $this->view('/system/public/pager_footer');
     }
 
     function system_role_act()
@@ -105,9 +105,9 @@ class System extends CI_Admin
         $data['role'] = $user;
         $data['syslist'] = $r;
         $data['role_id'] = $id;
-        $this->view('/system/pager_header', $this->_sys);
-        $this->view('/system/system_access', $data);
-        $this->view('/system/pager_footer');
+        $this->view('/system/public/pager_header', $this->_sys);
+        $this->view('/system/system/system_access', $data);
+        $this->view('/system/public/pager_footer');
     }
 
     function role_access_act()
@@ -136,9 +136,9 @@ class System extends CI_Admin
         $this->is_valiate();
 
         $r['data'] = $this->system_bll->get_system_tree_list();
-        $this->view('/system/pager_header', $this->_sys);
-        $this->view('/system/system_list', $r);
-        $this->view('/system/pager_footer');
+        $this->view('/system/public/pager_header', $this->_sys);
+        $this->view('/system/system/system_list', $r);
+        $this->view('/system/public/pager_footer');
     }
 
     public function system_add()
@@ -159,9 +159,9 @@ class System extends CI_Admin
         );
         $data['data'] = $user;
         $data['syslist'] = $this->system_bll->get_system_list(array('sys_parent_id' => 0));
-        $this->view('/system/pager_header', $this->_sys);
-        $this->view('/system/system_edit', $data);
-        $this->view('/system/pager_footer');
+        $this->view('/system/public/pager_header', $this->_sys);
+        $this->view('/system/system/system_edit', $data);
+        $this->view('/system/public/pager_footer');
     }
 
     public function system_edit($id = null)
@@ -173,9 +173,9 @@ class System extends CI_Admin
         if ($user) {
             $data['data'] = $user;
             $data['syslist'] = $this->system_bll->get_system_list(array('sys_parent_id' => 0));
-            $this->view('/system/pager_header', $this->_sys);
-            $this->view('/system/system_edit', $data);
-            $this->view('/system/pager_footer');
+            $this->view('/system/public/pager_header', $this->_sys);
+            $this->view('/system/system/system_edit', $data);
+            $this->view('/system/public/pager_footer');
         } else {
             show_message('获取模块失败');
         }
