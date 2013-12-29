@@ -15,6 +15,13 @@ class System extends CI_Admin
 
     }
 
+    function nav_tree()
+    {
+        $this->lib('json');
+        $r = $this->system_bll->get_nav_tree_list();
+        exit($this->json->encode($r));
+    }
+
     function restoresql_act($sql)
     {
         $r = $this->system_bll->restore_back($sql);

@@ -207,6 +207,46 @@ class System_bll extends CI_Bll
      * @param null $rows
      * @return array
      */
+    function get_nav_tree_list($params = array(), $page = null, $rows = null)
+    {
+        $r = $this->get_system_list($params, $page, $rows);
+        $result = array();
+        $result_sub = array();
+        foreach ($r as $val) {
+            if (intval($val['sys_parent_id']) === 0) {
+                $result[$val['sys_id']] = array(
+                    'id' => $val['sys_id'],
+                    'text' => $val['sys_name'],
+                    'children' => array(),
+                    "state" => "closed"
+                );
+            } else {
+                $result_sub[$val['sys_parent_id']][] = array(
+                    'id' => $val['sys_id'],
+                    'text' => $val['sys_name'],
+                    'attributes' => array(
+                        'url' => $val['sys_module'] .'/'. $val['sys_controller'] . '/' .$val['sys_action'],
+                    )
+                );
+            }
+        }
+        $r = array();
+        foreach ($result as $key => $val) {
+            if(isset($result_sub[$key])){
+                $val['children'] = $result_sub[$key];
+            }
+            $r[] = $val;
+        }
+        return $r;
+    }
+
+    /**
+     * 获取树形菜单
+     * @param array $params
+     * @param null $page
+     * @param null $rows
+     * @return array
+     */
     function get_system_tree_list($params = array(), $page = null, $rows = null)
     {
         $r = $this->get_system_list($params, $page, $rows);

@@ -7,12 +7,27 @@ class Welcome extends CI_Admin
     {
         parent::__construct();
         $this->load->bll('user_bll');
+        $this->init_header();
     }
 
     public function index()
     {
-        $this->view();
+        $this->view('/system/public/index');
     }
+    public function top()
+    {
+        $this->view('/system/public/top');
+    }
+    public function home()
+    {
+        $this->view('/system/public/home');
+    }
+    public function left()
+    {
+        $this->view('/system/public/left', $this->_sys);
+    }
+
+
 
     public function login()
     {
