@@ -11,7 +11,7 @@
 <body>
 <div style="background-color:#600; width: 100%; height: 62px; color: #fff;">
     <div style="font-size: 20px; line-height: 30px; text-align: left;">后台</div>
-    <div style="float: right;"><?php echo $user_name; ?>[<?php echo $user_name; ?>]<a href="#" id="logout">退出</a></div>
+    <div style="float: right;"><?php echo $user_name; ?>[<?php echo $user_name; echo $current_pos; ?>]<a href="#" id="logout">退出</a></div>
 </div>
 </body>
 </html>

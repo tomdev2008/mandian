@@ -1,6 +1,8 @@
 
+
 <body class="easyui-layout">
-<div data-options="region:'center',title:'导航条'">
+<div data-options="region:'center',title:'<?php echo $current_pos; ?>'">
+
 
     <!--查询表单-->
     <table width="100%" cellspacing="0" class="search-form">

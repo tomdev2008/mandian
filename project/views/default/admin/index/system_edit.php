@@ -1,4 +1,8 @@
-<!--内容区-->
+
+<body class="easyui-layout">
+<div data-options="region:'center',title:'<?php echo $current_pos; ?>'">
+
+    <!--内容区-->
 <div class="middle-wrap">
     <!--导航-->
     <div class="lines-wrap">
@@ -95,6 +99,8 @@
     </div>
     <!--/内容-->
 </div>
+</div>
+</body>
 <!--/内容区-->
 <!-- formValidator-4.1.0.js -->
 <script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>

@@ -21,6 +21,7 @@ class Index extends CI_Admin
         $rows = 20;
         $r['rows'] = $this->user_bll->get_user_list($page, $rows);
         $r['total'] = ceil( $this->user_bll->get_user_list_count() / $rows);
+        $r['current_pos'] = $this->current_pos();
 
         $this->view( '/admin/public/pager_header');
         $this->view( '/admin/index/user_list', $r);
@@ -32,6 +33,7 @@ class Index extends CI_Admin
 
         $user = array('user_id' => '', 'user_name' => '', 'password' => '', 'email' => '', 'enabled' => 1);
         $data['data'] = $user;
+        $data['current_pos'] = $this->current_pos();
         $this->view( '/admin/public/pager_header');
         $this->view( '/admin/index/user_edit', $data);
         $this->view( '/admin/public/pager_footer');
@@ -43,6 +45,7 @@ class Index extends CI_Admin
         $user = $this->user_bll->get_user_by_id($id);
         if ($user) {
             $data['data'] = $user;
+            $data['current_pos'] = $this->current_pos();
             $this->view( '/admin/public/pager_header');
             $this->view( '/admin/index/user_edit', $data);
             $this->view( '/admin/public/pager_footer');
@@ -104,6 +107,7 @@ class Index extends CI_Admin
         $r['rows'] = $this->user_bll->get_role_list($page, $rows);
         $r['total'] = ceil( $this->user_bll->get_role_list_count() / $rows);
 
+        $r['current_pos'] = $this->current_pos();
         $this->view( '/admin/public/pager_header');
         $this->view( '/admin/index/role_list', $r);
         $this->view( '/admin/public/pager_footer');
@@ -114,6 +118,7 @@ class Index extends CI_Admin
 
         $user = array('role_id' => '', 'role_name' => '', 'enabled' => '');
         $data['data'] = $user;
+        $data['current_pos'] = $this->current_pos();
         $this->view( '/admin/public/pager_header');
         $this->view( '/admin/index/role_edit', $data);
         $this->view( '/admin/public/pager_footer');
@@ -125,6 +130,7 @@ class Index extends CI_Admin
         $user = $this->user_bll->get_role_by_id($id);
         if ($user) {
             $data['data'] = $user;
+            $data['current_pos'] = $this->current_pos();
             $this->view( '/admin/public/pager_header');
             $this->view( '/admin/index/role_edit', $data);
             $this->view( '/admin/public/pager_footer');
@@ -190,6 +196,7 @@ class Index extends CI_Admin
         $data['role'] = $user;
         $data['syslist'] = $r;
         $data['role_id'] = $id;
+        $data['current_pos'] = $this->current_pos();
 
         $this->view( '/admin/public/pager_header');
         $this->view('/admin/index/system_access', $data);
@@ -226,6 +233,7 @@ class Index extends CI_Admin
         }
         $data['user'] = $user;
         $data['roles'] = $this->user_bll->get_role_list();
+        $data['current_pos'] = $this->current_pos();
         $this->view( '/admin/public/pager_header');
         $this->view('/admin/index/system_role', $data);
         $this->view( '/admin/public/pager_footer');
@@ -255,6 +263,7 @@ class Index extends CI_Admin
         $this->load->bll('system_bll');
 
         $r['data'] = $this->system_bll->get_system_tree_list();
+        $r['current_pos'] = $this->current_pos();
         $this->view('/admin/public/pager_header');
         $this->view('/admin/index/system_list', $r);
         $this->view('/admin/public/pager_footer');
@@ -277,6 +286,7 @@ class Index extends CI_Admin
         );
         $data['data'] = $user;
         $data['syslist'] = $this->system_bll->get_system_list(array('sys_parent_id' => 0));
+        $data['current_pos'] = $this->current_pos();
         $this->view('/admin/public/pager_header');
         $this->view('/admin/index/system_edit', $data);
         $this->view('/admin/public/pager_footer');
@@ -290,6 +300,7 @@ class Index extends CI_Admin
         if ($user) {
             $data['data'] = $user;
             $data['syslist'] = $this->system_bll->get_system_list(array('sys_parent_id' => 0));
+            $data['current_pos'] = $this->current_pos();
             $this->view('/admin/public/pager_header');
             $this->view('/admin/index/system_edit', $data);
             $this->view('/admin/public/pager_footer');
@@ -345,6 +356,7 @@ class Index extends CI_Admin
         $this->load->bll('system_bll');
         $data['type'] = 'backup';
         $data['file_list'] = $this->system_bll->get_backup_list();
+        $data['current_pos'] = $this->current_pos();
         $this->view('/admin/public/pager_header');
         $this->view('/admin/index/system_sqldump', $data);
         $this->view('/admin/public/pager_footer');

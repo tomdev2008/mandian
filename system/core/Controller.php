@@ -181,7 +181,12 @@ class CI_Admin extends CI_Action{
      *
      * @param $id 菜单id
      */
-    final public static function current_pos($id) {
+    function current_pos() {
+        $this->load->bll('system_bll');
+        $act = $this->system_bll->get_sys_by_action( $this->router->module, $this->router->class, $this->router->method);
+        if($act){
+            return $act['sys_name'] . '>' . $act['p_name'];
+        }
         return '';
     }
 
@@ -229,49 +234,4 @@ class CI_Admin extends CI_Action{
     }
 
 
-
-    function init_header()
-    {
-        $role_id= $this->session->userdata('role_id');
-        if(empty($role_id)){
-            show_message('请重新登录', '点击跳转', for_url('welcome', 'login') );
-        }
-
-        $this->_sys['user_name'] = $this->session->userdata('user_name');
-        $this->_sys['role_name'] = $this->session->userdata('role_name');
-        //导航
-        $this->_sys['navgition'] = $this->user_bll->get_user_role_access_header($role_id);
-    }
-
-    /**
-     * 判断是否已登录
-     */
-    protected function is_login()
-    {
-        $this->BLL('user_bll');
-        //登录验证
-        $r = $this->user_bll->is_login();
-        if (!$r) {
-            show_message('请重新登录', '点击跳转', for_url('system', 'user', 'user_list') );
-        }
-    }
-
-    /**
-     * 判断是否有权限
-     */
-    protected function is_valiate()
-    {
-        $user_name = $this->session->userdata('user_name');
-        $action_list = unserialize($this->session->userdata('action_list'));
-
-        if ($user_name == 'admin') {
-            return;
-        }
-
-        $act = $this->system_bll->get_sys_by_action( $this->router->module, $this->router->class, $this->router->method);
-
-        if (empty($act) || !in_array($act['sys_id'], $action_list)) {
-            show_message('您没有权限操作，正在跳转……');
-        }
-    }
 }

@@ -69,20 +69,21 @@ class system_model extends CI_Model
 
     function get_sys_by_action($m = null, $c = null, $a = null){
 
-        $this->db->order_by("sys_order_id", "asc");
+        $this->db->order_by("c1.sys_order_id", "asc");
 
         if(!empty($m)){
-            $this->db->where('sys_module', $m);
+            $this->db->where('c1.sys_module', $m);
         }
         if(!empty($c)){
-            $this->db->where('sys_controller', $c);
+            $this->db->where('c1.sys_controller', $c);
         }
         if(!empty($a)){
-            $this->db->where('sys_action', $a);
+            $this->db->where('c1.sys_action', $a);
         }
 
-        $this->db->select('*');
-        $this->db->from('crm_system');
+        $this->db->select('c1.*,c2.sys_name as p_name');
+        $this->db->from('crm_system c1');
+        $this->db->join('crm_system c2', 'c2.sys_id = c1.sys_parent_id', 'left');
         $query = $this->db->get();
         return $query->row_array();
     }
