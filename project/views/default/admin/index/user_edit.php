@@ -60,12 +60,13 @@
 </div>
 <!--/内容区-->
 
-<script src="/resource/js/sea-modules/alias/formValidator4.1.0/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
-<script src="/resource/js/sea-modules/alias/formValidator4.1.0/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
+<!-- formValidator-4.1.0.js -->
+<script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
+<script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
 <script type="text/javascript">
     $(function(){
         $.formValidator.initConfig({formID:"form1",theme:'ArrowSolidBox',mode:'AutoTip',onError:function(msg){
-            cAlert(msg,'error')
+            _alert(msg,'error')
         },inIframe:true});
 
         $("#user_name").formValidator({onShow:"请输入用户名",onFocus:"用户名不能为空",onCorrect:""}).inputValidator({min:1,onError:"用户名不能为空,请确认"});
