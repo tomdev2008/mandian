@@ -10,13 +10,12 @@ Target Server Type    : MYSQL
 Target Server Version : 50613
 File Encoding         : 65001
 
-Date: 2013-12-30 18:22:47
+Date: 2013-12-30 23:49:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
 -- ----------------------------
--- Table structure for crm_roles
+-- Table structure for `crm_roles`
 -- ----------------------------
 DROP TABLE IF EXISTS `crm_roles`;
 CREATE TABLE `crm_roles` (
@@ -32,10 +31,9 @@ CREATE TABLE `crm_roles` (
 INSERT INTO `crm_roles` VALUES ('1', '超级管理员', '1');
 INSERT INTO `crm_roles` VALUES ('2', '管理员', '0');
 INSERT INTO `crm_roles` VALUES ('3', '经理', '1');
-INSERT INTO `crm_roles` VALUES ('7', '前台', '1');
 
 -- ----------------------------
--- Table structure for crm_system
+-- Table structure for `crm_system`
 -- ----------------------------
 DROP TABLE IF EXISTS `crm_system`;
 CREATE TABLE `crm_system` (
@@ -49,7 +47,7 @@ CREATE TABLE `crm_system` (
   `sys_order_id` int(11) NOT NULL DEFAULT '0',
   `enabled` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`sys_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crm_system
@@ -67,13 +65,15 @@ INSERT INTO `crm_system` VALUES ('10', '1', '系统模块管理', 'admin', 'inde
 INSERT INTO `crm_system` VALUES ('11', '1', '系统模块管理-添加', 'admin', 'index', 'system_add', '0', '0', '1');
 INSERT INTO `crm_system` VALUES ('12', '1', '系统模块管理-编辑', 'admin', 'index', 'system_edit', '0', '0', '1');
 INSERT INTO `crm_system` VALUES ('13', '1', '系统模块管理-删除', 'admin', 'index', 'system_del', '0', '0', '1');
-INSERT INTO `crm_system` VALUES ('96', '95', '表单列表', ' ', ' ', ' ', '1', '0', '1');
-INSERT INTO `crm_system` VALUES ('97', '95', '表单添加', ' ', ' ', ' ', '1', '0', '1');
+INSERT INTO `crm_system` VALUES ('96', '95', '表单列表', 'admin', 'input', 'list', '1', '0', '1');
+INSERT INTO `crm_system` VALUES ('97', '95', '表单添加', 'admin', 'input', 'add', '1', '0', '1');
 INSERT INTO `crm_system` VALUES ('91', '1', '数据库管理/优化', 'admin', 'index', 'dumpsql', '1', '0', '1');
 INSERT INTO `crm_system` VALUES ('95', '0', '表单管理', ' ', ' ', ' ', '1', '0', '1');
+INSERT INTO `crm_system` VALUES ('98', '95', '表单编辑', 'admin', 'input', 'edit', '1', '0', '1');
+INSERT INTO `crm_system` VALUES ('99', '95', '表单删除', 'admin', 'input', 'del', '1', '0', '1');
 
 -- ----------------------------
--- Table structure for crm_system_roles
+-- Table structure for `crm_system_roles`
 -- ----------------------------
 DROP TABLE IF EXISTS `crm_system_roles`;
 CREATE TABLE `crm_system_roles` (
@@ -82,7 +82,7 @@ CREATE TABLE `crm_system_roles` (
   `sr_role_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`sr_id`),
   UNIQUE KEY `sr_sys_id` (`sr_sys_id`,`sr_role_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1163 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1182 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crm_system_roles
@@ -102,22 +102,22 @@ INSERT INTO `crm_system_roles` VALUES ('933', '3', '2');
 INSERT INTO `crm_system_roles` VALUES ('932', '2', '2');
 INSERT INTO `crm_system_roles` VALUES ('931', '1', '2');
 INSERT INTO `crm_system_roles` VALUES ('945', '15', '6');
-INSERT INTO `crm_system_roles` VALUES ('1162', '91', '1');
-INSERT INTO `crm_system_roles` VALUES ('1161', '13', '1');
-INSERT INTO `crm_system_roles` VALUES ('1160', '12', '1');
-INSERT INTO `crm_system_roles` VALUES ('1159', '11', '1');
-INSERT INTO `crm_system_roles` VALUES ('1158', '10', '1');
-INSERT INTO `crm_system_roles` VALUES ('1157', '9', '1');
-INSERT INTO `crm_system_roles` VALUES ('1156', '8', '1');
-INSERT INTO `crm_system_roles` VALUES ('1155', '7', '1');
-INSERT INTO `crm_system_roles` VALUES ('1154', '6', '1');
-INSERT INTO `crm_system_roles` VALUES ('1153', '5', '1');
-INSERT INTO `crm_system_roles` VALUES ('1152', '4', '1');
-INSERT INTO `crm_system_roles` VALUES ('1151', '3', '1');
-INSERT INTO `crm_system_roles` VALUES ('1150', '2', '1');
-INSERT INTO `crm_system_roles` VALUES ('1149', '1', '1');
-INSERT INTO `crm_system_roles` VALUES ('1148', '97', '1');
-INSERT INTO `crm_system_roles` VALUES ('1147', '96', '1');
+INSERT INTO `crm_system_roles` VALUES ('1179', '12', '1');
+INSERT INTO `crm_system_roles` VALUES ('1178', '11', '1');
+INSERT INTO `crm_system_roles` VALUES ('1177', '10', '1');
+INSERT INTO `crm_system_roles` VALUES ('1176', '9', '1');
+INSERT INTO `crm_system_roles` VALUES ('1175', '8', '1');
+INSERT INTO `crm_system_roles` VALUES ('1174', '7', '1');
+INSERT INTO `crm_system_roles` VALUES ('1173', '6', '1');
+INSERT INTO `crm_system_roles` VALUES ('1172', '5', '1');
+INSERT INTO `crm_system_roles` VALUES ('1171', '4', '1');
+INSERT INTO `crm_system_roles` VALUES ('1170', '3', '1');
+INSERT INTO `crm_system_roles` VALUES ('1169', '2', '1');
+INSERT INTO `crm_system_roles` VALUES ('1168', '1', '1');
+INSERT INTO `crm_system_roles` VALUES ('1167', '99', '1');
+INSERT INTO `crm_system_roles` VALUES ('1166', '98', '1');
+INSERT INTO `crm_system_roles` VALUES ('1165', '97', '1');
+INSERT INTO `crm_system_roles` VALUES ('1164', '96', '1');
 INSERT INTO `crm_system_roles` VALUES ('930', '90', '2');
 INSERT INTO `crm_system_roles` VALUES ('929', '89', '2');
 INSERT INTO `crm_system_roles` VALUES ('928', '88', '2');
@@ -295,7 +295,7 @@ INSERT INTO `crm_system_roles` VALUES ('1034', '35', '4');
 INSERT INTO `crm_system_roles` VALUES ('1033', '34', '4');
 INSERT INTO `crm_system_roles` VALUES ('1032', '33', '4');
 INSERT INTO `crm_system_roles` VALUES ('1031', '16', '4');
-INSERT INTO `crm_system_roles` VALUES ('1146', '95', '1');
+INSERT INTO `crm_system_roles` VALUES ('1163', '95', '1');
 INSERT INTO `crm_system_roles` VALUES ('946', '29', '6');
 INSERT INTO `crm_system_roles` VALUES ('947', '30', '6');
 INSERT INTO `crm_system_roles` VALUES ('948', '31', '6');
@@ -457,9 +457,11 @@ INSERT INTO `crm_system_roles` VALUES ('1142', '13', '7');
 INSERT INTO `crm_system_roles` VALUES ('1143', '91', '7');
 INSERT INTO `crm_system_roles` VALUES ('1144', '94', '7');
 INSERT INTO `crm_system_roles` VALUES ('1145', '93', '7');
+INSERT INTO `crm_system_roles` VALUES ('1180', '13', '1');
+INSERT INTO `crm_system_roles` VALUES ('1181', '91', '1');
 
 -- ----------------------------
--- Table structure for crm_users
+-- Table structure for `crm_users`
 -- ----------------------------
 DROP TABLE IF EXISTS `crm_users`;
 CREATE TABLE `crm_users` (
@@ -491,10 +493,10 @@ CREATE TABLE `crm_users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_name` (`user_name`),
   KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=10011 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10012 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crm_users
 -- ----------------------------
 INSERT INTO `crm_users` VALUES ('10006', 'c@c.com', 'admin', 'e10adc3', '', '', '0', '2013-12-17', '0', '2013-12-17 15:33:25', '1', '2013-12-30 15:43:13', '127.0.0.1', '198', '0', '', '', '', '', '', '0', '', '', '1', '1');
-INSERT INTO `crm_users` VALUES ('10009', 'c@c.com', 'user1', 'e10adc3', '', '', '0', '2013-12-30', '0', '2013-12-30 16:43:05', '0', '0000-00-00 00:00:00', '', '0', '0', '', '', '', '', '', '0', '', '', '1', '7');
+INSERT INTO `crm_users` VALUES ('10011', 'c@c.com', 'user1', '698d51a', '', '', '0', '2013-12-30', '0', '2013-12-30 23:14:05', '0', '0000-00-00 00:00:00', '', '0', '0', '', '', '', '', '', '0', '', '', '1', '0');
