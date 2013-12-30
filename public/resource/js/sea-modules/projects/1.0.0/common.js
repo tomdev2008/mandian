@@ -10,24 +10,32 @@ define("projects/1.0.0/common", ['cookie' ], function (require) {
     );
     //全局的弹出窗
 
-    window._alert = function( _c, _y){
-        $.messager.alert('提示', _c, _y);
+    window._alert = function( _c ){
+        art.dialog({
+            title: '提示',
+            content: _c,
+            icon: 'warning',
+            lock: true,
+            background: '#999', // 背景色
+            ok: function () {}
+        });
     }
 
     window._confirm = function(_t, _call){
         if(typeof _call != 'function'){
             _call = function(){};
         }
-        $.messager.confirm('提示', _t, function(r){
-            if (r){
+        art.dialog({
+            title: '提示',
+            content: _t,
+            icon: 'question',
+            cancelVal: '关闭',
+            lock: true,
+            background: '#999', // 背景色
+            ok: function () {
                 _call();
-            }
+            },
+            cancel:function(){}
         });
     }
-
-    //退出
-    $('#logout').click(function(){
-        location.href = crm_base_url + '/system/welcome/logout';
-    });
-
 });

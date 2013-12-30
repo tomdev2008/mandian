@@ -15,7 +15,7 @@
 </head>
 
 <body class="easyui-layout" style="text-align:left">
-<div region="west" border="false" split="true" title="导航" style="width:220px;padding:5px;">
+<div region="west" border="true" title="导航" style="width:220px;padding:5px;">
     <ul class="easyui-tree" id="tt"></ul>
 </div>
 </body>
