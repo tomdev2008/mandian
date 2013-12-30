@@ -10,9 +10,8 @@
 
 <body>
 <div style="background-color:#600; width: 100%; height: 62px; color: #fff;">
-    <div style="font-size: 20px; line-height: 45px; text-align: left;">后台</div>
-    <div style="float: right;">用户名[角色]退出</div>
+    <div style="font-size: 20px; line-height: 30px; text-align: left;">后台</div>
+    <div style="float: right;"><?php echo $user_name; ?>[<?php echo $user_name; ?>]<a href="#" id="logout">退出</a></div>
 </div>
-<div style="height:1px; width: 100%; background-color: #fff;"></div>
 </body>
 </html>

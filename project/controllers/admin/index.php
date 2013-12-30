@@ -385,7 +385,9 @@ class Index extends CI_Admin
         $this->view('/admin/public/home');
     }
     function top(){
-        $this->view('/admin/public/top');
+        $data['user_name'] = $this->session->userdata('user_name');
+        $data['role_name'] = $this->session->userdata('role_name');
+        $this->view('/admin/public/top',$data);
     }
     function left(){
         $this->view('/admin/public/left');
