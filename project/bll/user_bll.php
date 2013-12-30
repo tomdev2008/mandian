@@ -41,6 +41,12 @@ class User_bll extends CI_Bll
         $session['role_id'] = $r['role_id'];
         $session['role_name'] = $r['role_name'];
         $session['action_list'] = serialize($this->get_user_role_access($r['role_id']));
+        $session['pc_hash'] = random_string('', 6);
+
+        //写入
+        $_SESSION['user_id'] = $session['user_id'] ;
+        $_SESSION['role_id'] = $session['role_id'] ;
+        $_SESSION['pc_hash'] = $session['pc_hash'] ;
 
         //更新登录时间、ip、次数
         $data = array(
@@ -81,27 +87,18 @@ class User_bll extends CI_Bll
         foreach ($rights as $val) {
             if (intval($val['sys_parent_id']) === 0) {
                 $result[$val['sys_id']] = array(
-                    'sys_id' => $val['sys_id'],
-                    'sys_name' => $val['sys_name'],
-                    'sys_module' => $val['sys_module'],
-                    'sys_controller' => $val['sys_controller'],
-                    'sys_action' => $val['sys_action'],
-                    'enabled' => $val['enabled'],
-                    'visiabled' => $val['visiabled'],
-                    'sys_order_id' => $val['sys_order_id'],
+                    'id' => $val['sys_id'],
+                    'text' => $val['sys_name'],
                     'children' => array(),
                     "state" => "closed"
                 );
             } else {
                 $result_sub[$val['sys_parent_id']][] = array(
-                    'sys_id' => $val['sys_id'],
-                    'sys_name' => $val['sys_name'],
-                    'sys_module' => $val['sys_module'],
-                    'sys_controller' => $val['sys_controller'],
-                    'sys_action' => $val['sys_action'],
-                    'sys_order_id' => $val['sys_order_id'],
-                    'enabled' => $val['enabled'],
-                    'visiabled' => $val['visiabled'],
+                    'id' => $val['sys_id'],
+                    'text' => $val['sys_name'],
+                    'attributes' => array(
+                        'url' => $val['sys_module'] .'/'. $val['sys_controller'] . '/' .$val['sys_action'],
+                    )
                 );
             }
         }

@@ -72,18 +72,17 @@ if ( ! function_exists('for_url'))
 {
 	function for_url($module = null, $controller = null, $action = null, $params = array())
 	{
-        $module = empty($module) ? 'default' : $module;
+        $module = empty($module) ? 'admin' : $module;
 		$url = base_url() . $module . '/';
         $url .= empty($controller) ? 'welcome/' : $controller . '/' ;
         $url .= empty($action) ? 'index/' : $action . '/' ;
         if($params){
-            $url .= '?';
-            foreach($params as $k => $v){
-                if($k){
-                    $url .= $k . '=' . $v . '&' ;
-                }
+            if(is_array($params)){
+                $url .= implode('/', $params);
+            }else{
+                $url = rtrim($url, '?');
+                $url .= $params;
             }
-            $url = substr($url, -3, 1);
         }
         return $url;
 	}

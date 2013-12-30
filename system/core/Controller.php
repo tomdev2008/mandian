@@ -124,14 +124,111 @@ class CI_Action extends CI_Controller
 
 class CI_Admin extends CI_Action{
 
+    protected $user_name = '';
+    protected $user_id = '';
+
+    /**
+     * 不需要验证的位置
+     * @var array
+     */
+    private $unpriv = array(
+        'login',
+        'login_act'
+    );
+
     public function __construct()
     {
         parent::__construct();
-        $this->BLL('system_bll');
-        $this->BLL('user_bll');
+        self::check_admin();
+        self::check_priv();
+        //self::check_hash();
+        self::check_ip();
+    }
 
+
+    /**
+     * 判断用户是否已经登陆
+     */
+    final public function check_admin() {
+        $m = $this->router->fetch_module();
+        $c = $this->router->fetch_class();
+        $a = $this->router->fetch_method();
+
+        if($m =='admin' && $c =='index' && in_array($a, $this->unpriv)) {
+            return true;
+        } else {
+            $user_id = $this->session->userdata('user_id');
+            if(!isset($_SESSION['user_id']) || !$_SESSION['user_id'] || $user_id != $_SESSION['user_id']){
+                showmessage('校验失败,请重新登录', for_url('admin', 'index', 'login') );
+            }
+        }
+    }
+
+    /**
+     * 按父ID查找菜单子项
+     * @param integer $parentid   父菜单ID
+     * @param integer $with_self  是否包括他自己
+     */
+    public function admin_menu() {
+        $role_id = $this->session->userdata('role_id');
+        $this->load->bll('user_bll');
+        $array = $this->user_bll->get_user_role_access_header($role_id);
+        return $array;
+    }
+
+    /**
+     * 当前位置
+     *
+     * @param $id 菜单id
+     */
+    final public static function current_pos($id) {
+        return '';
+    }
+
+    /**
+     * 权限判断
+     */
+    final public function check_priv() {
+        $m = $this->router->fetch_module();
+        $c = $this->router->fetch_class();
+        $a = $this->router->fetch_method();
+
+        if($m =='admin' && $c =='index' && in_array($a, $this->unpriv)) {
+            return true;
+        }
+        if($_SESSION['role_id'] == 1){
+            return true;
+        }
+        $this->load->bll('system_bll');
+        $act = $this->system_bll->get_sys_by_action( $this->router->module, $this->router->class, $this->router->method);
+
+        if (empty($act) ) {
+            showmessage('您没有权限操作该项','blank');
+        }
+    }
+
+    /**
+     *
+     * 后台IP禁止判断 ...
+     */
+    final private function check_ip(){
 
     }
+
+    /**
+     * 检查hash值，验证用户数据安全性
+     */
+    final private function check_hash() {
+        if(isset($_GET['pc_hash']) && $_SESSION['pc_hash'] != '' && ($_SESSION['pc_hash'] == $_GET['pc_hash'])) {
+            return true;
+        } elseif(isset($_POST['pc_hash']) && $_SESSION['pc_hash'] != '' && ($_SESSION['pc_hash'] == $_POST['pc_hash'])) {
+            return true;
+        } else {
+            showmessage('哈希校验失败，请重新登录');
+        }
+    }
+
+
 
     function init_header()
     {

@@ -9,7 +9,7 @@ margin-left:10px;
 }
 .onFocus
 {
-    background: url(../images/onFocus.gif) no-repeat;
+    background:#E9F0FF url(../images/onFocus.gif) no-repeat; 
     padding-left:25px; 
 margin-left:10px; 
 	font-size: 12px;
@@ -18,7 +18,7 @@ margin-left:10px;
 }
 .onError
 {
-    background: url(../images/onError.gif) no-repeat;
+    background:#FFF2E9 url(../images/onError.gif) no-repeat;
     padding-left:25px;
 margin-left:10px; 
 	font-size: 12px;
@@ -27,7 +27,7 @@ margin-left:10px;
 }
 .onCorrect
 {
-    background: url(../images/onCorrect.gif) no-repeat;
+    background:#E9FFEB url(../images/onCorrect.gif) no-repeat;
     padding-left:25px;
 margin-left:10px; 
 	font-size: 12px;
@@ -36,7 +36,7 @@ margin-left:10px;
 }
 .onLoad
 {
-    background: url(../images/onLoad.gif) no-repeat 3px 3px;
+    background:#E9FFEB url(../images/onLoad.gif) no-repeat 3px 3px;
     padding-left:25px;
 margin-left:10px; 
 	font-size: 12px;

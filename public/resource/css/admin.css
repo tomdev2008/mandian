@@ -21,7 +21,7 @@ a:visited{color: #000;}
 a:hover{ color: #ff8400}
 a:hover, a:active, a:focus{text-decoration: none;}
 .hidden{visibility: hidden;}
-body{ background: url("/public/resource/images/bg.jpg") repeat scroll 0 0 #FBFBFB}
+body{ background: #FBFBFB}
 
 /*header*/
 .box-header {
@@ -69,6 +69,7 @@ body{ background: url("/public/resource/images/bg.jpg") repeat scroll 0 0 #FBFBF
 .middle-wrap .content-wrap{ width:98%; margin:0px auto; height: auto !important; height: 100px; min-height: 100px;  background-color: #fff; margin-bottom: 10px;}
 
 .table-form {font-size: 12px;}
+.table-form table{ width: 100%;}
 .table-form thead th {
     background: none repeat scroll 0 0 #EEF3F7;
     border-bottom: 1px solid #D5DFE8;
@@ -78,7 +79,7 @@ body{ background: url("/public/resource/images/bg.jpg") repeat scroll 0 0 #FBFBF
 .table-form tbody td, .table_form tbody th {  border-bottom: 1px solid #EEEEEE; background-color: #fff;}
 .table-form td, .table_form th { height: 35px; }
 
-text-input small-input.input-text, .measure-input, textarea, input.date, input.endDate, .input-focus {
+.input-text, .measure-input, textarea, input.date, input.endDate, .input-focus {
     background: url("../images/input.png") repeat-x scroll 0 0 #FFFFFF;
     border: 1px solid #D0D0D0;
     font-size: 12px;
@@ -125,6 +126,7 @@ select {
     padding: 8px 10px;
 }
 
+.table-list table{ width: 100%;}
 .table-list thead th {
     background: none repeat scroll 0 0 #EEF3F7;
     border-bottom: 1px solid #D5DFE8;
@@ -153,4 +155,36 @@ div.btn {
     height: 30px;
     line-height: 30px;
     padding: 6px 12px 0;
+}
+
+.bulk-actions {
+    padding: 15px 0 5px 0;
+}
+.align-left {
+    float: left;
+}
+.pagination {
+    text-align: right;
+    padding: 20px 0 5px 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+.pagination a{
+
+    margin: 0 5px 0 0;
+    padding: 3px 6px;
+}
+
+.pagination a.number {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.pagination a.number {
+    border: 1px solid #DDD;
+}
+.pagination a.current {
+    background: #5A85B2;
+    border-color: #459300 !important;
+    color: #FFF !important;
 }

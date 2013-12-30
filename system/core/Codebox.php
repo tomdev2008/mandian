@@ -1,5 +1,10 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+$sessionpath = ROOTPATH . 'temp' . DS . 'session' . DS;
+ini_set('session.save_handler', 'files');
+session_save_path($sessionpath);
+session_start();
+
 /*
  * ------------------------------------------------------
  *  Load the global functions

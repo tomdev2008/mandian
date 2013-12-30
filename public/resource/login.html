@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>登陆</title>
+    <style type="text/css">
+        body{margin:0px;padding:0;font-size:12px;}
+        .crm-login-header{
+            right: 0;
+            left: 0;
+            top: 0;
+            -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+            background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+            padding: 5px;
+            border: 1px solid #D4D4D4;
+        }
+        .crm-login-header a{color:#777777;text-decoration: none;text-shadow: 0 1px 0 #ffffff;}
+        .crm-login-header a:hover{color:#313131}
+        #login-container {
+            width: 425px;
+            margin: 80px auto 0;
+
+        }
+        #login-header {
+            padding: 12px 20px;
+            margin-bottom: 1em;
+            background: #3C4049;
+            background:-moz-linear-gradient(top, #4A515B 0%, #3C4049 100%); /* FF3.6+ */
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#4A515B), color-stop(100%,#3C4049)); /* Chrome,Safari4+ */
+            background:-webkit-linear-gradient(top, #4A515B 0%,#3C4049 100%); /* Chrome10+,Safari5.1+ */
+            background:-o-linear-gradient(top, #4A515B 0%,#3C4049 100%); /* Opera11.10+ */
+            background:-ms-linear-gradient(top, #4A515B 0%,#3C4049 100%); /* IE10+ */
+            background:linear-gradient(top, #4A515B 0%,#3C4049 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049');
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#4A515B', endColorstr='#3C4049')";
+
+            border-radius: 5px;
+
+            text-shadow: 1px 1px 2px rgba(0,0,0,.5);
+        }
+
+        #login-header h3 {
+            margin-bottom: 0;
+            font-size: 16px;
+            color: #FFF;
+            text-decoration: 1px 1px 2px rgba(0,0,0,.4);
+        }
+
+
+
+            /*------------------------------------------------------------------
+            [3. Content / #login-content]
+            */
+
+        #login-content {
+            padding: 20px;
+            background: #FFF;
+            border: 1px solid #DDD;
+            border-radius: 5px;
+            box-shadow: 0 0 6px rgba(0,0,0,.10);
+        }
+
+        #login-content input {
+            width: 96%;
+            padding: 2% 2%;
+        }
+
+        #login-content #remember-me {
+            margin-top: 3px;
+        }
+
+        #login-content #remember-me input {
+            display: inline-block;
+
+            width: auto;
+            padding: 0;
+        }
+
+        #login-content #remember-me label {
+            position: relative;
+            top: 2px;
+
+            display: inline-block;
+
+            margin-left: .5em;
+        }
+        .control-group {
+            margin-bottom: 10px;
+        }
+        .control-label{
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 20px;
+            color:#777;
+        }
+        .control-info{}
+
+            /*------------------------------------------------------------------
+            [4. Extra / #login-extra]
+            */
+
+        #login-extra {
+            margin-top: 1.5em;
+
+            text-align: center;
+        }
+
+        #login-extra p {
+            font-size: 12px;
+
+            color: #888;
+        }
+
+        input[type=text],input[type=password]{
+            border:1px solid #ccc;/*	BABABA	*/
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:12px;
+            padding: .2em .3em;
+            box-shadow: inset 0 1px 3px #DDD;
+            border-radius: 3px;
+            padding-left:3px;
+        }
+        input[type=text]:focus,input[type=password]:focus{
+            border:1px solid #528CA0;
+            background-color:#FFFFDD;
+        }
+
+        .pull-right {
+            float: right;
+        }
+        .crm-foot-phone{color:#946652}
+        .crm-foot-phone:hover{color:#B4946B}
+        .crm-foot-email{color:#946652}
+        .crm-foot-email:hover{color:#B4946B}
+        .crm-foot-url{color:#4083B8;text-decoration: none;}
+        .crm-foot-url:hover{color:#5CAAE6;}
+        .crm-foot-apk{color:#4083B8;text-decoration: none;}
+        .crm-foot-apk:hover{color:#5CAAE6;}
+
+        .isosremind{
+            /*position:fixed;*/
+            background-image: linear-gradient(to bottom, #ffffff, #FFD62D);
+            border:1px solid .444;
+            border-radius:2px;
+            box-shadow:0 1px 3px 2px #B3B3B3;
+            padding: 4px;
+            font-size: 14px;
+            color: #E7432F;
+            text-align:center;
+            display:block;
+            width:100%;
+            text-align:center;
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            #login-container {
+                width: 100%;
+                margin: 40px auto 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<!--[if lte IE 6]>
+<div style='border: 1px solid #F7941D; background: #FEEFDA; text-align: center; clear: both; height: 75px; position: relative;'>
+    <div style='position: absolute; right: 3px; top: 3px; font-family: courier new; font-weight: bold;'>
+        &nbsp;&nbsp;
+    </div>
+    <div style='width: 800px; margin: 0 auto; text-align: left; padding: 0; overflow: hidden;'>
+        <div style='width: 275px; float: left; font-family: Arial, sans-serif;'>
+            <div style='font-size: 14px; font-weight: bold; margin-top: 12px;'>提示：您还在用即将淘汰的IE 6？</div>
+            <div style='font-size: 12px; margin-top: 6px; line-height: 12px;'>为了获得更好的用户检验，请升级您的浏览器！<br/>(从右边任选一个升级就不会出现本提示)</div>
+        </div>
+    </div>
+</div>
+<![endif]-->
+
+<!--[if IE 7]>
+<div style='border: 1px solid #F7941D; background: #FEEFDA; text-align: center; clear: both; height: 75px; position: relative;'>
+    <div style='position: absolute; right: 3px; top: 3px; font-family: courier new; font-weight: bold;'>
+        &nbsp;&nbsp;
+    </div>
+    <div style='width: 800px; margin: 0 auto; text-align: left; padding: 0; overflow: hidden;'>
+        <div style='width: 275px; float: left; font-family: Arial, sans-serif;'>
+            <div style='font-size: 14px; font-weight: bold; margin-top: 12px;'>提示：您还在用即将淘汰的IE 7？</div>
+            <div style='font-size: 12px; margin-top: 6px; line-height: 12px;'>为了获得更好的用户检验，请升级您的浏览器！<br/>(从右边任选一个升级就不会出现本提示)</div>
+        </div>
+    </div>
+</div>
+<![endif]-->
+
+<div class="isosremind" id="isosremind"></div>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="crm-login-header">
+    <tr>
+        <td align=center width=50%>
+        </td>
+        <td>&nbsp;</td>
+        <td align=center>
+            <a href="#" target="_blank">易客CRM为您提供简单易用、稳定可靠的客户关系管理系统，让您更专注于您的专业领域！</a>
+        </td>
+    </tr>
+</table>
+<div id="login-container">
+    <div id="login-header">
+        <h3 style="line-height: 15px;">登录</h3>
+    </div>
+    <!-- /login-header -->
+    <div id="login-content" class="clearfix">
+
+        <form action="" method="post" name="loginform" id="loginform">
+            <div class="control-group">
+                <label class="control-label">用户名</label>
+                <label class="control-info">
+                    <input type="text" class="" name="user_name" name="user_name" value="">
+                </label>
+            </div>
+            <div class="control-group">
+                <label class="control-label">密码</label>
+                <label class="control-info">
+                    <input type="password" class="" name="user_password"  name="user_password" value="">
+                </label>
+            </div>
+            <div class="pull-right">
+                <button title="登录"  >
+                    <i class="icon-signin"></i> 登录
+                </button>
+            </div>
+            <div class="control-group">&nbsp;</div>
+            <div class="control-group">&nbsp;</div>
+        </form>
+
+    </div>
+    <!-- /login-content -->
+</div>
+<!-- /login-wrapper -->
+</body>
+</html>

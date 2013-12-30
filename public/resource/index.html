@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>cui 工作台</title>
+
+    <!-- easyui 1.3.4 -->
+    <link rel="stylesheet" type="text/css" href="js/sea-modules/alias/jquery-easyui-1.3.4/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/sea-modules/alias/jquery-easyui-1.3.4/themes/icon.css">
+
+    <!-- jquery -->
+    <script src="js/sea-modules/alias/jquery/jquery-1.8.3.min.js"></script>
+    <script src="js/sea-modules/alias/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
+
+    <!-- css -->
+    <link href="css/admin.css" rel="stylesheet"/>
+
+    <!-- js模块 -->
+    <script charset="utf-8" type="text/javascript" src="js/sea-modules/seajs/seajs/2.1.1/sea.js" id="seajsnode"></script>
+    <script charset="utf-8" type="text/javascript">
+        // Set configuration
+        seajs.config({
+            base: "./js/sea-modules",
+            debug: true
+        });
+
+        // For development
+        seajs.use(["projects/1.0.0/common"]);
+    </script>
+</head>
+
+<body>
+<!--顶部-->
+<div class="top-wrap">
+    <div class="top-info"></div>
+    <div class="nav">
+        <div style="padding:5px;border:1px solid #ddd">
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm1',iconCls:'icon-home',plain:true">工作台</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm2',plain:true">营销</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm3',plain:true">销售自动化</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm4',plain:true">客户</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm5',plain:true">产品</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm6',plain:true">销售</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm7',plain:true">采购</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm8',plain:true">售后</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm9',plain:true">库存</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm10',plain:true">财务</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#mm11',plain:true">报表</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#aboutUs'">关于我们</a>
+        </div>
+        <div id="mm1" style="width:150px;">
+            <div onclick="location.href='/';">工作台</div>
+            <div onclick="location.href='/';">公司平台</div>
+            <div onclick="location.href='/';">日程安排</div>
+            <div class="menu-sep"></div>
+            <div onclick="location.href='/';">公告</div>
+        </div>
+        <div id="mm2" style="width:150px;">
+            <div onclick="location.href='/';">营销活动</div>
+            <div onclick="location.href='/';">群发短信</div>
+            <div onclick="location.href='/';">群发邮件</div>
+            <div onclick="location.href='/';">邮件模板</div>
+        </div>
+        <div id="mm3" style="width:150px;">
+            <div onclick="location.href='/';">关于SFA</div>
+            <div onclick="location.href='/';">SFA工作台</div>
+            <div onclick="location.href='/';">SFA序列</div>
+            <div onclick="location.href='/';">执行日志</div>
+            <div onclick="location.href='/';">方案设置</div>
+        </div>
+        <div id="mm4" style="width:150px;">
+            <div onclick="location.href='/';">客户</div>
+            <div onclick="location.href='/';">联系人</div>
+            <div onclick="location.href='/';">联系记录</div>
+            <div onclick="location.href='/';">客户池</div>
+            <div onclick="location.href='/';">纪念日</div>
+        </div>
+        <div id="mm5" style="width:150px;">
+            <div onclick="location.href='/';">产品</div>
+            <div onclick="location.href='/';">产品分类</div>
+            <div onclick="location.href='/';">产品序列号</div>
+            <div onclick="location.href='/';">产品规格</div>
+            <div onclick="location.href='/';">库位管理</div>
+            <div onclick="location.href='/';">装配方案</div>
+            <div onclick="location.href='/';">装配出入库单</div>
+        </div>
+        <div id="mm6" style="width:150px;">
+            <div onclick="location.href='/';">逍遥行</div>
+            <div onclick="location.href='/';">销售导航</div>
+            <div onclick="location.href='/';">销售机会</div>
+            <div onclick="location.href='/';">销售漏斗</div>
+            <div onclick="location.href='/';">报价单</div>
+            <div onclick="location.href='/';">竞争对手</div>
+            <div onclick="location.href='/';">合同订单</div>
+            <div onclick="location.href='/';">发货单</div>
+            <div onclick="location.href='/';">员工绩效</div>
+            <div onclick="location.href='/';">销售目标</div>
+            <div onclick="location.href='/';">销售退货单</div>
+        </div>
+        <div id="mm7" style="width:150px;">
+            <div onclick="location.href='/';">采购导航</div>
+            <div onclick="location.href='/';">进货单</div>
+            <div onclick="location.href='/';">供应商</div>
+            <div onclick="location.href='/';">供应商联系记录</div>
+            <div onclick="location.href='/';">供应商联系人</div>
+        </div>
+        <div id="mm8" style="width:150px;">
+            <div onclick="location.href='/';">客服控制台</div>
+            <div onclick="location.href='/';">客户服务</div>
+            <div onclick="location.href='/';">客户投诉</div>
+            <div onclick="location.href='/';">常见问题</div>
+        </div>
+        <div id="mm9" style="width:150px;">
+            <div onclick="location.href='/';">库存导航</div>
+            <div onclick="location.href='/';">入库单</div>
+            <div onclick="location.href='/';">盘点</div>
+            <div onclick="location.href='/';">库存余额</div>
+            <div onclick="location.href='/';">初始化库存</div>
+            <div onclick="location.href='/';">库间调拨</div>
+            <div onclick="location.href='/';">库存流水账</div>
+            <div onclick="location.href='/';">库存台账</div>
+        </div>
+        <div id="mm10" style="width:150px;">
+            <div onclick="location.href='/';">财务导航</div>
+            <div onclick="location.href='/';">应收款</div>
+            <div onclick="location.href='/';">应付款</div>
+            <div onclick="location.href='/';">收款单</div>
+            <div onclick="location.href='/';">付款单</div>
+            <div onclick="location.href='/';">往来账</div>
+            <div onclick="location.href='/';">期初余额</div>
+            <div onclick="location.href='/';">费用报销</div>
+            <div onclick="location.href='/';">发票管理</div>
+        </div>
+        <div id="mm11" style="width:150px;">
+            <div onclick="location.href='/';">综合报表</div>
+            <div onclick="location.href='/';">常用报表</div>
+            <div onclick="location.href='/';">公司账户统计</div>
+            <div onclick="location.href='/';">年终销售报表</div>
+        </div>
+
+        <div id="aboutUs" class="menu-content" style="background:#f0f0f0;padding:10px;text-align:left">
+            <img src="http://www.jeasyui.com/images/logo1.png" style="width:150px;height:50px">
+            <p style="font-size:14px;color:#444;">Try jQuery EasyUI to build your modern, interactive, javascript applications.</p>
+        </div>
+    </div>
+</div>
+<!--/顶部-->
+
+<!--内容区-->
+<div class="middle-wrap">
+    <!--导航-->
+    <div class="lines-wrap">
+        <p>修改用户信息</p>
+    </div>
+    <!--/导航-->
+    <!--内容-->
+    <div class="content-wrap">
+        <!--表格-->
+        <table width="100%" class="table_form contentWrap">
+            <tbody>
+            <tr>
+                <td width="80">用户名</td>
+                <td>admin</td>
+            </tr>
+
+            <tr>
+                <td width="80">最后登录时间</td>
+                <td>2013-11-29 10:47:10</td>
+            </tr>
+
+            <tr>
+                <td width="80">最后登录IP</td>
+                <td>127.0.0.1</td>
+            </tr>
+            <tr>
+                <td>真实姓名</td>
+                <td>
+                    <input type="text" value="" size="30" class="input-text" id="realname" name="info[realname]"></td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td><input type="text" value="chchmlml@163.com" size="40" class="input-text" id="email"
+                           name="info[email]"></td>
+            </tr>
+            <tr>
+                <td>Language</td>
+                <td>
+                    <select name="info[lang]">
+                        <option value="zh-cn">中文 - Chinese simplified</option>
+                        <option value="en">English</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" id="btn" class="button" value="提交">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--/表格-->
+
+        <!--查询表单-->
+        <table width="100%" cellspacing="0" class="search-form">
+            <tbody>
+            <tr>
+                <td>
+                    <div class="explain-col">
+                        注册时间：
+                        <input type="text" readonly="" class="input-text" size="10" value="" id="start_time"
+                               name="start_time">&nbsp;
+                        -
+                        <input type="text" readonly="" class="input-text" size="10" value="2013-11-29"
+                               id="end_time" name="end_time">&nbsp;
+                        <select name="siteid">
+                            <option selected="" value="">所有站点</option>
+                            <option value="1">默认站点</option>
+                        </select>
+                        <select name="status">
+                            <option value="0">状态</option>
+                            <option value="1">锁定</option>
+                            <option value="2">正常</option>
+                        </select>
+                        <select name="modelid">
+                            <option selected="" value="">会员模型</option>
+                            <option value="10">普通会员</option>
+                        </select> <select name="groupid">
+                        <option selected="" value="">会员组</option>
+                        <option value="8">游客</option>
+                        <option value="2">新手上路</option>
+                        <option value="6">注册会员</option>
+                        <option value="4">中级会员</option>
+                        <option value="5">高级会员</option>
+                        <option value="1">禁止访问</option>
+                        <option value="7">邮件认证</option>
+                    </select>
+                        <select name="type">
+                            <option value="1">用户名</option>
+                            <option value="2">用户ID</option>
+                            <option value="3">邮箱</option>
+                            <option value="4">注册ip</option>
+                            <option value="5">昵称</option>
+                        </select>
+
+                        <input type="text" class="input-text" value="" name="keyword">
+                        <input type="submit" value="搜索" class="button" name="search">
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--/查询表单-->
+
+        <!--列表-->
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th width="30px" align="left"><input type="checkbox" onclick="selectall('groupid[]');" id="check_box" value=""></th>
+                    <th align="left">ID</th>
+                    <th>排序</th>
+                    <th>用户组名</th>
+                    <th>系统组</th>
+                    <th>会员数</th>
+                    <th>星星数</th>
+                    <th>积分小于</th>
+                    <th>允许上传附件</th>
+                    <th>投稿权限</th>
+                    <th>投稿不需审核</th>
+                    <th>搜索权限</th>
+                    <th>自助升级</th>
+                    <th>发短消息</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td align="left"></td>
+                    <td align="left">8</td>
+                    <td align="center"><input type="text" value="0" size="1" class="input-text" name="sort[8]">
+                    </td><td align="center" title="">游客</td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center">0
+                    </td><td align="center">0</td>
+                    <td align="center">0</td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><a href="javascript:edit(8, '游客')">[修改]</a></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="left">1</td>
+                    <td align="center"><input type="text" value="0" size="1" class="input-text" name="sort[1]">
+                    </td><td align="center" title="0">禁止访问</td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center">0
+                    </td><td align="center">0</td>
+                    <td align="center">0</td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><a href="javascript:edit(1, '禁止访问')">[修改]</a></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="left">2</td>
+                    <td align="center"><input type="text" value="2" size="1" class="input-text" name="sort[2]">
+                    </td><td align="center" title="">新手上路</td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center">0
+                    </td><td align="center">1</td>
+                    <td align="center">50</td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><a href="javascript:edit(2, '新手上路')">[修改]</a></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="left">4</td>
+                    <td align="center"><input type="text" value="4" size="1" class="input-text" name="sort[4]">
+                    </td><td align="center" title="">中级会员</td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center">0
+                    </td><td align="center">3</td>
+                    <td align="center">150</td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><a href="javascript:edit(4, '中级会员')">[修改]</a></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="left">5</td>
+                    <td align="center"><input type="text" value="5" size="1" class="input-text" name="sort[5]">
+                    </td><td align="center" title="">高级会员</td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center">0
+                    </td><td align="center">5</td>
+                    <td align="center">300</td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><a href="javascript:edit(5, '高级会员')">[修改]</a></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="left">6</td>
+                    <td align="center"><input type="text" value="6" size="1" class="input-text" name="sort[6]">
+                    </td><td align="center" title="">注册会员</td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center">0
+                    </td><td align="center">2</td>
+                    <td align="center">100</td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center"><a href="javascript:edit(6, '注册会员')">[修改]</a></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="left">7</td>
+                    <td align="center"><input type="text" value="7" size="1" class="input-text" name="sort[7]">
+                    </td><td align="center" title="">邮件认证</td>
+                    <td align="center"><font color="red">√</font></td>
+                    <td align="center">0
+                    </td><td align="center">0</td>
+                    <td align="center">0</td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><font color="blue">×</font></td>
+                    <td align="center"><a href="javascript:edit(7, '邮件认证')">[修改]</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="btn"><label for="check_box">全选/取消</label> <input type="submit" onclick="return confirm('您确定要删除吗？')" value="删除" name="dosubmit" class="button">
+                <input type="submit" value="排序" onclick="document.myform.action='?m=member&amp;c=member_group&amp;a=sort'" name="dosubmit" class="button">
+            </div>
+            <div id="pages"></div>
+        </div>
+        <!--/列表-->
+    </div>
+    <!--/内容-->
+</div>
+<!--/内容区-->
+</body>
+</html>

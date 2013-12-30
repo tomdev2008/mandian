@@ -38,8 +38,9 @@
 |
 */
 
-$route['default_module'] = "default";
-$route['default_controller'] = "welcome";
+$route['default_module'] = "admin";
+$route['default_controller'] = "index";
+$route['default_action'] = "index";
 $route['404_override'] = '';
 
 
