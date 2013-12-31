@@ -112,9 +112,9 @@
         },inIframe:true});
 
         $("#sys_name").formValidator({onShow:"请输入系统",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
-        $("#sys_module").formValidator({onShow:"请输入控制器",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
-        $("#sys_controller").formValidator({onShow:"请输入控制器",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
-        $("#sys_action").formValidator({onShow:"请输入方法",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
+        //$("#sys_module").formValidator({onShow:"请输入控制器",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
+        //$("#sys_controller").formValidator({onShow:"请输入控制器",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
+        //$("#sys_action").formValidator({onShow:"请输入方法",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
         $("#sys_order_id").formValidator({onShow:"请输入排序字段",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
 
         $.formValidator.reloadAutoTip();

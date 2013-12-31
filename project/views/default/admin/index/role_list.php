@@ -35,11 +35,12 @@
         <tr>
             <td colspan="5">
                 <div class="bulk-actions align-left">
-                    <select name="dropdown">
+                    <!--<select name="dropdown">
                         <option value="option1">操作...</option>
                         <option value="option3">删除</option>
                     </select>
-                    <a class="button" href="#">确认</a> </div>
+                    <a class="button" href="#">确认</a> -->
+                </div>
                 <div class="pagination" id="seaPager">
                     <script type="text/javascript">
                         seajs.config({

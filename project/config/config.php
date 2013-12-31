@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://ts.com/';
+$config['base_url']	= 'http://ts.com:8080/';
 
 /*
 |--------------------------------------------------------------------------

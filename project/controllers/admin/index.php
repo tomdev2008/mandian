@@ -83,6 +83,8 @@ class Index extends CI_Admin
 
     public function user_del($id = null)
     {
+        $ids = $this->input->get_post('$ids');
+        pp($ids);
         $this->load->bll('user_bll');
         if (!empty($id)) {
             $r = $this->user_bll->del_user($id);

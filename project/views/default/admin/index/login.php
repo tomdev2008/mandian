@@ -3,44 +3,38 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Simpla Admin </title>
-    <!--                       CSS                       -->
-    <!-- Reset Stylesheet -->
-    <link rel="stylesheet" href="/public/resource/css/reset.css" type="text/css" media="screen" />
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="/public/resource/css/style.css" type="text/css" media="screen" />
-    <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
-    <link rel="stylesheet" href="/public/resource/css/invalid.css" type="text/css" media="screen" />
+    <!-- jquery -->
+    <script src="/public/resource/js/sea-modules/alias/jquery/jquery-1.8.3.min.js"></script>
+
+    <!-- css -->
+    <link href="/public/resource/css/admin.css" rel="stylesheet"/>
+
+    <!-- easyui -->
+    <link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/default/easyui.css" rel="stylesheet"/>
+    <script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
+    <script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
 </head>
-<body id="login">
-<div id="login-wrapper" class="png_bg">
-    <div id="login-top">
-        <h1>Simpla Admin</h1>
-        <!-- Logo (221px width) -->
-        <a href="#"><img id="logo" src="/public/resource/images/logo.png" alt="Simpla Admin logo" /></a> </div>
-    <!-- End #logn-top -->
-    <div id="login-content">
+<body style="background: url(/public/resource/images/bg-login.gif);">
+<div class="easyui-window" title="登陆" style="height:300px;width:500px;background:#fafafa"
+     collapsible="false" minimizable="false" maximizable="false" closable="false" >
+    <div class="header" style="height:60px;padding:0px;magin:0px; background-color: #600">
+        <div style="margin:0 auto;padding:20px 160px;font-size:22px;text-shadow:1px 1px rgba(152,135,162,.5);color:#fff;">旅游管理系统</div>
+    </div>
+    <div style="padding:30px 0px;">
         <form  action="<?php echo for_url('admin', 'index','login_act'); ?>"  method="post">
-            <p>
-                <label>Username</label>
-                <input class="text-input" name="user_name" type="text" />
-            </p>
-            <div class="clear"></div>
-            <p>
-                <label>Password</label>
-                <input class="text-input" name="password" type="password" />
-            </p>
-            <div class="clear"></div>
-            <p id="remember-password">
-                <input type="checkbox" />
-                Remember me </p>
-            <div class="clear"></div>
-            <p>
+            <div style="text-align:right; margin-top: 10px;">
+                <label style="text-align:right; font-size: 14px;">用户名：</label>
+                <input class="input-text" style="margin-right: 150px;" name="user_name" type="text" />
+            </div>
+            <div style="text-align:right; margin-top: 10px;">
+                <label style="text-align:right; font-size: 14px;">密码：</label>
+                <input class="input-text" style="margin-right: 150px;" name="password" type="password" />
+            </div>
+            <div style="text-align:center;margin-top:20px;">
                 <input class="button" type="submit" value="登陆" />
-            </p>
+            </div>
         </form>
     </div>
-    <!-- End #login-content -->
 </div>
-<!-- End #login-wrapper -->
 </body>
 </html>
