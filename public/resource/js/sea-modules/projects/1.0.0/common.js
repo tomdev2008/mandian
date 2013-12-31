@@ -11,7 +11,7 @@ define("projects/1.0.0/common", ['cookie' ], function (require) {
     //全局的弹出窗
 
     window._alert = function( _c ){
-        art.dialog({
+        window.top.art.dialog({
             title: '提示',
             content: _c,
             icon: 'warning',
@@ -25,17 +25,20 @@ define("projects/1.0.0/common", ['cookie' ], function (require) {
         if(typeof _call != 'function'){
             _call = function(){};
         }
-        art.dialog({
+        window.top.art.dialog({
             title: '提示',
             content: _t,
             icon: 'question',
             cancelVal: '关闭',
             lock: true,
-            background: '#999', // 背景色
             ok: function () {
                 _call();
             },
             cancel:function(){}
         });
+    }
+
+    window._open = function(t, url){
+        window.top.art.dialog.open(url, { title: t,lock: true });
     }
 });

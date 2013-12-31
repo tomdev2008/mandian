@@ -7,10 +7,6 @@
     <!-- jquery -->
     <script src="/public/resource/js/sea-modules/alias/jquery/jquery-1.8.3.min.js"></script>
 
-    <!-- art dialog -->
-    <script src="/public/resource/js/sea-modules/alias/artDialog4.1.7/jquery.artDialog.js?skin=default"></script>
-    <script type="text/javascript" src="/public/resource/js/sea-modules/alias/artDialog4.1.7/plugins/iframeTools.js"></script> <!-- 对iframe的新工具 -->
-
     <!-- css -->
     <link href="/public/resource/css/admin.css" rel="stylesheet"/>
 
