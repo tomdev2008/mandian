@@ -84,7 +84,6 @@ class Index extends CI_Admin
     public function user_del($id = null)
     {
         $ids = $this->input->get_post('$ids');
-        pp($ids);
         $this->load->bll('user_bll');
         if (!empty($id)) {
             $r = $this->user_bll->del_user($id);
@@ -263,12 +262,19 @@ class Index extends CI_Admin
     public function system_list()
     {
         $this->load->bll('system_bll');
-
         $r['data'] = $this->system_bll->get_system_tree_list();
         $r['current_pos'] = $this->current_pos();
         $this->view('/admin/public/pager_header');
         $this->view('/admin/index/system_list', $r);
         $this->view('/admin/public/pager_footer');
+    }
+
+    public function system_list_json(){
+        $this->lib('json');
+        $this->load->bll('system_bll');
+        $r = $this->system_bll->get_system_tree_list();
+        $r = $this->json->encode($r);
+        exit($r);
     }
 
     public function system_add()
