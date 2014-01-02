@@ -113,6 +113,19 @@ class Liner extends CI_Admin
         }
     }
 
+    public function del_room($liner_id = null, $id = null)
+    {
+        $this->load->bll('liner_bll');
+        if (!empty($id)) {
+            $r = $this->liner_bll->del_room($id);
+        }
+        if ($r) {
+            showmessage('删除成功',for_url('admin','liner','room_list', array($liner_id)));
+        } else {
+            showmessage('删除失败');
+        }
+    }
+
 
 
     /**

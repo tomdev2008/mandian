@@ -137,6 +137,20 @@ class Liner_model extends CI_Model
         return $this->db->update('crm_liner_room', $data);
     }
 
+
+    public function del_room($id = null){
+        $this->db->where('liner_room_id', intval($id));
+        $data['enabled'] = 0;
+        return $this->db->update('crm_liner_room', $data);
+    }
+
+
+    /**
+     * ----------------------------------------------
+     * 邮轮管理
+     * @param null $liner_id
+     * ----------------------------------------------
+     */
     function insert($post = array())
     {
         foreach ($post as $key => $val) {

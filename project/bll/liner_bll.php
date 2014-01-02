@@ -69,6 +69,11 @@ class Liner_bll extends CI_Bll
         return $this->liner_model->update($post);
     }
 
+    public function del($id = null)
+    {
+        return $this->liner_model->del($id);
+    }
+
     /**
      * ----------------------------------------------
      * 房间管理
@@ -85,9 +90,9 @@ class Liner_bll extends CI_Bll
         return $this->liner_model->update_room($post);
     }
 
-    public function del($id = null)
+    public function del_room($id = null)
     {
-        return $this->liner_model->del($id);
+        return $this->liner_model->del_room($id);
     }
 
 }
