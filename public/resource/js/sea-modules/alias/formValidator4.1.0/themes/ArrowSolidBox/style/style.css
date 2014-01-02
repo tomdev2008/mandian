@@ -103,14 +103,14 @@
 
 .input_focus {
 	border:#C1C1C1 1px solid;font-size:14px;padding:4px 5px 4px;
-    background: url("/resource/images/input.png") repeat-x scroll 0 0 #FFFFFF; color:#444; border-color:#C6C69E
+    background: url("/public/resource/images/input.png") repeat-x scroll 0 0 #FFFFFF; color:#444; border-color:#C6C69E
 }
 
 .input_show {
     border:#C1C1C1 1px solid;font-size:14px;padding:4px 5px 4px;
-    background: url("/resource/images/input.png") repeat-x scroll 0 0 #FFFFFF; color:#444
+    background: url("/public/resource/images/input.png") repeat-x scroll 0 0 #FFFFFF; color:#444
 }
 .input_correct {
     border:#C1C1C1 1px solid;font-size:14px;padding:4px 5px 4px;
-    background: url("/resource/images/input.png") repeat-x scroll 0 0 #FFFFFF; color:#444
+    background: url("/public/resource/images/input.png") repeat-x scroll 0 0 #FFFFFF; color:#444
 }

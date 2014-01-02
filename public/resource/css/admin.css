@@ -80,13 +80,8 @@ body{ background: #FBFBFB}
 .table-form td, .table_form th { height: 35px; }
 
 .input-text, .measure-input, textarea, input.date, input.endDate, .input-focus {
-    background: url("../images/input.png") repeat-x scroll 0 0 #FFFFFF;
-    border: 1px solid #D0D0D0;
-    font-size: 12px;
-    height: 18px;
-    line-height: 18px;
-    margin: 0 5px 0 0;
-    padding: 2px 0 2px 5px;
+    border:#C1C1C1 1px solid;font-size:14px;padding:4px 5px 4px;
+    background: url("/public/resource/images/input.png") repeat-x scroll 0 0 #FFFFFF; color:#444
 }
 .input-tip{ width: 250px;}
 input[type=text]:focus,input[type=password]:focus{
@@ -166,25 +161,28 @@ div.btn {
 .pagination {
     text-align: right;
     padding: 20px 0 5px 0;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
+    font-family:  "微软雅黑",Arial;
+    font-size: 12px;
 }
 .pagination a{
-
     margin: 0 5px 0 0;
     padding: 3px 6px;
+    font-size: 12px;
 }
 
 .pagination a.number {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
+    font-size: 12px;
 }
 .pagination a.number {
     border: 1px solid #DDD;
+    font-size: 12px;
 }
 .pagination a.current {
     background: #5A85B2;
     border-color: #459300 !important;
     color: #FFF !important;
+    font-size: 12px;
 }

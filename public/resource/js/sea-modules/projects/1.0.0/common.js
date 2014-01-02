@@ -1,6 +1,6 @@
 define("projects/1.0.0/common", ['cookie' ], function (require) {
 
-    $('div.table-list tr').hover(
+    $('.table-list').find('tr').hover(
         function(){
             $(this).find('td').css('background-color','#FFFCED');
         },
@@ -8,16 +8,43 @@ define("projects/1.0.0/common", ['cookie' ], function (require) {
             $(this).find('td').css('background-color','#FFF');
         }
     );
+
+    //表单提交
+    window.doForm = function(_form, _call){
+        var art = _alert('提交中，请稍后……')
+        if(typeof _call != 'function'){
+            _call = function(){};
+        }
+        $.ajax({
+            url: _form.attr('action'),
+            type:'post',
+            data: _form.serialize(),
+            dataType: 'json',
+            success: function(data){
+                art.close();
+                _call(data);
+            },
+            error: function(){
+                art.close();
+                _alert('出错了');
+            }
+        });
+        return false;
+    }
+
     //全局的弹出窗
 
-    window._alert = function( _c ){
-        window.top.art.dialog({
+    window._alert = function( _c, _call ){
+        if(typeof _call != 'function'){
+            _call = function(){};
+        }
+        return window.top.art.dialog({
             title: '提示',
             content: _c,
             icon: 'warning',
             lock: true,
-            background: '#999', // 背景色
-            ok: function () {}
+            background: '#000', // 背景色
+            ok: function () { _call(); }
         });
     }
 
@@ -31,6 +58,7 @@ define("projects/1.0.0/common", ['cookie' ], function (require) {
             icon: 'question',
             cancelVal: '关闭',
             lock: true,
+            background: '#000', // 背景色
             ok: function () {
                 _call();
             },

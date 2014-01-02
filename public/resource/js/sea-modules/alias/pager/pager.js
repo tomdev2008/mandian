@@ -26,7 +26,8 @@ define("alias/pager/pager", [], function(require, exports, module) {
         this.pageCount = parseInt(this.pageCount);
     }
     showPages.prototype.createHtml = function (mode) { //生成html代码
-        var strHtml = '', prevPage = this.page - 1, nextPage = this.page + 1;
+        var strHtml = '<a class="number">Pages: ' + this.page + ' / ' + this.pageCount + '</a>';
+        strHtml += '', prevPage = this.page - 1, nextPage = this.page + 1;
         if (mode == '' || typeof(mode) == 'undefined') mode = 0;
         if (prevPage < 1) {
             strHtml += '<a  title="First Page">首页</a>';

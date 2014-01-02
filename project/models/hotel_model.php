@@ -33,6 +33,8 @@ class Hotel_model extends CI_Model
             $offset = ($page - 1) * $rows;
             $this->db->limit($rows, $offset);
         }
+        $this->db->where("hotel_enabled", 1);
+        $this->db->order_by("hotel_id", "desc");
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -40,6 +42,7 @@ class Hotel_model extends CI_Model
     function get_hotel_list_count()
     {
         $this->db->select('count(*) as acount');
+        $this->db->where("hotel_enabled", 1);
         $this->db->from('crm_hotel');
         $query = $this->db->get();
         $r = $query->row_array();
@@ -50,6 +53,7 @@ class Hotel_model extends CI_Model
     {
         $this->db->where('hotel_id', intval($id));
         $this->db->select('*');
+        $this->db->where("hotel_enabled", 1);
         $this->db->from('crm_hotel');
         $query = $this->db->get();
         return $query->row_array();
@@ -70,42 +74,16 @@ class Hotel_model extends CI_Model
 
     function insert_hotel($post = array())
     {
-        $time = time();
-        $data = array(
-            'email' => '',
-            'hotel_name' => '',
-            'password' => '',
-            'question' => '',
-            'answer' => '',
-            'sex' => 0,
-            'birthday' => date('Y-m-d', $time),
-            'address_id' => 0,
-            'reg_time' => date('Y-m-d H:i:s', $time),
-            'last_login' => 0,
-            'last_time' => '',
-            'last_ip' => '',
-            'visit_count' => 0,
-            'is_special' => 0,
-            'msn' => '',
-            'qq' => '',
-            'office_phone' => '',
-            'home_phone' => '',
-            'mobile_phone' => '',
-            'is_validated' => 0,
-            'passwd_question' => '',
-            'passwd_answer' => '',
-            'enabled' => 1,
-        );
 
         foreach ($post as $key => $val) {
-            if (isset($data[$key])) {
+            if ($key != 'hotel_id') {
                 $data[$key] = $val;
             }
         }
-        return $this->db->insert('crm_hotels', $data);
+        return $this->db->insert('crm_hotel', $data);
     }
 
-    function save_hotel($post = array())
+    function update_hotel($post = array())
     {
 
         foreach ($post as $key => $val) {
@@ -114,11 +92,14 @@ class Hotel_model extends CI_Model
             }
         }
         $this->db->where('hotel_id', $post['hotel_id']);
-        return $this->db->update('crm_hotels', $data);
+        return $this->db->update('crm_hotel', $data);
     }
 
     public function del_hotel($id = null){
-        return $this->db->delete('crm_hotels', array('hotel_id' => intval($id)));
+        $this->db->where('hotel_id', intval($id));
+        $data['hotel_enabled'] = 0;
+        return $this->db->update('crm_hotel', $data);
+        //return $this->db->delete('crm_hotel', array('hotel_id' => intval($id)));
     }
 
 }

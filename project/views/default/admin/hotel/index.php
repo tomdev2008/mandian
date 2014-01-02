@@ -85,7 +85,7 @@
 <script>
     function del(id){
         _confirm('确认删除？',function(){
-            location.href = '<?php echo for_url('admin','index','role_del'); ?>' + id;
+            location.href = '<?php echo for_url('admin','hotel','del'); ?>' + id;
         });
     }
 </script>

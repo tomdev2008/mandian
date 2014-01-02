@@ -40,20 +40,12 @@ class Hotel_bll extends CI_Bll
 
     function insert_hotel($post = array())
     {
-        $post['password'] = substr(md5($post['password']), 0, 7);
         return $this->hotel_model->insert_hotel($post);
     }
 
-    function save_hotel($post = array())
+    function update_hotel($post = array())
     {
-        return $this->hotel_model->save_hotel($post);
-    }
-
-    function hotel_role_edit($hotel_id, $role_id)
-    {
-        $post['hotel_id'] = $hotel_id;
-        $post['role_id'] = $role_id;
-        return $this->hotel_model->save_hotel($post);
+        return $this->hotel_model->update_hotel($post);
     }
 
     public function del_hotel($id = null)

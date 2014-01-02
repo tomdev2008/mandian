@@ -44,43 +44,34 @@ class Hotel extends CI_Admin
 
     }
 
-    public function user_save()
+    public function save()
     {
-        $this->load->bll('user_bll');
-        $user = $this->input->post('user');
-        if (empty($user['user_id'])) {
-            if (empty($user['user_name']) || empty($user['password'])) {
-                showmessage('用户名、密码不能为空');
-            }
-        } else {
-            if (empty($user['user_name'])) {
-                showmessage('用户名不能为空');
-            }
-        }
+        $hotel = $this->input->post('hotel');
+        $hotel['hotel_specifics'] = implode(',', $hotel['hotel_specifics']);
 
-        if (empty($user['user_id'])) {
-            $r = $this->user_bll->insert_user($user);
+        $this->load->bll('hotel_bll');
+        if (empty($hotel['hotel_id'])) {
+            $r = $this->hotel_bll->insert_hotel($hotel);
         } else {
-            $r = $this->user_bll->save_user($user);
+            $r = $this->hotel_bll->update_hotel($hotel);
         }
         if ($r) {
-            showmessage('用户保存成功',for_url('admin','index','user_list'));
+            exit('{"state":true,"msg":"酒店保存成功"}') ;
         } else {
-            showmessage('用户保存失败');
+            exit('{"state":false,"msg":"酒店保存失败"}') ;
         }
     }
 
-    public function user_del($id = null)
+    public function del($id = null)
     {
-        $ids = $this->input->get_post('$ids');
-        $this->load->bll('user_bll');
+        $this->load->bll('hotel_bll');
         if (!empty($id)) {
-            $r = $this->user_bll->del_user($id);
+            $r = $this->hotel_bll->del_hotel($id);
         }
         if ($r) {
-            showmessage('用户删除成功',for_url('admin','index','user_list'));
+            showmessage('删除成功',for_url('admin','hotel','index'));
         } else {
-            showmessage('用户删除失败');
+            showmessage('删除失败');
         }
     }
 }
