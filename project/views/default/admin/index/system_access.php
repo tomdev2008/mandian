@@ -1,16 +1,11 @@
 
-<body>
-
 <style type="text/css">
     fieldset{ width: 400px; height: 120px; float: left; margin: 5px; padding: 5px 10px; border: #999 1px solid; box-shadow: 2px 2px 2px #999;}
     fieldset span{ display: inline-block;}
     legend{ padding:1px 5px; border: #999; border: #999 1px solid; background-color: #f1f1f1;}
 </style>
 
-
-<body class="easyui-layout">
-<div data-options="region:'center',title:'<?php echo $current_pos; ?>'">
-
+<body>
 <!--内容区-->
 <div class="middle-wrap">
     <!--导航-->
@@ -61,7 +56,6 @@
         <!--/表格-->
     </div>
     <!--/内容-->
-</div>
 </div>
 </body>
 <!--/内容区-->

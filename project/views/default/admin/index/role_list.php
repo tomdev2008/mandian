@@ -1,9 +1,6 @@
 
 
-<body class="easyui-layout">
-<div data-options="region:'center',title:'<?php echo $current_pos; ?>'">
-
-
+<body>
     <!--查询表单-->
     <table width="100%" cellspacing="0" class="search-form">
         <tbody>
@@ -81,7 +78,6 @@
         </tbody>
     </table>
     <!--/列表-->
-</div>
 </body>
 <script>
     function del(id){

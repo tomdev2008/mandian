@@ -1,7 +1,5 @@
 
-<body class="easyui-layout">
-<div data-options="region:'center',title:'<?php echo $current_pos; ?>'">
-
+<body>
     <!--内容区-->
 <div class="middle-wrap">
     <!--导航-->
@@ -98,7 +96,6 @@
 
     </div>
     <!--/内容-->
-</div>
 </div>
 </body>
 <!--/内容区-->

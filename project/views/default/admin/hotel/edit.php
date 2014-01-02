@@ -2,9 +2,7 @@
     .labelspan{ margin: 2px 5px; display: inline-block;}
     .labelspan input{ margin: 0px 3px;}
 </style>
-<body class="easyui-layout">
-<div data-options="region:'center',title:'<?php echo $current_pos; ?>'">
-
+<body>
     <!--内容区-->
 <div class="middle-wrap">
     <!--导航-->
@@ -100,7 +98,6 @@
 
     </div>
     <!--/内容-->
-</div>
 </div>
 </body>
 <!--/内容区-->

@@ -32,9 +32,14 @@
 <div data-options="region:'west',split:true,title:'导航'" style="width:220px;padding:5px;">
     <ul class="easyui-tree" id="tt"></ul>
 </div>
-<div data-options="region:'center'" style="overflow-y: hidden">
-    <iframe name="right" id="rightMain" src="<?php echo for_url('admin', 'index', 'user_list'); ?>" frameborder="false" style="border: 0px; overflow: hidden;" scrolling="auto" width="100%" height="auto" allowtransparency="true"></iframe>
+<div region="center" border="false">
+    <div id="tabs-el" class="easyui-tabs" fit="true" border="false" plain="true">
+        <div title="welcome" href="<?php echo for_url('admin', 'index', 'home'); ?>"></div>
+    </div>
 </div>
+<!--<div data-options="region:'center'" style="overflow-y: hidden">
+    <iframe name="right" id="rightMain" src="" frameborder="false" style="border: 0px; overflow: hidden;" scrolling="auto" width="100%" height="auto" allowtransparency="true"></iframe>
+</div>-->
 </body>
 </html>
 <script type="text/javascript">
@@ -47,15 +52,25 @@
             onClick: function(node){
                 if(typeof node.attributes != 'undefined')
                 {
-                    $('#rightMain').attr('src', base_url + node.attributes.url + '?' + Math.random());
+                    open1( node.text,base_url + node.attributes.url + '?' + Math.random());
                 }
             }
         });
-        //高度设置
-        var Body = $(window);
-        var heights = Body.height() - 60;
-        $('#rightMain').css({height:heights});
+
     })();
+
+    function open1(name, plugin){
+        if ($('#tabs-el').tabs('exists',name)){
+            $('#tabs-el').tabs('close', name);
+        }
+        var Body = $(window);
+        var heights = Body.height() - 100;
+        $('#tabs-el').tabs('add',{
+            title:name,
+            content: '<iframe name="right" src="'+plugin+'" frameborder="false" style="border: 0px;" scrolling="auto" width="100%" height="'+heights+'px" allowtransparency="true"></iframe>',
+            closable:true
+        });
+    }
 
     function logOut(){
 

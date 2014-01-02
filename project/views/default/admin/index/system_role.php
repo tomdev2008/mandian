@@ -5,9 +5,7 @@
 </style>
 
 
-<body class="easyui-layout">
-<div data-options="region:'center',title:'<?php echo $current_pos; ?>'">
-
+<body>
 <!--内容区-->
 <div class="middle-wrap">
     <!--内容-->
@@ -44,7 +42,6 @@
         <!--/表格-->
     </div>
     <!--/内容-->
-</div>
 </div>
 <!--/内容区-->
 </body>
