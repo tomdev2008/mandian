@@ -94,47 +94,47 @@
             </tr>
             <tr>
                 <td width="80">总吨位数</td>
-                <td><input type="text" value="<?php echo $data['liner_tonnage'] ?>" size="30" id="liner_tonnage" class="input-text" name="liner[liner_tonnage]"></td>
+                <td><input type="text" value="<?php echo $data['liner_tonnage'] ?>" size="10" id="liner_tonnage" class="input-text" name="liner[liner_tonnage]"></td>
                 <td><div id="liner_tonnageTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">总长度</td>
-                <td><input type="text" value="<?php echo $data['liner_length'] ?>" size="30" id="liner_length" class="input-text" name="liner[liner_length]"></td>
+                <td><input type="text" value="<?php echo $data['liner_length'] ?>" size="10" id="liner_length" class="input-text" name="liner[liner_length]"></td>
                 <td><div id="liner_lengthTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">总宽度</td>
-                <td><input type="text" value="<?php echo $data['liner_width'] ?>" size="30" id="liner_width" class="input-text" name="liner[liner_width]"></td>
+                <td><input type="text" value="<?php echo $data['liner_width'] ?>" size="10" id="liner_width" class="input-text" name="liner[liner_width]"></td>
                 <td><div id="liner_widthTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">活动层数</td>
-                <td><input type="text" value="<?php echo $data['count_floor'] ?>" size="30" id="count_floor" class="input-text" name="liner[count_floor]"></td>
+                <td><input type="text" value="<?php echo $data['count_floor'] ?>" size="10" id="count_floor" class="input-text" name="liner[count_floor]"></td>
                 <td><div id="count_floorTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">客房数</td>
-                <td><input type="text" value="<?php echo $data['count_room'] ?>" size="30" id="count_room" class="input-text" name="liner[count_room]"></td>
+                <td><input type="text" value="<?php echo $data['count_room'] ?>" size="10" id="count_room" class="input-text" name="liner[count_room]"></td>
                 <td><div id="count_roomTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">船员人数</td>
-                <td><input type="text" value="<?php echo $data['count_crew'] ?>" size="30" id="" class="input-text" name="liner[count_crew]"></td>
+                <td><input type="text" value="<?php echo $data['count_crew'] ?>" size="10" id="" class="input-text" name="liner[count_crew]"></td>
                 <td><div id="count_crewTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">载客人数</td>
-                <td><input type="text" value="<?php echo $data['count_people'] ?>" size="30" id="count_people" class="input-text" name="liner[count_people]"></td>
+                <td><input type="text" value="<?php echo $data['count_people'] ?>" size="10" id="count_people" class="input-text" name="liner[count_people]"></td>
                 <td><div id="count_peopleTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">电压</td>
-                <td><input type="text" value="<?php echo $data['voltage'] ?>" size="30" id="voltage" class="input-text" name="liner[voltage]"></td>
+                <td><input type="text" value="<?php echo $data['voltage'] ?>" size="10" id="voltage" class="input-text" name="liner[voltage]"></td>
                 <td><div id="voltageTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">航速</td>
-                <td><input type="text" value="<?php echo $data['speed'] ?>" size="30" id="speed" class="input-text" name="liner[speed]"></td>
+                <td><input type="text" value="<?php echo $data['speed'] ?>" size="10" id="speed" class="input-text" name="liner[speed]"></td>
                 <td><div id="speedTip" class="input-tip"></div></td>
             </tr>
             <tr>
