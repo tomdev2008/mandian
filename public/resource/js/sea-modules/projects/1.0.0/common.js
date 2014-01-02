@@ -10,15 +10,15 @@ define("projects/1.0.0/common", ['cookie' ], function (require) {
     );
 
     //表单提交
-    window.doForm = function(_form, _call){
+    window.doForm = function(_url, _data, _call){
         var art = _alert('提交中，请稍后……')
         if(typeof _call != 'function'){
             _call = function(){};
         }
         $.ajax({
-            url: _form.attr('action'),
+            url: _url,
             type:'post',
-            data: _form.serialize(),
+            data: _data,
             dataType: 'json',
             success: function(data){
                 art.close();

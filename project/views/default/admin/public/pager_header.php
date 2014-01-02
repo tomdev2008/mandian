@@ -12,6 +12,7 @@
 
     <!-- easyui -->
     <link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/default/easyui.css" rel="stylesheet"/>
+    <link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/icon.css" rel="stylesheet"/>
     <script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
     <script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
 

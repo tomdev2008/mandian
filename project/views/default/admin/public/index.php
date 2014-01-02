@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Full</title>
+    <title>旅游管理后台</title>
     <!-- jquery -->
     <script src="/public/resource/js/sea-modules/alias/jquery/jquery-1.8.3.min.js"></script>
 

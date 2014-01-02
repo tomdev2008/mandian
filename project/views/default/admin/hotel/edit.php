@@ -122,7 +122,7 @@
             _alert(msg,'error')
         }, onSuccess: function(){
             $("#hotel_info").val(UE.getEditor('hotel_info').getContent());
-            doForm($('#form1'), function(data){
+            doForm($('#form1').attr('action'),$('#form1').serialize(), function(data){
                 _alert(data.msg, function(){
                     if(data.state){
                         location.href = '<?php echo for_url('admin', 'hotel','index'); ?>';
@@ -132,8 +132,8 @@
             });
         },inIframe:true});
 
-        $("#hotel_name").formValidator({onShow:"请输入名称",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
-        $("#hotel_address").formValidator({onShow:"请输入名称",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"});
+        $("#hotel_name").formValidator({onShow:"请输入名称",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"}).defaultPassed();
+        $("#hotel_address").formValidator({onShow:"请输入名称",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"}).defaultPassed();
         $("#hotel_nights").formValidator({onShow:"请输入的入住天数",onFocus:"只能输入数字哦",onCorrect:"正确"}).inputValidator({min:1,type:"value",onErrormin:"你输入的值必须大于等于1",onError:"请确认"}).defaultPassed();
         $.formValidator.reloadAutoTip();
 
