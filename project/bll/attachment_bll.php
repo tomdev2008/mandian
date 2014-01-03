@@ -84,5 +84,10 @@ class Attachment_bll extends CI_Bll
         return $this->attachment_model->get_img_list_count();
     }
 
+    function get_img($id = null)
+    {
+        return $this->attachment_model->get_img($id);
+    }
+
 
 }

@@ -39,7 +39,14 @@
             <tr>
                 <td width="80">图片</td>
                 <td colspan="2">
-
+                    <a href="javascript:flashupload();" id="add-com" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加图片</a>[双击删除图片]
+                    <ul class="attachment-list" id="fsUploadProgress">
+                        <script type="text/javascript">
+                            $(function(){
+                                submit_ckeditor('<?php echo $data['img_id']; ?>');
+                            });
+                        </script>
+                    </ul>
                 </td>
             </tr>
             <tr>
@@ -105,6 +112,68 @@
         $('#form1').submit(function(){
             return false;
         });
+
+        $('a[name=a-handle]').live(
+            {
+                'dblclick': function(){
+                    var _this = $(this);
+                    _this.parents('li').remove();
+                }
+            }
+        );
     });
 
+    function flashupload() {
+        var iTop = (window.screen.availHeight-550)/2; //获得窗口的垂直位置，550为弹出窗口的height;
+        var iLeft = (window.screen.availWidth-640)/2; //获得窗口的水平位置，640为弹出窗口的width;
+        window.open ('<?php echo for_url('admin', 'attachment', 'swfupload'); ?>', '选择图片', 'height=460, width=500, top='+iTop+', left='+iLeft+', toolbar=no, menubar=no, scrollbars=no, resizable=no,location=n o, status=no');
+        /*window.top.art.dialog.open('',
+            {
+                title: '选择图片',
+                id:'room_img',
+                width:500,
+                height:460,
+                lock:true,
+                ok: function () {
+                    submit_ckeditor('room_img');
+                },
+                cancel:function(){}
+            });*/
+    }
+    function submit_ckeditor(data){
+        /*var d = window.top.art.dialog({id:uploadid}).iframe;
+        console.log($(d))
+        var in_content = d.$("#att-status").html();*/
+        var ids = data.split('|');
+        var html = $('#img-temp').html();
+        $.each(ids,function(i,n){
+            $.ajax({
+                url: '<?php echo for_url('admin','attachment','get_img'); ?>',
+                type:'post',
+                data: 'id='+n,
+                dataType: 'json',
+                success: function(data){
+                    if(data.state){
+                        var _tmp = $(html).clone();
+                        _tmp.find('img').attr({'src':data.path});
+                        _tmp.find('#img_id').attr({'value':data.attachment_id});
+                        $('#fsUploadProgress').append(_tmp);
+                    }
+
+                },
+                error: function(){
+                    _alert('出错了');
+                }
+            });
+        });
+    }
+</script>
+<script id="img-temp" type="text/html" >
+    <li>
+        <div id="" class="img-wrap">
+            <a href="javascript:;" name="a-handle" title="双击删除" class="on"><div class="icon"></div>
+                <img width="80" src="" title="双击删除"></a>
+        </div>
+        <input type="hidden" id="img_id"  name="liner[img_id]" value="" />
+    </li>
 </script>

@@ -26,7 +26,12 @@ class Attachment_model extends CI_Model
                 $data[$key] = $val;
             }
         }
-        return $this->db->insert('crm_attachment_img', $data);
+        $r = $this->db->insert('crm_attachment_img', $data);
+        if($r)
+        {
+            return $this->db->insert_id();
+        }
+        return false;
     }
 
     function get_img_list($page = null, $rows = null)
@@ -50,6 +55,15 @@ class Attachment_model extends CI_Model
         $query = $this->db->get();
         $r = $query->row_array();
         return $r['acount'];
+    }
+
+    function get_img($id = null)
+    {
+        $this->db->where('attachment_id', intval($id));
+        $this->db->select('*');
+        $this->db->from('crm_attachment_img');
+        $query = $this->db->get();
+        return $query->row_array();
     }
 
 }

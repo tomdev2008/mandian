@@ -48,7 +48,9 @@
     </script>
     <style type="text/css">
         body {
-            padding: 10px;
+            width: 500px;
+            height: 460px;
+            overflow: hidden;
         }
         .tab-content {
             width: 460px;
@@ -115,11 +117,8 @@
             overflow: hidden;
             position: relative;
             text-align: center;
-        }
-        .attachment-list .img-wrap {
             height: 94px;
             margin: auto;
-            overflow: hidden;
             width: 104px;
         }
 
@@ -143,6 +142,16 @@
             position: absolute;
             right: 3px;
             width: 16px;
+            z-index: 100;
+        }
+        .attachment-list .img-wrap a.off .icon {
+            background: url("/public/resource/images/off.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+            bottom: 5px;
+            height: 17px;
+            overflow: hidden;
+            position: absolute;
+            right: 3px;
+            width: 98px;
             z-index: 100;
         }
     </style>
@@ -190,6 +199,10 @@
                             </ul>
                         </fieldset>
                     </div>
+                    <div class="tab-content-title">
+                        <input type="button" value="确定" id="selectBtn" />
+                        <input type="button" value="取消" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -200,6 +213,29 @@
     </div>
 </div>
 
-
+<div id="att-status"></div>
 </body>
 </html>
+<script>
+    $(function(){
+        $('#selectBtn').click(function(){
+            var d = $('#att-status').text();
+            window.opener.submit_ckeditor(d);
+        });
+        $('a[name=img-handle]').live(
+            {
+                'click': function(){
+                    var _this = $(this);
+                    _this.toggleClass('off');
+                    _this.toggleClass('on');
+                    var img = $('a[name=img-handle][class=on]').find('img');
+                    var ids = '';
+                    img.each(function(){
+                        ids += $(this).attr('data')+'|';
+                    });
+                    $('#att-status').text(ids)
+                }
+            }
+        );
+    })
+</script>

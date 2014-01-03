@@ -27,7 +27,8 @@ class Attachment extends CI_Admin
         if ($is_submit) {
             $json = $this->attachment_bll->upload_file();
             if ($json['state']) {
-                $this->attachment_bll->insert_img($json['upload_data']);
+                $id = $this->attachment_bll->insert_img($json['upload_data']);
+                $json['img_id'] = $id;
             }
             $json = $this->json->encode($json);
             exit($json);
@@ -48,6 +49,16 @@ class Attachment extends CI_Admin
     function direct_list()
     {
 
+    }
+
+    function get_img()
+    {
+        $id = intval($this->input->get_post('id'));
+        $json = $this->attachment_bll->get_img($id);
+        $json['state'] = empty($json) ? false : true ;
+        $json['path'] = img_url($json['img_url'],$json['upload_time']);
+        $json = $this->json->encode($json);
+        exit($json);
     }
 
 

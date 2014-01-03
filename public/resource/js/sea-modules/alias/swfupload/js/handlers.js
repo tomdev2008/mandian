@@ -2,13 +2,12 @@ function att_show(serverData,file)
 {
     var serverData = serverData.replace(/<div.*?<\/div>/g,'');
     var serverJson = $.parseJSON(serverData);
-    console.log(serverJson)
     if(serverJson.state)
     {
         var path = serverJson.upload_data.url_path + serverJson.upload_data.file_name;
-        var img = '<a href="javascript:;" onclick="javascript:" class="on">' +
+        var img = '<a href="javascript:;" name="img-handle" class="off">' +
             '<div class="icon"></div>' +
-            '<img src="'+path+'" width="80"  title="'+serverJson.upload_data.file_name+'"/></a>';
+            '<img src="'+path+'" width="80" data="'+serverJson.img_id+'"  title="'+serverJson.upload_data.file_name+'"/></a>';
 
     }else{
         _alert(serverJson.error)

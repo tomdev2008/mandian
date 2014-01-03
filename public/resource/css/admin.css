@@ -188,3 +188,51 @@ div.btn {
     color: #FFF !important;
     font-size: 12px;
 }
+
+/*------------------图片-----------------------*/
+
+.attachment-list {
+    overflow: hidden;
+}
+.attachment-list li {
+    float: left;
+    overflow: hidden;
+    padding: 5px 0;
+    margin-left: 10px;
+}
+.attachment-list .img-wrap {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: medium none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    height: 94px;
+    margin: auto;
+    width: 104px;
+}
+
+.attachment-list .img-wrap a:hover, .attachment-list .img-wrap a.on {
+    background: none repeat scroll 0 0 #F3F6FA;
+    border-color: #D0DEF1;
+}
+.attachment-list .img-wrap a {
+    border: 1px solid #EEEEEE;
+    display: table-cell;
+    height: 91px;
+    text-align: center;
+    vertical-align: middle;
+    width: 101px;
+}
+.attachment-list .img-wrap a  img{
+    margin-left: 10px;
+}
+.attachment-list .img-wrap a.on .icon {
+    background: url("/public/resource/images/msg_bg.png") no-repeat scroll left -249px rgba(0, 0, 0, 0);
+    bottom: 4px;
+    height: 18px;
+    overflow: hidden;
+    position: absolute;
+    right: 3px;
+    width: 16px;
+    z-index: 100;
+}
