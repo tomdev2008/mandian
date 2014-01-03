@@ -158,6 +158,8 @@ div.btn {
 .align-left {
     float: left;
 }
+
+/*------------------分页-----------------*/
 .pagination {
     text-align: right;
     padding: 20px 0 5px 0;

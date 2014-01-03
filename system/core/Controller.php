@@ -83,8 +83,9 @@ class CI_Action extends CI_Controller
      * 设置模型目录
      * @param null $val
      */
-    protected function set_module($val = null){
-        $this->module = empty($val) ? 'defalut' : $val ;
+    protected function set_module($val = null)
+    {
+        $this->module = empty($val) ? 'defalut' : $val;
     }
 
 
@@ -96,7 +97,7 @@ class CI_Action extends CI_Controller
      */
     protected function view($act = null, $data = array(), $return = false)
     {
-        if(empty($act)){
+        if (empty($act)) {
             $act = '/' . $this->router->fetch_module() . '/' . $this->router->fetch_class() . '/' . $this->router->fetch_method();
         }
         $this->load->view($this->module . $act, $data, $return);
@@ -122,14 +123,25 @@ class CI_Action extends CI_Controller
     }
 }
 
-class CI_Admin extends CI_Action{
+class CI_Admin extends CI_Action
+{
 
     protected $user_name = '';
     protected $user_id = '';
 
     /**
+     * -------------------------
+     * 是否需要登陆
+     * @var bool
+     * -------------------------
+     */
+    protected $is_login = true;
+
+    /**
+     * -------------------------
      * 不需要验证的位置
      * @var array
+     * -------------------------
      */
     private $unpriv = array(
         'login',
@@ -147,29 +159,38 @@ class CI_Admin extends CI_Action{
 
 
     /**
+     * -------------------------
      * 判断用户是否已经登陆
+     * -------------------------
      */
-    final public function check_admin() {
+    final public function check_admin()
+    {
+        if (!$this->is_login) {
+            return true;
+        }
         $m = $this->router->fetch_module();
         $c = $this->router->fetch_class();
         $a = $this->router->fetch_method();
 
-        if($m =='admin' && $c =='index' && in_array($a, $this->unpriv)) {
+        if ($m == 'admin' && $c == 'index' && in_array($a, $this->unpriv)) {
             return true;
         } else {
             $user_id = $this->session->userdata('user_id');
-            if(!isset($_SESSION['user_id']) || !$_SESSION['user_id'] || $user_id != $_SESSION['user_id']){
-                showmessage('校验失败,请重新登录', for_url('admin', 'index', 'login') );
+            if (!isset($_SESSION['user_id']) || !$_SESSION['user_id'] || $user_id != $_SESSION['user_id']) {
+                showmessage('校验失败,请重新登录', for_url('admin', 'index', 'login'));
             }
         }
     }
 
     /**
+     * -------------------------
      * 按父ID查找菜单子项
-     * @param integer $parentid   父菜单ID
-     * @param integer $with_self  是否包括他自己
+     * @param integer $parentid 父菜单ID
+     * @param integer $with_self 是否包括他自己
+     * -------------------------
      */
-    public function admin_menu() {
+    public function admin_menu()
+    {
         $role_id = $this->session->userdata('role_id');
         $this->load->bll('user_bll');
         $array = $this->user_bll->get_user_role_access_header($role_id);
@@ -177,56 +198,70 @@ class CI_Admin extends CI_Action{
     }
 
     /**
+     * -------------------------
      * 当前位置
-     *
      * @param $id 菜单id
+     * -------------------------
      */
-    function current_pos() {
+    function current_pos()
+    {
         $this->load->bll('system_bll');
-        $act = $this->system_bll->get_sys_by_action( $this->router->module, $this->router->class, $this->router->method);
-        if($act){
+        $act = $this->system_bll->get_sys_by_action($this->router->module, $this->router->class, $this->router->method);
+        if ($act) {
             return $act['sys_name'] . '>' . $act['p_name'];
         }
         return '';
     }
 
     /**
+     * -------------------------
      * 权限判断
+     * -------------------------
      */
-    final public function check_priv() {
+    final public function check_priv()
+    {
+
+        if (!$this->is_login) {
+            return true;
+        }
         $m = $this->router->fetch_module();
         $c = $this->router->fetch_class();
         $a = $this->router->fetch_method();
 
-        if($m =='admin' && $c =='index' && in_array($a, $this->unpriv)) {
+        if ($m == 'admin' && $c == 'index' && in_array($a, $this->unpriv)) {
             return true;
         }
-        if($_SESSION['role_id'] == 1){
+        if ($_SESSION['role_id'] == 1) {
             return true;
         }
         $this->load->bll('system_bll');
-        $act = $this->system_bll->get_sys_by_action( $this->router->module, $this->router->class, $this->router->method);
+        $act = $this->system_bll->get_sys_by_action($this->router->module, $this->router->class, $this->router->method);
 
-        if (empty($act) ) {
-            showmessage('您没有权限操作该项','blank');
+        if (empty($act)) {
+            showmessage('您没有权限操作该项', 'blank');
         }
     }
 
     /**
-     *
+     * -------------------------
      * 后台IP禁止判断 ...
+     * -------------------------
      */
-    final private function check_ip(){
+    final private function check_ip()
+    {
 
     }
 
     /**
+     * -------------------------
      * 检查hash值，验证用户数据安全性
+     * -------------------------
      */
-    final private function check_hash() {
-        if(isset($_GET['pc_hash']) && $_SESSION['pc_hash'] != '' && ($_SESSION['pc_hash'] == $_GET['pc_hash'])) {
+    final private function check_hash()
+    {
+        if (isset($_GET['pc_hash']) && $_SESSION['pc_hash'] != '' && ($_SESSION['pc_hash'] == $_GET['pc_hash'])) {
             return true;
-        } elseif(isset($_POST['pc_hash']) && $_SESSION['pc_hash'] != '' && ($_SESSION['pc_hash'] == $_POST['pc_hash'])) {
+        } elseif (isset($_POST['pc_hash']) && $_SESSION['pc_hash'] != '' && ($_SESSION['pc_hash'] == $_POST['pc_hash'])) {
             return true;
         } else {
             showmessage('哈希校验失败，请重新登录');
