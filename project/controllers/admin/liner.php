@@ -85,7 +85,6 @@ class Liner extends CI_Admin
         $data = array();
         $this->load->bll('liner_bll');
         //获取游轮公司
-        $data['liner_id'] = $id;
         if (!empty($id)) {
             $liner = $this->liner_bll->get_room_by_id($id);
             $data['data'] = $liner;
@@ -99,7 +98,6 @@ class Liner extends CI_Admin
     public function save_room()
     {
         $liner = $this->input->post('liner');
-
         $this->load->bll('liner_bll');
         if (empty($liner['liner_room_id'])) {
             $r = $this->liner_bll->insert_room($liner);

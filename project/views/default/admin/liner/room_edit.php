@@ -60,7 +60,8 @@
                 <td colspan="3">
                     <input type="submit" id="btn" class="button" value="提交">
                     <input type="button" id="btn" class="button" value="返回" onclick="history.back();">
-                    <input type="hidden" name="liner[liner_id]" value="<?php echo $liner_id; ?>">
+                    <input type="hidden" id="img_id"  name="liner[img_id]" value="" />
+                    <input type="hidden" name="liner[liner_id]" value="<?php echo $data['liner_id']; ?>">
                     <input type="hidden" name="liner[liner_room_id]" value="<?php echo $data['liner_room_id']; ?>">
                 </td>
             </tr>
@@ -98,7 +99,7 @@
             doForm($('#form1').attr('action'),$('#form1').serialize(), function(data){
                 _alert(data.msg, function(){
                     if(data.state){
-                        location.href = '<?php echo for_url('admin', 'liner','room_list', array($liner_id)); ?>';
+                        location.href = '<?php echo for_url('admin', 'liner','room_list', array($data['liner_id'])); ?>';
                     }
                 })
                 return ;
@@ -141,6 +142,11 @@
             });*/
     }
     function submit_ckeditor(data){
+        if($('a[name=a-handle]').size() >= 1)
+        {
+            _alert('只能添加一个图片');
+            return ;
+        }
         /*var d = window.top.art.dialog({id:uploadid}).iframe;
         console.log($(d))
         var in_content = d.$("#att-status").html();*/
@@ -156,7 +162,7 @@
                     if(data.state){
                         var _tmp = $(html).clone();
                         _tmp.find('img').attr({'src':data.path});
-                        _tmp.find('#img_id').attr({'value':data.attachment_id});
+                        $('#img_id').attr({'value':data.attachment_id});
                         $('#fsUploadProgress').append(_tmp);
                     }
 
@@ -174,6 +180,5 @@
             <a href="javascript:;" name="a-handle" title="双击删除" class="on"><div class="icon"></div>
                 <img width="80" src="" title="双击删除"></a>
         </div>
-        <input type="hidden" id="img_id"  name="liner[img_id]" value="" />
     </li>
 </script>

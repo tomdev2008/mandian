@@ -24,7 +24,7 @@
                 file_size_limit: "2048",
                 file_types: "*.jpg;*.jpeg;*.gif;*.png;*.bmp",
                 file_types_description: "All Files",
-                file_upload_limit: "1",
+                file_upload_limit: 0,
                 custom_settings: {progressTarget: "fsUploadProgress", cancelButtonId: "btnCancel"},
                 button_image_url: "",
                 button_width: 75,
