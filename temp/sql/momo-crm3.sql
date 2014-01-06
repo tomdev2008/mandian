@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50613
 File Encoding         : 65001
 
-Date: 2014-01-03 18:47:33
+Date: 2014-01-06 12:02:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -6795,6 +6795,32 @@ INSERT INTO `crm_attachment_img` VALUES ('6763', '201312300414582755.jpg', '1388
 INSERT INTO `crm_attachment_img` VALUES ('6764', '201312300414582756.jpg', '1388742714');
 
 -- ----------------------------
+-- Table structure for crm_floor_facility
+-- ----------------------------
+DROP TABLE IF EXISTS `crm_floor_facility`;
+CREATE TABLE `crm_floor_facility` (
+  `facility_id` int(11) NOT NULL AUTO_INCREMENT,
+  `floor_num` int(11) NOT NULL COMMENT '楼层id',
+  `type_name` varchar(40) NOT NULL COMMENT '类型名称',
+  `facility_name` varchar(100) NOT NULL COMMENT '设施名称',
+  `img_id` int(11) NOT NULL COMMENT '图片ID',
+  `facility_introduce` text NOT NULL COMMENT '简介',
+  `liner_id` int(8) NOT NULL COMMENT '邮轮id',
+  `enabled` tinyint(3) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`facility_id`),
+  KEY `floor_id` (`floor_num`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='邮轮设施表';
+
+-- ----------------------------
+-- Records of crm_floor_facility
+-- ----------------------------
+INSERT INTO `crm_floor_facility` VALUES ('19', '3', '娱乐', '娱乐ktv，不能唱歌的ktv', '6437', '<p>krv ，KRV？</p>', '16', '1');
+INSERT INTO `crm_floor_facility` VALUES ('20', '3', '餐厅', '意大利餐厅', '6440', '好大一个404', '16', '1');
+INSERT INTO `crm_floor_facility` VALUES ('21', '2', '娱乐', '测试', '6764', '<p>23223232324324324<br/></p>', '16', '1');
+INSERT INTO `crm_floor_facility` VALUES ('22', '23', '餐饮', '测试', '6764', '<p>23223232324324324<br/></p>', '16', '0');
+INSERT INTO `crm_floor_facility` VALUES ('23', '20', '餐饮', '测试', '6764', '<p>23223232324324324<br/></p>', '16', '0');
+
+-- ----------------------------
 -- Table structure for crm_hotel
 -- ----------------------------
 DROP TABLE IF EXISTS `crm_hotel`;
@@ -7138,10 +7164,6 @@ CREATE TABLE `crm_liner` (
 -- ----------------------------
 INSERT INTO `crm_liner` VALUES ('10', '海洋水手号', 'Mariner of the Seas', '1384704000', '138000', '311', '48', '15', '1557', '3114', '0', '220', '22', '皇家加勒比国际邮轮是全球第一大邮轮品牌，旗下拥有22艘大型现代邮轮，遍布全球六大洲72个国家270多个最美丽的目的地。2013年夏季，皇家加勒比旗下名列全球十大邮轮之列，亚洲史上最大邮轮：“海洋水手号”在上海、天津和香港璀璨亮相，为中国客人带来欧美现代邮轮假期。以规模、创意和品质第一著称的皇家加勒比邮轮，是独一无二的邮轮品牌，皇家加勒比式体验是地图上找不到的目的地！ 海洋水手号邮轮上分布着各种餐厅、酒吧和咖啡馆，您可尽情享受饕餮盛宴的美味诱惑；这里还拥有世界一流的演出阵容与环境设施，眩目的经典百老汇舞台剧、冰上芭蕾秀、大型魔术表演、杂技表演等轮番上场；梦工厂明星大巡游和3D电影，都是孩子们的最爱，而“海上历奇青少年活动中心”更是让孩子们在娱乐中学习。 在海洋水手号邮轮上，您可以在甲板上晨跑或去海景健身房，练瑜珈或是约上好友来一场晨间篮球赛，也可以尝试征服海上攀岩墙；漫步于皇家加勒比邮轮独一无二的皇家大道上，全新“品牌专卖店”里陈列的时尚新品令人流连忘返，一晃神，总觉得身处浪漫的巴黎或是繁华的纽约。优美的环境加上平易近人的价格，为您带来畅爽的海上购物之旅。', '皇家加勒比游轮公司', '1');
 INSERT INTO `crm_liner` VALUES ('11', '大西洋号', 'Atlantica', '1384790400', '8', '292', '32', '0', '0', '2114', '920', '', '24', '<p>歌诗达大西洋号(Atlantica)邮轮是您体验新奇休闲之旅的最佳选择。您将亲身感受到意大利人的热情好客，品尝地道的意大利的美食。秉承意大利歌诗达邮轮的一贯优良传统，大西洋号逐渐成为歌诗达公司新的旗舰邮轮，您还在等什么，快来亲自感受一下吧。大西洋号为各位宾客准备了3个游泳池，其中一个配有可伸缩屋顶，可以将中央泳池变成11，000平方英尺的日光泳池，无论外面天气如何，您都可以在甲板上享受到游泳的畅快，本船还专门为小朋友们配备的专用游泳池。</p>', '歌诗达邮轮', '1');
-INSERT INTO `crm_liner` VALUES ('12', '', null, '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '', '', '0');
-INSERT INTO `crm_liner` VALUES ('13', '', null, '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '', '', '0');
-INSERT INTO `crm_liner` VALUES ('14', '', null, '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '', '', '0');
-INSERT INTO `crm_liner` VALUES ('15', '', null, '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '', '', '0');
 INSERT INTO `crm_liner` VALUES ('16', '大西洋号2', 'Atlantica', '1384790400', '8', '292', '32', '0', '0', '2114', '920', '', '24', '<p>歌诗达大西洋号(Atlantica)邮轮是您体验新奇休闲之旅的最佳选择。您将亲身感受到意大利人的热情好客，品尝地道的意大利的美食。秉承意大利歌诗达邮轮的一贯优良传统，大西洋号逐渐成为歌诗达公司新的旗舰邮轮，您还在等什么，快来亲自感受一下吧。大西洋号为各位宾客准备了3个游泳池，其中一个配有可伸缩屋顶，可以将中央泳池变成11，000平方英尺的日光泳池，无论外面天气如何，您都可以在甲板上享受到游泳的畅快，本船还专门为小朋友们配备的专用游泳池。</p>', '皇家加勒比游轮公司', '1');
 
 -- ----------------------------
@@ -7182,7 +7204,7 @@ CREATE TABLE `crm_liner_room` (
   `enabled` tinyint(3) NOT NULL DEFAULT '1',
   PRIMARY KEY (`liner_room_id`),
   KEY `liner_id` (`liner_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='邮轮房型表';
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COMMENT='邮轮房型表';
 
 -- ----------------------------
 -- Records of crm_liner_room
@@ -7192,13 +7214,16 @@ INSERT INTO `crm_liner_room` VALUES ('22', '10', '内舱客房 K/L/M/N/Q', '内�
 INSERT INTO `crm_liner_room` VALUES ('23', '11', '标准内舱', 'IC', '2', '13', '0', '1', '6462', '一张双人大床或两张单人床、私人带淋浴浴室和洗手间、电吹风、电视和电话、无窗。', '1');
 INSERT INTO `crm_liner_room` VALUES ('24', '11', '标准海景', 'EC', '2', '14', '0', '4', '6463', '两张单人床（可合并为双人大床，另有额外的2张可收放上层床），小酒吧，保险箱、电视机、电话，淋浴、吹风机与梳妆区的独立卫生间，24小时客舱服务。舷窗，不可打开。', '1');
 INSERT INTO `crm_liner_room` VALUES ('25', '11', '标准阳台', 'BC', '2', '19', '1', '5', '6464', '设施：两张单人床（可合并为双人大床），私人阳台，小酒吧，冰箱、保险箱、电视机、电话，淋浴、吹风机与梳妆区的独立卫生间，24小时客舱服务。\r\n预估楼层：5层', '1');
-INSERT INTO `crm_liner_room` VALUES ('26', '11', '标准套房', 'S', '2', '100', '1', '5', '6465', '<p>两张单人床（可改成大床），沙发（部分为双人沙发床），独立卫浴空间，梳妆台与吹风机，液晶电视机，电话，保险柜，冰箱，热水壶。</p>', '1');
+INSERT INTO `crm_liner_room` VALUES ('26', '11', '标准套房', 'S', '2', '100', '1', '5', '6761', '<p>两张单人床（可改成大床），沙发（部分为双人沙发床），独立卫浴空间，梳妆台与吹风机，液晶电视机，电话，保险柜，冰箱，热水壶。</p>', '1');
 INSERT INTO `crm_liner_room` VALUES ('27', '0', '测试', null, '1', '1', null, '1', '0', '<p>111111111<br/></p>', '1');
 INSERT INTO `crm_liner_room` VALUES ('28', '0', '测试', null, '11', '222', null, '1', '0', '<p>3123123123123<br/></p>', '1');
 INSERT INTO `crm_liner_room` VALUES ('29', '10', '标准内舱', 'IC', '2', '13', '0', '1', '6462', '一张双人大床或两张单人床、私人带淋浴浴室和洗手间、电吹风、电视和电话、无窗。', '1');
 INSERT INTO `crm_liner_room` VALUES ('30', '10', '标准海景', 'EC', '2', '14', '0', '4', '6463', '两张单人床（可合并为双人大床，另有额外的2张可收放上层床），小酒吧，保险箱、电视机、电话，淋浴、吹风机与梳妆区的独立卫生间，24小时客舱服务。舷窗，不可打开。', '1');
 INSERT INTO `crm_liner_room` VALUES ('31', '10', '标准阳台', 'BC', '2', '19', '1', '5', '6464', '设施：两张单人床（可合并为双人大床），私人阳台，小酒吧，冰箱、保险箱、电视机、电话，淋浴、吹风机与梳妆区的独立卫生间，24小时客舱服务。\r\n预估楼层：5层', '1');
 INSERT INTO `crm_liner_room` VALUES ('32', '10', '标准套房', 'S', '2', '100', '1', '5', '6465', '<p>两张单人床（可改成大床），沙发（部分为双人沙发床），独立卫浴空间，梳妆台与吹风机，液晶电视机，电话，保险柜，冰箱，热水壶。</p>', '1');
+INSERT INTO `crm_liner_room` VALUES ('33', '0', 'eeee', null, '2', '2', null, '2', '6761', '<p>2222</p>', '1');
+INSERT INTO `crm_liner_room` VALUES ('34', '16', 'eeee', null, '3', '3', null, '3', '6763', '<p>33333</p>', '1');
+INSERT INTO `crm_liner_room` VALUES ('35', '16', '666', null, '6', '6', null, '6', '6764', '<p>66666</p>', '0');
 
 -- ----------------------------
 -- Table structure for crm_plane
@@ -7918,5 +7943,5 @@ CREATE TABLE `crm_users` (
 -- ----------------------------
 -- Records of crm_users
 -- ----------------------------
-INSERT INTO `crm_users` VALUES ('10006', 'c@c.com', 'admin', 'e10adc3', '', '', '0', '2013-12-17', '0', '2013-12-17 15:33:25', '1', '2014-01-03 16:36:33', '127.0.0.1', '200', '0', '', '', '', '', '', '0', '', '', '1', '1');
+INSERT INTO `crm_users` VALUES ('10006', 'c@c.com', 'admin', 'e10adc3', '', '', '0', '2013-12-17', '0', '2013-12-17 15:33:25', '1', '2014-01-06 11:01:46', '127.0.0.1', '202', '0', '', '', '', '', '', '0', '', '', '1', '1');
 INSERT INTO `crm_users` VALUES ('10011', 'c@c.com', 'user1', '698d51a', '', '', '0', '2013-12-30', '0', '2013-12-30 23:14:05', '0', '0000-00-00 00:00:00', '', '0', '0', '', '', '', '', '', '0', '', '', '1', '0');
