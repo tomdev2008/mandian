@@ -90,7 +90,7 @@
             </tr>
             <tr>
                 <td width="80">行程天数</td>
-                <td><input type="text" value="<?php echo $data['days'] ?>" size="10" id="days" class="input-text" name="liner[days]"></td>(天)
+                <td><input type="text" value="<?php echo $data['days'] ?>" size="10" id="days" class="input-text" name="liner[days]">(天)</td>
                 <td></td>
             </tr>
             <tr>
