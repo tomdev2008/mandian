@@ -84,6 +84,7 @@ class Liner extends CI_Admin
     {
         $data = array();
         $this->load->bll('liner_bll');
+        $data['liner_id'] = $id;
         //获取游轮公司
         if (!empty($id)) {
             $liner = $this->liner_bll->get_room_by_id($id);
@@ -152,6 +153,72 @@ class Liner extends CI_Admin
         }
         if ($r) {
             showmessage('删除成功',for_url('admin','liner','index'));
+        } else {
+            showmessage('删除失败');
+        }
+    }
+
+    /**
+     * -------------------------
+     * 楼层管理
+     * -------------------------
+     */
+
+    function floor_list($liner_id = null)
+    {
+        if(empty($liner_id)){
+            showmessage('出错了');
+        }
+        $this->load->bll('liner_bll');
+        $data['liner_id'] = $liner_id;
+        $data['rows'] = $this->liner_bll->get_floor_list($liner_id);
+        $this->view( '/admin/public/pager_header');
+        $this->view( '/admin/liner/floor_list', $data);
+        $this->view( '/admin/public/pager_footer');
+    }
+
+    function floor_facility_edit($liner_id = null, $facility_id = null)
+    {
+        if(empty($liner_id))
+        {
+            showmessage('获取id失败');
+        }
+        $this->load->bll('liner_bll');
+        if(!empty($facility_id))
+        {
+            $facility = $this->liner_bll->get_floor_by_id($facility_id);
+            $data['data'] = $facility;
+        }
+        $this->view( '/admin/public/pager_header');
+        $this->view( '/admin/liner/facility_edit', $data);
+        $this->view( '/admin/public/pager_footer');
+
+    }
+
+    function save_facility()
+    {
+        $facility = $this->input->post('data');
+        $this->load->bll('liner_bll');
+        if (empty($facility['facility_id'])) {
+            $r = $this->liner_bll->insert_facility($facility);
+        } else {
+            $r = $this->liner_bll->update_facility($facility);
+        }
+        if ($r) {
+            exit('{"state":true,"msg":"保存成功"}') ;
+        } else {
+            exit('{"state":false,"msg":"保存失败"}') ;
+        }
+    }
+
+    public function del_facility($facility_id = null, $liner_id = null)
+    {
+        $this->load->bll('liner_bll');
+        if (!empty($facility_id)) {
+            $r = $this->liner_bll->del_facility($facility_id);
+        }
+        if ($r) {
+            showmessage('删除成功',for_url('admin','liner','floor_list', array($liner_id)));
         } else {
             showmessage('删除失败');
         }

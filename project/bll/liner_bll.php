@@ -30,21 +30,6 @@ class Liner_bll extends CI_Bll
         return $this->liner_model->get_list($page, $rows);
     }
 
-    /**
-     * 获取邮轮房间信息
-     * @param null $liner_id
-     * @return bool
-     */
-    function get_room_list($liner_id = null){
-        return $this->liner_model->get_room_list($liner_id);
-    }
-
-    function get_room_by_id($id = null)
-    {
-        return $this->liner_model->get_room_by_id($id);
-    }
-
-
     function get_list_count()
     {
         return $this->liner_model->get_list_count();
@@ -80,6 +65,15 @@ class Liner_bll extends CI_Bll
      * @param null $liner_id
      * ----------------------------------------------
      */
+    function get_room_list($liner_id = null){
+        return $this->liner_model->get_room_list($liner_id);
+    }
+
+    function get_room_by_id($id = null)
+    {
+        return $this->liner_model->get_room_by_id($id);
+    }
+
     function insert_room($post = array())
     {
         return $this->liner_model->insert_room($post);
@@ -95,4 +89,32 @@ class Liner_bll extends CI_Bll
         return $this->liner_model->del_room($id);
     }
 
+    /**
+     * ----------------------------------------------
+     * 楼层设施管理
+     * ----------------------------------------------
+     */
+    function get_floor_list($liner_id = null){
+        return $this->liner_model->get_floor_list($liner_id);
+    }
+
+    function get_floor_by_id($id = null)
+    {
+        return $this->liner_model->get_floor_by_id($id);
+    }
+
+    function insert_facility($post = array())
+    {
+        return $this->liner_model->insert_facility($post);
+    }
+
+    function update_facility($post = array())
+    {
+        return $this->liner_model->update_facility($post);
+    }
+
+    public function del_facility($id = null)
+    {
+        return $this->liner_model->del_facility($id);
+    }
 }

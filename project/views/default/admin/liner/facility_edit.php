@@ -14,27 +14,30 @@
     <div class="content-wrap">
         <!--表格-->
         <table width="100%" class="table-form contentWrap">
-            <form name="frm" id="form1" action="<?php echo for_url('admin', 'liner','save_room'); ?>"  method="post">
+            <form name="frm" id="form1" action="<?php echo for_url('admin', 'liner','save_facility'); ?>"  method="post">
             <tbody>
             <tr>
-                <td width="80">房型名称</td>
-                <td><input type="text" value="<?php echo $data['room_name'] ?>" size="30" id="room_name" class="input-text" name="liner[room_name]"></td>
-                <td><div id="room_nameTip" class="input-tip"></div></td>
+                <td width="80">设施类型</td>
+                <td>
+                    <select name="data[type_name]" id="type_name">
+                        <option value="娱乐">娱乐</option>
+                        <option value="餐饮">餐饮</option>
+                    </select>
+                    <script type="text/javascript">
+                        $('#type_name').val('<?php echo $data['type_name'] ?>');
+                    </script>
+                </td>
+                <td></td>
             </tr>
             <tr>
-                <td width="80">入住人数</td>
-                <td><input type="text" value="<?php echo $data['people_num'] ?>" size="10" id="people_num" class="input-text" name="liner[people_num]"></td>
-                <td><div id="people_numTip" class="input-tip"></div></td>
-            </tr>
-            <tr>
-                <td width="80">住房面积</td>
-                <td><input type="text" value="<?php echo $data['room_area'] ?>" size="10" id="room_area" class="input-text" name="liner[room_area]"></td>
-                <td><div id="room_areaTip" class="input-tip"></div></td>
+                <td width="80">设施名称</td>
+                <td><input type="text" value="<?php echo $data['facility_name'] ?>" size="30" id="facility_name" class="input-text" name="data[facility_name]"></td>
+                <td><div id="facility_nameTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">所在楼层</td>
-                <td><input type="text" value="<?php echo $data['room_floor'] ?>" size="10" id="room_floor" class="input-text" name="liner[room_floor]"></td>
-                <td><div id="room_floorTip" class="input-tip"></div></td>
+                <td><input type="text" value="<?php echo $data['floor_num'] ?>" size="10" id="floor_num" class="input-text" name="data[floor_num]"></td>
+                <td><div id="floor_numTip" class="input-tip"></div></td>
             </tr>
             <tr>
                 <td width="80">图片</td>
@@ -52,7 +55,7 @@
             <tr>
                 <td width="80">设施简介</td>
                 <td>
-                    <textarea style="width: 600px;" class="input-text" id="introduce" name="liner[introduce]"><?php echo $data['introduce'] ?></textarea>
+                    <textarea style="width: 600px;" class="input-text" id="facility_introduce" name="data[facility_introduce]"><?php echo $data['facility_introduce'] ?></textarea>
                 </td>
                 <td></td>
             </tr>
@@ -60,9 +63,9 @@
                 <td colspan="3">
                     <input type="submit" id="btn" class="button" value="提交">
                     <input type="button" id="btn" class="button" value="返回" onclick="history.back();">
-                    <input type="hidden" id="img_id"  name="liner[img_id]" value="" />
-                    <input type="hidden" name="liner[liner_id]" value="<?php echo $liner_id; ?>">
-                    <input type="hidden" name="liner[liner_room_id]" value="<?php echo $data['liner_room_id']; ?>">
+                    <input type="hidden" id="img_id"  name="data[img_id]" value="" />
+                    <input type="hidden" name="data[liner_id]" value="<?php echo $data['liner_id']; ?>">
+                    <input type="hidden" name="data[facility_id]" value="<?php echo $data['facility_id']; ?>">
                 </td>
             </tr>
             </tbody>
@@ -90,24 +93,24 @@
     $(function(){
 
         //编辑器
-        UE.getEditor("introduce");
+        UE.getEditor("facility_introduce");
         //验证
         $.formValidator.initConfig({formID:"form1",theme:'ArrowSolidBox',mode:'AutoTip',onError:function(msg){
             _alert(msg,'error')
         }, onSuccess: function(){
-            $("#introduce").val(UE.getEditor('introduce').getContent());
+            $("#facility_introduce").val(UE.getEditor('facility_introduce').getContent());
             doForm($('#form1').attr('action'),$('#form1').serialize(), function(data){
                 _alert(data.msg, function(){
                     if(data.state){
-                        location.href = '<?php echo for_url('admin', 'liner','room_list', array($liner_id)); ?>';
+                        location.href = '<?php echo for_url('admin', 'liner','floor_list', array($data['liner_id'])); ?>';
                     }
                 })
                 return ;
             });
         },inIframe:true});
 
-        $("#room_name").formValidator({onShow:"请输入名称",onFocus:"不能为空",onCorrect:""}).inputValidator({onError:"不能为空,请确认"}).defaultPassed();
-        $("#people_num").formValidator({onShow:"请输入的入住人数",onFocus:"不能为空",onCorrect:"正确"}).inputValidator({onError:"请确认"}).defaultPassed();
+        $("#facility_name").formValidator({onShow:"请输入设施名称",onFocus:"不能为空",onCorrect:"正确"}).inputValidator({onError:"不能为空,请确认"}).defaultPassed();
+        $("#floor_num").formValidator({onShow:"请输入的楼层",onFocus:"不能为空",onCorrect:"正确"}).inputValidator({onError:"请确认"}).defaultPassed();
         $.formValidator.reloadAutoTip();
 
         $('#form1').submit(function(){

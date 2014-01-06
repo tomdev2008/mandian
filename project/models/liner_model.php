@@ -186,4 +186,58 @@ class Liner_model extends CI_Model
         //return $this->db->delete('crm', array('liner_id' => intval($id)));
     }
 
+    /**
+     * ----------------------------------------------
+     * 楼层设施管理
+     * ----------------------------------------------
+     */
+    function get_floor_list($liner_id = null){
+        if(!empty($liner_id)){
+            $this->db->where("liner_id", $liner_id);
+        }
+        $this->db->select('*');
+        $this->db->from('crm_floor_facility');
+        $this->db->where("enabled", 1);
+        $this->db->order_by('floor_num desc, type_name asc');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function get_floor_by_id($id = null)
+    {
+        $this->db->where('facility_id', intval($id));
+        $this->db->select('*');
+        $this->db->where("enabled", 1);
+        $this->db->from('crm_floor_facility');
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+    function insert_facility($post = array())
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'facility_id') {
+                $data[$key] = $val;
+            }
+        }
+        return $this->db->insert('crm_floor_facility', $data);
+    }
+
+    function update_facility($post = array())
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'facility_id') {
+                $data[$key] = $val;
+            }
+        }
+        $this->db->where('facility_id', $post['facility_id']);
+        return $this->db->update('crm_floor_facility', $data);
+    }
+
+    public function del_facility($id = null)
+    {
+        $this->db->where('facility_id', intval($id));
+        $data['enabled'] = 0;
+        return $this->db->update('crm_floor_facility', $data);
+    }
 }
