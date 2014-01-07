@@ -41,7 +41,7 @@
                                         </li>
                                     <?php }else{ ?>
                                         <li class="<?php if($t == 'basic_info'){ echo 'tabs-selected';} ?>">
-                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','edit', array($liner_id)); ?>" style="height: 25px; line-height: 25px;">
+                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','basic_info', array($liner_id)); ?>" style="height: 25px; line-height: 25px;">
                                                 <span class="tabs-title">基本信息</span>
                                             </a
                                         </li>
