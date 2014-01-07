@@ -33,6 +33,9 @@ class Attachment extends CI_Admin
             $json = $this->json->encode($json);
             exit($json);
         }
+        $data['_callback'] = $this->input->get_post('_callback');
+        $data['_t'] = 'swf';
+        $this->view('/admin/attachment/header', $data);
         $this->view('/admin/attachment/swfupload');
     }
 
@@ -43,6 +46,9 @@ class Attachment extends CI_Admin
         $rows = 6;
         $r['rows'] = $this->attachment_bll->get_img_list($page, $rows);
         $r['total'] = ceil( $this->attachment_bll->get_img_list_count() / $rows);
+        $data['_callback'] = $this->input->get_post('_callback');
+        $data['_t'] = 'db';
+        $this->view('/admin/attachment/header', $data);
         $this->view('/admin/attachment/db_list', $r);
     }
 

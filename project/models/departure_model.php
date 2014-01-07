@@ -1,11 +1,11 @@
 <?php
+
 /**
  * 用户表
  * liner: Administrator
  * Date: 13-12-16
  * Time: 下午3:35
  */
-
 class Departure_model extends CI_Model
 {
 
@@ -27,9 +27,9 @@ class Departure_model extends CI_Model
         return $query->result_array();
     }
 
-    function get_departure_list($branch_id = null){
-        if(empty($branch_id))
-        {
+    function get_departure_list($branch_id = null)
+    {
+        if (empty($branch_id)) {
             return array();
         }
         $this->db->select('*');
@@ -42,8 +42,7 @@ class Departure_model extends CI_Model
 
     function search_place($val = null)
     {
-        if(empty($val))
-        {
+        if (empty($val)) {
             return array();
         }
         $this->db->select('place_id,place_name');
@@ -52,5 +51,14 @@ class Departure_model extends CI_Model
         $this->db->order_by("place_id", "desc");
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+    function get_place_by_id($id = null)
+    {
+        $this->db->where('place_id', intval($id));
+        $this->db->select('place_id,place_name');
+        $this->db->from('crm_place');
+        $query = $this->db->get();
+        return $query->row_array();
     }
 }

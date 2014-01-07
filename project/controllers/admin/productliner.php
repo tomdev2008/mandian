@@ -10,15 +10,15 @@ class Productliner extends CI_Admin
 
     public function index()
     {
-        $this->load->bll('liner_bll');
+        $this->load->bll('productliner_bll');
         //用户权限验证
         $page = intval($this->input->get_post('p'));
         $rows = 20;
-        $r['rows'] = $this->liner_bll->get_list($page, $rows);
-        $r['total'] = ceil($this->liner_bll->get_list_count() / $rows);
+        $r['rows'] = $this->productliner_bll->get_list($page, $rows);
+        $r['total'] = ceil($this->productliner_bll->get_list_count() / $rows);
 
         $this->view('/admin/public/pager_header');
-        $this->view('/admin/liner/index', $r);
+        $this->view('/admin/productliner/index', $r);
         $this->view('/admin/public/pager_footer');
     }
 
@@ -28,7 +28,7 @@ class Productliner extends CI_Admin
      * @param null $id
      * -------------------------------------------
      */
-    function search_place( $place = null )
+    function search_place($place = null)
     {
         $this->lib('json');
         $this->load->bll('departure_bll');
@@ -48,6 +48,7 @@ class Productliner extends CI_Admin
         $data = array();
         //...获取邮轮公司
         $this->load->bll('liner_bll');
+        $this->load->bll('departure_bll');
         $liners = $this->liner_bll->get_list();
         $liner_list = array();
         foreach ($liners as $val) {
@@ -65,9 +66,18 @@ class Productliner extends CI_Admin
         if (!empty($id)) {
             $liner = $this->productliner_bll->get_by_id($id);
             $data['data'] = $liner;
+            $data['data']['end_list'] = array();
+            foreach (explode(',', $liner['end']) as $val) {
+                $data['data']['end_list'][] = $this->departure_bll->get_place_by_id($val);
+            }
+            $data['data']['way_to_list'] = array();
+            foreach (explode(',', $liner['way_to_port']) as $val) {
+                $data['data']['way_to_list'][] = $this->departure_bll->get_place_by_id($val);
+            }
+            $data['data']['sub_img_list'] = $this->productliner_bll->get_product_imgs_str($id);
         }
         $this->view('/admin/public/pager_header');
-        $this->view('/admin/public/productliner_header');
+        $this->view('/admin/public/productliner_header', array('liner_id' => $id));
         $this->view('/admin/productliner/basic_info', $data);
         $this->view('/admin/public/pager_footer');
 
@@ -76,13 +86,25 @@ class Productliner extends CI_Admin
     function basic_info_update()
     {
         $liner = $this->input->get_post('liner');
-        pp($liner);
+        $this->load->bll('productliner_bll');
+        //... 数据准备
+        $liner['end'] = implode(",", $liner['end']);
+        $liner['way_to_port'] = implode(",", $liner['way_to_port']);
+        $liner['shelves_endtime'] = strtotime($liner['shelves_endtime']);
+        $liner['cheap'] = '1';
 
-        $this->load->bll('liner_bll');
-        if (empty($liner['liner_id'])) {
-            $r = $this->liner_bll->insert($liner);
+        $img_list = $liner['sub_img'];
+        unset($liner['sub_img']);
+        //pp($liner);
+        if (empty($liner['pro_id'])) {
+            $liner['add_time'] = time();
+            $r = $this->productliner_bll->insert_product($liner);
+            $liner['pro_id'] = $r;
         } else {
-            $r = $this->liner_bll->update($liner);
+            $r = $this->productliner_bll->update_product($liner);
+        }
+        if ($r) {
+            $r = $this->productliner_bll->update_product_imgs($img_list, $liner['pro_id']);
         }
         if ($r) {
             exit('{"state":true,"msg":"保存成功"}');
@@ -119,5 +141,19 @@ class Productliner extends CI_Admin
     function other_info()
     {
 
+    }
+
+
+    public function del($id = null)
+    {
+        $this->load->bll('productliner_bll');
+        if (!empty($id)) {
+            $r = $this->productliner_bll->del($id);
+        }
+        if ($r) {
+            showmessage('删除成功', for_url('admin', 'productliner', 'index'));
+        } else {
+            showmessage('删除失败');
+        }
     }
 }

@@ -36,4 +36,13 @@ class Departure_bll extends CI_Bll
         }
         return $this->departure_model->search_place($val);
     }
+
+    function get_place_by_id($id = null)
+    {
+        if(empty($id))
+        {
+            return array();
+        }
+        return $this->departure_model->get_place_by_id($id);
+    }
 }
