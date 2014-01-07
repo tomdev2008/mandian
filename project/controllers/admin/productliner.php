@@ -77,7 +77,7 @@ class Productliner extends CI_Admin
             $data['data']['sub_img_list'] = $this->productliner_bll->get_product_imgs_str($id);
         }
         $this->view('/admin/public/pager_header');
-        $this->view('/admin/public/productliner_header', array('liner_id' => $id));
+        $this->view('/admin/public/productliner_header', array('liner_id' => $id, 't' => 'basic_info'));
         $this->view('/admin/productliner/basic_info', $data);
         $this->view('/admin/public/pager_footer');
 
@@ -118,9 +118,33 @@ class Productliner extends CI_Admin
      * 参考行程
      * -------------------------------------------
      */
-    function refer_trip()
+    function refer_trip($id = null)
     {
+        if(empty($id))
+        {
+            showmessage('出错了');
+        }
+        $this->load->bll('productliner_bll');
+        $liner = $this->productliner_bll->get_by_id($id);
+        $days = $liner['days'];
+        $trips = $this->productliner_bll->get_trips($id);
+        $data = array();
+        for($i = 0; $i < $days; $i++)
+        {
+            $data['trip'][] = isset($trips[$i]) ? $trips[$i] : array();
+        }
 
+        $this->view('/admin/public/pager_header');
+        $this->view('/admin/public/productliner_header', array('liner_id' => $id, 't' => 'refer_trip'));
+        $this->view('/admin/productliner/refer_trip', $data);
+        $this->view('/admin/public/pager_footer');
+    }
+
+    function refer_trip_update()
+    {
+        $liner = $this->input->get_post('liner');
+        $this->load->bll('productliner_bll');
+        pp($_POST);
     }
 
     /**
@@ -130,7 +154,13 @@ class Productliner extends CI_Admin
      */
     function trip_price()
     {
+        $this->load->bll('productliner_bll');
+    }
 
+    function trip_price_update()
+    {
+        $liner = $this->input->get_post('liner');
+        $this->load->bll('productliner_bll');
     }
 
     /**

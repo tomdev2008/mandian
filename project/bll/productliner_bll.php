@@ -97,4 +97,17 @@ class Productliner_bll extends CI_Bll
         }
         return implode(',', $r);
     }
+
+    /**
+     * 获取线路
+     * @param null $pro_id
+     * @return bool
+     */
+    function get_trips($pro_id = null)
+    {
+        if (empty($pro_id)) {
+            return false;
+        }
+        return $this->productliner_model->get_trips($pro_id);
+    }
 }

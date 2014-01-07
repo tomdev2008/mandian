@@ -128,6 +128,18 @@ class Productliner_model extends CI_Model
     }
 
 
+    function get_trips($pro_id = null)
+    {
+        if (empty($pro_id)) {
+            return false;
+        }
+        $this->db->select('*');
+        $this->db->where('pro_id', intval($pro_id));
+        $this->db->from('crm_liner_trip');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
 
 
 

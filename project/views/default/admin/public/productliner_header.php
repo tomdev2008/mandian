@@ -19,7 +19,7 @@
                         <div class="tabs-header">
                             <div class="tabs-wrap" style="margin-left: 0px; margin-right: 0px; width: 5004px;">
                                 <ul class="tabs" style="height: 26px;">
-                                    <?php if(empty($data['liner_id'])){ ?>
+                                    <?php if(empty($liner_id)){ ?>
                                         <li class="tabs-selected">
                                             <a class="tabs-inner" href="javascript:" style="height: 25px; line-height: 25px;">
                                                 <span class="tabs-title">基本信息</span>
@@ -40,22 +40,22 @@
                                             </a>
                                         </li>
                                     <?php }else{ ?>
-                                        <li class="tabs-selected">
-                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','edit', array($data['liner_id'])); ?>" style="height: 25px; line-height: 25px;">
+                                        <li class="<?php if($t == 'basic_info'){ echo 'tabs-selected';} ?>">
+                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','edit', array($liner_id)); ?>" style="height: 25px; line-height: 25px;">
                                                 <span class="tabs-title">基本信息</span>
                                             </a
                                         </li>
-                                        <li class="">
-                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','refer_trip', array($data['liner_id'])); ?>" style="height: 25px; line-height: 25px;">
+                                        <li class="<?php if($t == 'refer_trip'){ echo 'tabs-selected';} ?>">
+                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','refer_trip', array($liner_id)); ?>" style="height: 25px; line-height: 25px;">
                                                 <span class="tabs-title">参考行程</span></a>
                                         </li>
-                                        <li class="">
-                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','trip_price', array($data['liner_id'])); ?>" style="height: 25px; line-height: 25px;">
+                                        <li class="<?php if($t == 'trip_price'){ echo 'tabs-selected';} ?>">
+                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','trip_price', array($liner_id)); ?>" style="height: 25px; line-height: 25px;">
                                                 <span class="tabs-title">价格/库存</span>
                                             </a>
                                         </li>
-                                        <li class="">
-                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','other_info', array($data['liner_id'])); ?>" style="height: 25px; line-height: 25px;">
+                                        <li class="<?php if($t == 'other_info'){ echo 'tabs-selected';} ?>">
+                                            <a class="tabs-inner" href="<?php echo for_url('admin','productliner','other_info', array($liner_id)); ?>" style="height: 25px; line-height: 25px;">
                                                 <span class="tabs-title">其他信息</span>
                                             </a>
                                         </li>
