@@ -99,7 +99,7 @@ class Productliner_bll extends CI_Bll
     }
 
     /**
-     * 获取线路
+     * 线路管理
      * @param null $pro_id
      * @return bool
      */
@@ -110,4 +110,24 @@ class Productliner_bll extends CI_Bll
         }
         return $this->productliner_model->get_trips($pro_id);
     }
+
+    function insert_product_trip($post = array())
+    {
+        return $this->productliner_model->insert_product_trip($post);
+    }
+
+    function update_product_trip($post = array())
+    {
+        return $this->productliner_model->update_product_trip($post);
+    }
+
+    function del_product_trip($pro_id = null)
+    {
+        if(empty($pro_id))
+        {
+            return false;
+        }
+        return $this->productliner_model->del_product_trip($pro_id);
+    }
+
 }

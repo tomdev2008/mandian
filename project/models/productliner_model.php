@@ -128,6 +128,12 @@ class Productliner_model extends CI_Model
     }
 
 
+    /**
+     * ---------------------------------------
+     * 线路管理
+     * @param array $post
+     * ---------------------------------------
+     */
     function get_trips($pro_id = null)
     {
         if (empty($pro_id)) {
@@ -136,8 +142,43 @@ class Productliner_model extends CI_Model
         $this->db->select('*');
         $this->db->where('pro_id', intval($pro_id));
         $this->db->from('crm_liner_trip');
+        $this->db->order_by("liner_trip_id", "asc");
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+    function insert_product_trip($post = array())
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'liner_trip_id') {
+                $data[$key] = $val;
+            }
+        }
+        $r = $this->db->insert('crm_liner_trip', $data);
+        if ($r) {
+            return $this->db->insert_id();
+        }
+        return $r;
+    }
+
+    function update_product_trip($post = array())
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'liner_trip_id') {
+                $data[$key] = $val;
+            }
+        }
+        $this->db->where('liner_trip_id', $post['liner_trip_id']);
+        return $this->db->update('crm_liner_trip', $data);
+    }
+
+    function del_product_trip($pro_id = null)
+    {
+        if(empty($pro_id))
+        {
+            return false;
+        }
+        return $this->db->delete('crm_liner_trip', array('pro_id' => intval($pro_id)));
     }
 
 

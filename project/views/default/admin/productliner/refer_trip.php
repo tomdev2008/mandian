@@ -11,37 +11,37 @@
                     </thead>
                     <tr>
                         <td width="80">行程名称</td>
-                        <td><input type="text" value="<?php echo $val['']; ?>" size="50" class="input-text" name="liner[<?php echo $key; ?>][destination]"></td>
+                        <td><input type="text" value="<?php echo $val['destination']; ?>" size="50" class="input-text" name="liner[<?php echo $key; ?>][destination]"></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td width="80">行程描述</td>
                         <td colspan="2">
-                            <textarea name="liner[<?php echo $key; ?>][des_info]" style="width: 500px; height: 150px"><?php echo $val['']; ?></textarea>
+                            <textarea name="liner[<?php echo $key; ?>][des_info]" style="width: 500px; height: 150px"><?php echo $val['des_info']; ?></textarea>
                         </td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <td width="80">产品主图</td>
                         <td colspan="2">
                             <div id="p" class="easyui-panel" title="只能选择一个图片" style="width:560px;padding:5px;">
                                 <p>
-                                    <a href="javascript:picHelper.flashuploadMain(<?php echo $key; ?>);" id="add-com" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加图片</a>[双击删除图片]
+                                    <a href="javascript:picHelper.flashuploadMain(<?php //echo $key; ?>);" id="add-com" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加图片</a>[双击删除图片]
                                 <ul class="attachment-list" id="fsUploadProgress">
                                     <script type="text/javascript">
                                         $(function(){
-                                            picHelper.submitCkeditorMain('<?php echo $val['']; ?>');
+                                            picHelper.submitCkeditorMain('<?php //echo $val['']; ?>');
                                         });
                                     </script>
                                 </ul>
                                 </p>
                             </div>
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td width="80">时间安排</td>
                         <td colspan="2" width="80">
-                            到港时间：<input type="text" value="<?php echo $val['']; ?>" size="20" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input-text" name="liner[<?php echo $key; ?>][arrive]">
-                            离港时间：<input type="text" value="<?php echo $val['']; ?>" size="20"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input-text" name="liner[<?php echo $key; ?>][leave]">
+                            到港时间：<input type="text" value="<?php echo (!empty($val['arrive'])) ? date('Y-m-d H:i:s',$val['arrive']): ''; ?>" size="20" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input-text" name="liner[<?php echo $key; ?>][arrive]">
+                            离港时间：<input type="text" value="<?php echo (!empty($val['leave'])) ? date('Y-m-d H:i:s',$val['leave']): ''; ?>" size="20"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input-text" name="liner[<?php echo $key; ?>][leave]">
                         </td>
                     </tr>
                     <tr>
@@ -51,7 +51,7 @@
                                 <option value="1">船上</option>
                                 <option value="2">其他</option>
                             </select>
-                            <input type="text" id="hotel_info_other" value="<?php echo $data['shelves_endtime'] ?>" size="30" class="input-text hide"  name="liner[<?php echo $key; ?>][hotel_info_other]">
+                            <input type="text" id="hotel_info_other" value="" size="30" class="input-text hide"  name="liner[<?php echo $key; ?>][hotel_info_other]">
                             <script type="text/javascript">
                                 $('#liner_<?php echo $key; ?>_hotel_info').change(function(){
                                     if($(this).val() == 2){
@@ -59,7 +59,17 @@
                                     }else{
                                         $('#hotel_info_other').hide();
                                     }
-                                }).val('value="<?php echo $val['']; ?>"');
+                                });
+                                switch('<?php echo $val['hotel_info']; ?>')
+                                {
+                                    case '1':
+                                        $('#liner_<?php echo $key; ?>_hotel_info').val(1);
+                                        break;
+                                    default:
+                                        $('#liner_<?php echo $key; ?>_hotel_info').val(2);
+                                        $('#hotel_info_other').val('<?php echo $val['hotel_info']; ?>').show();
+                                        break;
+                                }
                             </script>
                         </td>
                         <td></td>
@@ -67,9 +77,9 @@
                     <tr>
                         <td width="80">餐饮</td>
                         <td colspan="2">
-                            早：<input type="text" value="<?php echo $val['']; ?>" size="30" class="input-text" name="liner[<?php echo $key; ?>][breakfast]">
-                            中：<input type="text" value="<?php echo $val['']; ?>" size="30" class="input-text" name="liner[<?php echo $key; ?>][lunch]">
-                            晚：<input type="text" value="<?php echo $val['']; ?>" size="30" class="input-text" name="liner[<?php echo $key; ?>][dinner]">
+                            早：<input type="text" value="<?php echo $val['breakfast']; ?>" size="30" class="input-text" name="liner[<?php echo $key; ?>][breakfast]">
+                            中：<input type="text" value="<?php echo $val['lunch']; ?>" size="30" class="input-text" name="liner[<?php echo $key; ?>][lunch]">
+                            晚：<input type="text" value="<?php echo $val['dinner']; ?>" size="30" class="input-text" name="liner[<?php echo $key; ?>][dinner]">
                         </td>
                     </tr>
                     <tr>
@@ -82,7 +92,7 @@
                                 <option value="4">轮船</option>
                                 <option value="5">其他</option>
                             </select>
-                            <input type="text" id="traffic_other" value="<?php echo $data['shelves_endtime'] ?>" size="30" class="input-text hide"  name="liner[<?php echo $key; ?>][traffic_other]">
+                            <input type="text" id="traffic_other" value="" size="30" class="input-text hide"  name="liner[<?php echo $key; ?>][traffic_other]">
                             <script type="text/javascript">
                                 $('#liner_<?php echo $key; ?>_traffic').change(function(){
                                     if($(this).val() == 5){
@@ -90,7 +100,20 @@
                                     }else{
                                         $('#traffic_other').hide();
                                     }
-                                }).val('<?php echo $data['shelves'] ?>');
+                                });
+                                switch('<?php echo $val['traffic']; ?>')
+                                {
+                                    case '1':
+                                    case '2':
+                                    case '3':
+                                    case '4':
+                                        $('#liner_<?php echo $key; ?>_traffic').val(<?php echo $val['traffic']; ?>);
+                                        break;
+                                    default:
+                                        $('#liner_<?php echo $key; ?>_traffic').val(5);
+                                        $('#traffic_other').val(<?php echo $val['traffic']; ?>).show();
+                                        break;
+                                }
                             </script>
 
                         </td>
@@ -98,7 +121,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <input type="hidden" name="liner[<?php echo $key; ?>][liner_trip_id]" value="<?php echo $val['']; ?>">
+                <input type="hidden" name="liner[<?php echo $key; ?>][liner_trip_id]" value="<?php echo $val['liner_trip_id']; ?>">
                 <p>&nbsp;</p>
             <?php } ?>
 
@@ -107,7 +130,7 @@
             <tbody>
             <tr>
                 <td>
-                    <input type="hidden" name="liner[pro_id]" value="<?php echo $val['']; ?>">
+                    <input type="hidden" name="liner[pro_id]" value="<?php echo $pro_id; ?>">
                     <input type="submit" rel="btn" class="button" value="保存并下一步">
                 </td>
             </tr>
@@ -133,16 +156,16 @@
 <script type="text/javascript">
     $(function(){
 
-       /* $('#form1').submit(function(){
+       $('#form1').submit(function(){
             doForm($('#form1').attr('action'),$('#form1').serialize(), function(data){
                 _alert(data.msg, function(){
                     if(data.state){
-                        location.href = '<?php echo for_url('admin', 'productliner','basic_info', array( $data['pro_id'])); ?>';
+                        location.href = '<?php echo for_url('admin', 'productliner','refer_trip', array( $pro_id)); ?>';
                     }
                 })
                 return ;
             });
-            return false;*/
+            return false;
         });
     });
 
@@ -183,35 +206,6 @@
                             $('#fsUploadProgress').append(_tmp);
                         }
 
-                    },
-                    error: function () {
-                        _alert('出错了');
-                    }
-                });
-            });
-        },
-        flashuploadSub: function () {
-            var iTop = (window.screen.availHeight - 550) / 2;
-            var iLeft = (window.screen.availWidth - 640) / 2;
-            window.open('<?php echo for_url('admin', 'attachment', 'swfupload' ,'?_callback=picHelper.submitCkeditorSub'); ?>', '选择图片', 'height=460, width=500, top=' + iTop + ', left=' + iLeft + ', toolbar=no, menubar=no, scrollbars=no, resizable=no,location=n o, status=no');
-        },
-
-        submitCkeditorSub: function (data) {
-            var ids = data.split(',');
-            var html = $('#img-temp').html();
-            $.each(ids, function (i, n) {
-                $.ajax({
-                    url: '<?php echo for_url('admin','attachment','get_img'); ?>',
-                    type: 'post',
-                    data: 'id=' + n,
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.state) {
-                            var _tmp = $(html).clone();
-                            _tmp.find('img').attr({'src': data.path});
-                            _tmp.append('<input type="hidden" name="liner[sub_img][]" value="' + data.attachment_id + '" />');
-                            $('#fsUploadProgressSub').append(_tmp);
-                        }
                     },
                     error: function () {
                         _alert('出错了');
