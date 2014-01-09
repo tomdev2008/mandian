@@ -173,15 +173,110 @@ class Productliner extends CI_Admin
      * 价格库存
      * -------------------------------------------
      */
-    function trip_price()
+    function trip_price($pro_id = null)
     {
         $this->load->bll('productliner_bll');
+        $data['rows'] = $this->productliner_bll->get_room_type($pro_id);
+        $data['pro_id'] = $pro_id;
+
+        $this->view('/admin/public/pager_header');
+        $this->view('/admin/public/productliner_header', array('pro_id' => $pro_id, 't' => 'trip_price'));
+        $this->view('/admin/productliner/trip_price', $data);
+        $this->view('/admin/public/pager_footer');
     }
 
-    function trip_price_update()
+    function calendar_room_edit($type_id = null, $year = null,$month = null)
+    {
+        if (empty($type_id)) {
+            showmessage('出错了');
+        }
+        $data['type_id'] = $type_id;
+        $data['calendar'] = $this->get_calendar($type_id, $year, $month);
+        $data['datestr'] = (empty($year) || empty($month))? date('Ym'): $year . '' .$month;
+        $this->view('/admin/public/pager_header');
+        $this->view('/admin/productliner/calendar_room_edit', $data);
+        $this->view('/admin/public/pager_footer');
+    }
+
+    function calendar_room_update()
+    {
+        $liner = $this->input->get_post('liner');
+        if (empty($liner['type_id'])) {
+            exit('{"state":false,"msg":"保存失败"}');
+        }
+        $this->load->bll('productliner_bll');
+        $r = $this->productliner_bll->update_room($liner);
+
+        if ($r) {
+            exit('{"state":true,"msg":"保存成功"}');
+        } else {
+            exit('{"state":false,"msg":"保存失败"}');
+        }
+    }
+
+    /**
+     * 准备日历
+     * @return mixed
+     */
+    function get_calendar($type_id = null, $year = null,$month = null)
+    {
+        $prefs = array (
+            'show_next_prev'  => TRUE,
+            'next_prev_url'   => for_url('admin', 'productliner', 'calendar_room_edit', array($type_id)),
+            'template' => $this->view('/admin/public/calenda_template', null, true),
+        );
+        $this->lib('calendar', $prefs);
+        $time = time();
+        $year = empty($year)? date('Y', $time): $year;
+        $month = empty($month)? date('m', $time):  $month;
+        return $this->calendar->generate($year, $month);
+    }
+
+    function room_date()
+    {
+        $type_id = $this->input->get_post('type_id');
+        $date = $this->input->get_post('date');
+        $this->load->bll('productliner_bll');
+        $data = $this->productliner_bll->room_date_list($type_id, $date);
+        $this->lib('json');
+        exit($this->json->encode($data));
+    }
+
+
+    function add_room_type($pro_id = null)
+    {
+        if (empty($pro_id)) {
+            showmessage('出错了');
+        }
+        $this->load->bll('productliner_bll');
+        $this->load->bll('liner_bll');
+        //已选择房型
+        $room_types = $this->productliner_bll->get_room_type($pro_id);
+        $data['room_type'] = array();
+        foreach($room_types as $id)
+        {
+            $data['room_type'][] = $id;
+        }
+        //邮轮房型
+        $liner = $this->productliner_bll->get_by_id($pro_id);
+        $data['rows'] = $this->liner_bll->get_room_list($liner['liner_id']);
+        $data['pro_id'] = $pro_id;
+
+        $this->view('/admin/public/pager_header');
+        $this->view('/admin/productliner/add_room_type', $data);
+        $this->view('/admin/public/pager_footer');
+    }
+
+    function add_room_action()
     {
         $liner = $this->input->get_post('liner');
         $this->load->bll('productliner_bll');
+        $r = $this->productliner_bll->update_room_type($liner['pro_id'], $liner['liner_room_id']);
+        if ($r) {
+            exit('{"state":true,"msg":"保存成功"}');
+        } else {
+            exit('{"state":false,"msg":"保存失败"}');
+        }
     }
 
     /**

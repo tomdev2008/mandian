@@ -130,4 +130,76 @@ class Productliner_bll extends CI_Bll
         return $this->productliner_model->del_product_trip($pro_id);
     }
 
+    /**
+     * 价格库存
+     */
+    function get_room_type($pro_id = null)
+    {
+        if(empty($pro_id))
+        {
+            return false;
+        }
+        return $this->productliner_model->get_room_type($pro_id);
+    }
+
+    function update_room_type($pro_id = null, $room_ids = array())
+    {
+        if(empty($pro_id))
+        {
+            return false;
+        }
+        $this->productliner_model->del_room_type($pro_id);
+
+        foreach($room_ids as $room_id){
+            $r = $this->productliner_model->insert_room_type($pro_id, $room_id);
+            if(!$r)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function room_date_list($type_id = null, $date = null)
+    {
+        if(empty($type_id))
+        {
+            return false;
+        }
+        $date = empty($date) ? date('Ymd', time()) : $date . '01' ;
+        $time = strtotime($date);
+        $start_date = mktime(0, 0, 0, date('m', $time), 1, date('Y', $time));
+        $end_date = mktime(0, 0, 0, date('m', $time), date('t', $time), date('Y', $time));
+        $r = $this->productliner_model->room_date_list($type_id, $start_date, $end_date);
+        foreach($r as &$val){
+            list($val['y'], $val['m'], $val['d']) = array(date('Y', $val['set_out_time']), date('m', $val['set_out_time']), date('j', $val['set_out_time']));
+        }
+        return $r;
+    }
+
+    /**
+     * 更新room表
+     * @return bool
+     */
+    function update_room($post = array())
+    {
+        if(empty($post['type_id']))
+        {
+            return false;
+        }
+        $this->productliner_model->del_rooms($post['type_id']);
+
+        $days = $post['days'];
+        $datestr = $post['date_str'];
+        unset($post['days'], $post['date_str']);
+        foreach($days as $d){
+            $post['set_out_time'] = strtotime($datestr . str_pad($d, 2, '0', STR_PAD_LEFT));
+            $r = $this->productliner_model->insert_rooms($post);
+            if(!$r)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

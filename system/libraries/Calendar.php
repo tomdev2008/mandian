@@ -264,11 +264,11 @@ class CI_Calendar {
 	{
 		if ($this->month_type == 'short')
 		{
-			$month_names = array('01' => 'cal_jan', '02' => 'cal_feb', '03' => 'cal_mar', '04' => 'cal_apr', '05' => 'cal_may', '06' => 'cal_jun', '07' => 'cal_jul', '08' => 'cal_aug', '09' => 'cal_sep', '10' => 'cal_oct', '11' => 'cal_nov', '12' => 'cal_dec');
+            $month_names = array('01' => 'cal_一', '02' => 'cal_二', '03' => 'cal_三', '04' => 'cal_四', '05' => 'cal_五', '06' => 'cal_六', '07' => 'cal_七', '08' => 'cal_八', '09' => 'cal_九', '10' => 'cal_十', '11' => 'cal_十一', '12' => 'cal_十二');
 		}
 		else
 		{
-			$month_names = array('01' => 'cal_january', '02' => 'cal_february', '03' => 'cal_march', '04' => 'cal_april', '05' => 'cal_mayl', '06' => 'cal_june', '07' => 'cal_july', '08' => 'cal_august', '09' => 'cal_september', '10' => 'cal_october', '11' => 'cal_november', '12' => 'cal_december');
+			$month_names = array('01' => 'cal_一月', '02' => 'cal_二月', '03' => 'cal_三月', '04' => 'cal_四月', '05' => 'cal_五月', '06' => 'cal_六月', '07' => 'cal_七月', '08' => 'cal_八月', '09' => 'cal_九月', '10' => 'cal_十月', '11' => 'cal_十一月', '12' => 'cal_十二月');
 		}
 
 		$month = $month_names[$month];
@@ -300,15 +300,15 @@ class CI_Calendar {
 
 		if ($this->day_type == 'long')
 		{
-			$day_names = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
+			$day_names = array('星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六');
 		}
 		elseif ($this->day_type == 'short')
 		{
-			$day_names = array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat');
+            $day_names = array('日', '一', '二', '三', '四', '五', '六');
 		}
 		else
 		{
-			$day_names = array('su', 'mo', 'tu', 'we', 'th', 'fr', 'sa');
+            $day_names = array('日', '一', '二', '三', '四', '五', '六');
 		}
 
 		$days = array();

@@ -100,7 +100,7 @@ class CI_Action extends CI_Controller
         if (empty($act)) {
             $act = '/' . $this->router->fetch_module() . '/' . $this->router->fetch_class() . '/' . $this->router->fetch_method();
         }
-        $this->load->view($this->module . $act, $data, $return);
+        return $this->load->view($this->module . $act, $data, $return);
     }
 
     /**

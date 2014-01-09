@@ -174,214 +174,94 @@ class Productliner_model extends CI_Model
 
     function del_product_trip($pro_id = null)
     {
-        if(empty($pro_id))
-        {
+        if (empty($pro_id)) {
             return false;
         }
         return $this->db->delete('crm_liner_trip', array('pro_id' => intval($pro_id)));
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
-     * 获取邮轮公司
-     * @return mixed
+     * 价格库存
      */
-    function get_company_list()
+    function get_room_type($pro_id = null)
     {
-        $this->db->select('*');
-        $this->db->from('crm_liner_com');
-        $this->db->order_by("com_id", "desc");
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-
-    /**
-     * 用户
-     * @param int $page
-     * @param int $rows
-     * @return mixed
-     */
-
-    function get($liner_name = null, $pwd = null)
-    {
-        if (empty($liner_name)) {
+        if (empty($pro_id)) {
             return false;
         }
-        $this->db->where('liner_name', $liner_name);
-        $this->db->where('password', $pwd);
         $this->db->select('*');
-        $this->db->join('crm_roles', 'crm_roles.role_id = crms.role_id', 'left');
-        $this->db->from('crm_liner');
+        $this->db->where('pro_id', intval($pro_id));
+        $this->db->from('crm_room_type');
+        $this->db->join('crm_liner_room', 'crm_liner_room.liner_room_id = crm_room_type.liner_room_id', 'left');
+        $this->db->order_by("crm_liner_room.liner_room_id", "asc");
         $query = $this->db->get();
-        return $query->row_array();
+        return $query->result_array();
+    }
+
+    function del_room_type($pro_id = null)
+    {
+        if (empty($pro_id)) {
+            return false;
+        }
+        return $this->db->delete('crm_room_type', array('pro_id' => intval($pro_id)));
+    }
+
+    function insert_room_type($pro_id = null, $room_id = null)
+    {
+        if (empty($pro_id) || empty($room_id)) {
+            return false;
+        }
+        $data['pro_id'] = $pro_id;
+        $data['liner_room_id'] = $room_id;
+        $r = $this->db->insert('crm_room_type', $data);
+        if ($r) {
+            return $this->db->insert_id();
+        }
+        return $r;
+    }
+
+    function room_date_list($type_id = null, $start_date = null, $end_date = null)
+    {
+        if (empty($type_id)) {
+            return false;
+        }
+
+        $this->db->select('*');
+        $this->db->where('type_id', intval($type_id));
+        $this->db->where('set_out_time >=', intval($start_date));
+        $this->db->where('set_out_time <=', intval($end_date));
+
+        $this->db->from('crm_room');
+        $this->db->order_by("set_out_time", "asc");
+
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
     /**
-     * 获取邮轮房间信息
-     * @param null $liner_id
+     * 库存添加
+     * @param null $type_id
      * @return bool
      */
-    function get_room_list($liner_id = null)
+    function del_rooms($type_id = null)
     {
-        if (!empty($liner_id)) {
-            $this->db->where("liner_id", $liner_id);
+        if (empty($type_id)) {
+            return false;
         }
-        $this->db->select('*');
-        $this->db->from('crm_liner_room');
-        $this->db->where("enabled", 1);
-        $this->db->order_by("liner_room_id", "desc");
-        $query = $this->db->get();
-        return $query->result_array();
+        return $this->db->delete('crm_room', array('type_id' => intval($type_id)));
     }
 
-    function get_room_by_id($id = null)
-    {
-        $this->db->where('liner_room_id', intval($id));
-        $this->db->select('*');
-        $this->db->where("enabled", 1);
-        $this->db->from('crm_liner_room');
-        $query = $this->db->get();
-        return $query->row_array();
-    }
-
-    /**
-     * ----------------------------------------------
-     * 房间管理
-     * @param null $liner_id
-     * ----------------------------------------------
-     */
-    function insert_room($post = null)
+    function insert_rooms($post = null)
     {
         foreach ($post as $key => $val) {
-            if ($key != 'liner_room_id') {
+            if ($key != 'trip_id') {
                 $data[$key] = $val;
             }
         }
-        return $this->db->insert('crm_liner_room', $data);
-    }
-
-    function update_room($post = array())
-    {
-        foreach ($post as $key => $val) {
-            if ($key != 'liner_room_id') {
-                $data[$key] = $val;
-            }
+        $r = $this->db->insert('crm_room', $data);
+        if ($r) {
+            return $this->db->insert_id();
         }
-        $this->db->where('liner_room_id', $post['liner_room_id']);
-        return $this->db->update('crm_liner_room', $data);
-    }
-
-
-    public function del_room($id = null)
-    {
-        $this->db->where('liner_room_id', intval($id));
-        $data['enabled'] = 0;
-        return $this->db->update('crm_liner_room', $data);
-    }
-
-
-    /**
-     * ----------------------------------------------
-     * 邮轮管理
-     * @param null $liner_id
-     * ----------------------------------------------
-     */
-    function insert($post = array())
-    {
-        foreach ($post as $key => $val) {
-            if ($key != 'liner_id') {
-                $data[$key] = $val;
-            }
-        }
-        return $this->db->insert('crm_liner', $data);
-    }
-
-    function insert_com($com_name = null)
-    {
-        $data['com_name'] = $com_name;
-        return $this->db->insert('crm_liner_com', $data);
-    }
-
-    function update($post = array())
-    {
-
-        foreach ($post as $key => $val) {
-            if ($key != 'liner_id') {
-                $data[$key] = $val;
-            }
-        }
-        $this->db->where('liner_id', $post['liner_id']);
-        return $this->db->update('crm_liner', $data);
-    }
-
-    /**
-     * ----------------------------------------------
-     * 楼层设施管理
-     * ----------------------------------------------
-     */
-    function get_floor_list($liner_id = null)
-    {
-        if (!empty($liner_id)) {
-            $this->db->where("liner_id", $liner_id);
-        }
-        $this->db->select('*');
-        $this->db->from('crm_floor_facility');
-        $this->db->where("enabled", 1);
-        $this->db->order_by('floor_num desc, type_name asc');
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-
-    function get_floor_by_id($id = null)
-    {
-        $this->db->where('facility_id', intval($id));
-        $this->db->select('*');
-        $this->db->where("enabled", 1);
-        $this->db->from('crm_floor_facility');
-        $query = $this->db->get();
-        return $query->row_array();
-    }
-
-    function insert_facility($post = array())
-    {
-        foreach ($post as $key => $val) {
-            if ($key != 'facility_id') {
-                $data[$key] = $val;
-            }
-        }
-        return $this->db->insert('crm_floor_facility', $data);
-    }
-
-    function update_facility($post = array())
-    {
-        foreach ($post as $key => $val) {
-            if ($key != 'facility_id') {
-                $data[$key] = $val;
-            }
-        }
-        $this->db->where('facility_id', $post['facility_id']);
-        return $this->db->update('crm_floor_facility', $data);
-    }
-
-    public function del_facility($id = null)
-    {
-        $this->db->where('facility_id', intval($id));
-        $data['enabled'] = 0;
-        return $this->db->update('crm_floor_facility', $data);
+        return $r;
     }
 }

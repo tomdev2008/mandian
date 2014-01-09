@@ -58,8 +58,8 @@
             </tr>
         </table>
         <!--表格-->
+        <form name="frm" id="form1" action="<?php echo for_url('admin', 'liner','save'); ?>"  method="post">
         <table width="100%" class="table-form contentWrap">
-            <form name="frm" id="form1" action="<?php echo for_url('admin', 'liner','save'); ?>"  method="post">
             <tbody>
             <tr>
                 <td width="80">邮轮名称</td>
@@ -152,8 +152,8 @@
                 </td>
             </tr>
             </tbody>
-            </form>
         </table>
+        </form>
         <!--/表格-->
 
     </div>
