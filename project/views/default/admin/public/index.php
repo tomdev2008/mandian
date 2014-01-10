@@ -14,19 +14,23 @@
     <link href="/public/resource/css/admin.css" rel="stylesheet"/>
 
     <!-- easyui -->
-    <link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/default/easyui.css" rel="stylesheet"/>
+    <link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/metro-orange/easyui.css" rel="stylesheet"/>
     <script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
     <script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
 
 </head>
 <body class="easyui-layout">
-<div data-options="region:'north',border:false" style="height:60px;padding:0px">
-    <div style="background-color:#600; width: 100%; height: 60px; color: #fff; overflow: hidden">
-        <div style="font-size: 20px; height: 60px;  line-height: 30px; text-align: left; padding: 10px; width: 50%; float: left;">后台</div>
-        <div style=" width: 20%;float: right; height: 60px; font-size: 14px; font-weight: bold; line-height: 30px; padding: 10px; text-align: right;">
-            <?php echo $user_name; ?>&nbsp;[<?php echo $role_name; ?>]&nbsp;
-            <a href="javascript:logOut();" >退出</a>&nbsp;&nbsp;
+<div data-options="region:'north',border:false" style="height:74px;padding:0px">
+    <div id="header">
+        <div class="logo">
         </div>
+        <p>
+            <a href="javascript:logOut();">退出管理</a>
+            <a href="<?php echo for_url('admin', 'index', 'index') ?>">后台首页</a>
+            <a href="#" target='_blank'>站点首页</a>
+            <span>您好 <label class='bold'><?php echo $user_name; ?></label>，
+            当前身份 <label class='bold'><?php echo $role_name; ?></label></span>
+        </p>
     </div>
 </div>
 <div data-options="region:'west',split:true,title:'导航'" style="width:220px;padding:5px;">

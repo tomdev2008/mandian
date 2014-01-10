@@ -26,10 +26,6 @@
  * -------------------------------------------------------------------
  */
 
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
-header("Cache-Control: no-cache, must-revalidate");
-header("Pragma: no-cache");
-
 define('ENVIRONMENT', 'development');
 if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
@@ -88,6 +84,8 @@ define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
 // The path to the "application" folder
 define('APPPATH', $application_folder . '/');
 
+date_default_timezone_set('Asia/Shanghai');
+define('TimeZone', +8.0);
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

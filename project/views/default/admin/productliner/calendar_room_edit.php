@@ -25,7 +25,7 @@
             <tbody>
             <tr>
                 <td width="100">市场价</td>
-                <td><input type="text" value="" size="6" id="" name="liner[market_price]" class="input-text"></td>
+                <td><input type="text" value="" size="6" id="market_price" name="liner[market_price]" class="input-text"></td>
             </tr>
             <tr>
                 <td width="100">成人价</td>
@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td width="100">单房差</td>
-                <td><input type="text" value="" size="6" id="" name="liner[diff_room_price]" class="input-text"></td>
+                <td><input type="text" value="" size="6" id="diff_room_price" name="liner[diff_room_price]" class="input-text"></td>
             </tr>
             <tr>
                 <td width="100">库存</td>
@@ -50,13 +50,13 @@
             <tr>
                 <td colspan="2">
                     <p>起价说明</p>
-                    <textarea  class="input-text" id="introduce" name="liner[trip_description]"></textarea>
+                    <textarea  class="input-text" id="trip_description" name="liner[trip_description]"></textarea>
                 </td>
             </tr>
             <tr>
                 <td width="100">是否第三/四人</td>
                 <td>
-                    <select name="liner[is_kid]">
+                    <select id="is_kid" name="liner[is_kid]">
                         <option value="0">否</option>
                         <option value="1">是</option>
                     </select>
@@ -64,12 +64,12 @@
             </tr>
             <tr>
                 <td width="100">第三/四人</td>
-                <td><input type="text" value="" name="liner[kid_price]" size="6" id="" class="input-text"></td>
+                <td><input type="text" value="" id="kid_price" name="liner[kid_price]" size="6" id="" class="input-text"></td>
             </tr>
             <tr>
                 <td colspan="2">
                     <p>第三/四人价说明：(400字以内) </p>
-                    <textarea  class="input-text" id="introduce" name="liner[kid_description]"></textarea>
+                    <textarea  class="input-text" id="kid_description" name="liner[kid_description]"></textarea>
                 </td>
             </tr>
             <tr>
@@ -111,7 +111,7 @@
                         var r = '<p>￥：' + v.trip_price + '</p>' +
                             '<p>' + v.sell_num + '/' + v.total_num + '</p>';
                         parent.append(r);
-                        parent.parents('.date-box').addClass('date-box-checked');
+                        parent.parents('.date-box').addClass('date-box-checked').data('data',v);
                     });
                     _d.close();
                 },
@@ -147,8 +147,25 @@
         });
 
         $('.date-box').click(function(){
-            $(this).toggleClass('date-box-checked');
-            var ch = $(this).find(':checkbox');
+            var _this = $(this);
+            //数据
+            var data = _this.data('data');
+            if(typeof data == 'object'){
+                $('#market_price').val(data.market_price)
+                $('#trip_price').val(data.trip_price)
+                $('#sell_num').val(data.sell_num)
+                $('#total_num').val(data.total_num)
+                $('#least').val(data.least)
+                $('#most').val(data.most)
+                $('#is_kid').val(data.is_kid)
+                $('#kid_price').val(data.kid_price)
+                $('#kid_description').val(data.kid_description)
+                $('#trip_description').val(data.trip_description)
+                $('#diff_room_price').val(data.diff_room_price)
+            }
+            //
+            _this.toggleClass('date-box-checked');
+            var ch = _this.find(':checkbox');
             if(ch.attr('checked')){
                 ch.removeAttr('checked');
             }else{
