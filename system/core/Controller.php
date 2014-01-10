@@ -202,7 +202,6 @@ class CI_Admin extends CI_Action
      */
     final public function check_priv()
     {
-        return true;
         if (!$this->is_login) {
             return true;
         }
@@ -210,7 +209,7 @@ class CI_Admin extends CI_Action
         $c = $this->router->fetch_class();
 
         if ($_SESSION['role_id'] == 1) {
-            return true;
+            //return true;
         }
         $this->load->bll('system_bll');
         $act = $this->system_bll->get_sys_by_action($m, $c);
@@ -218,7 +217,7 @@ class CI_Admin extends CI_Action
         $inter = array_intersect($act, $current_act);
 
         if (empty($inter)) {
-            showmessage('您没有权限操作该项', 'blank');
+            showmessage('您没有权限操作该项');
         }
     }
 

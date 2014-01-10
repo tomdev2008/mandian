@@ -63,4 +63,16 @@ class Index extends CI_Admin
         }
         showmessage('登录成功，正在跳转……', for_url('admin', 'index', 'index'));
     }
+
+
+    /**
+     * ---------------------------------------------------
+     * 获取导航
+     * ---------------------------------------------------
+     */
+    function get_admin_menu(){
+        $r = parent::admin_menu();
+        $this->lib('json');
+        exit($this->json->encode($r));
+    }
 }

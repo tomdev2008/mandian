@@ -10,12 +10,6 @@ class System extends CI_Admin
 
 
 
-    function get_admin_menu(){
-        $r = parent::admin_menu();
-        $this->lib('json');
-        exit($this->json->encode($r));
-    }
-
     /**
      * ---------------------------------------------------
      * 系统管理
