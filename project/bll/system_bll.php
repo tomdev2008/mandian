@@ -35,7 +35,11 @@ class System_bll extends CI_Bll
     function get_sys_by_action($m = null,$c = null, $a = null){
 
         $r = $this->_model->get_sys_by_action($m, $c, $a);
-        return $r;
+        $result = array();
+        foreach($r as $act){
+            $result[] = $act['sys_id'];
+        }
+        return $result;
     }
 
     function get_backup_list(){

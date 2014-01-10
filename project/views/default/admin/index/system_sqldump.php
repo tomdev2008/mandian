@@ -11,7 +11,7 @@
     <div class="content-wrap">
         <!--表格-->
         <table width="100%" class="table-form contentWrap">
-            <form name="frm" action="<?php echo for_url('admin', 'index','system_sqldump_act'); ?>" method="post">
+            <form name="frm" action="<?php echo for_url('admin', 'db','system_sqldump_act'); ?>" method="post">
                 <tbody>
                 <tr>
                     <td width="220">备份类型</td>
@@ -98,7 +98,7 @@
 
 <script type="text/javascript">
     function restore(val){
-        location.href='<?php echo for_url('admin', 'index','restoresql_act'); ?>/' + val;
+        location.href='<?php echo for_url('admin', 'db','restoresql_act'); ?>/' + val;
     }
 </script>
 

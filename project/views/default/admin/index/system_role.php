@@ -12,7 +12,7 @@
     <div class="content-wrap">
         <!--表格-->
         <table width="100%" class="table-form contentWrap">
-            <form name="frm" action="<?php echo for_url('admin','index','system_role_act') ; ?>"  method="post">
+            <form name="frm" action="<?php echo for_url('admin','role','system_role_act') ; ?>"  method="post">
             <tbody>
             <tr>
                 <td align="center">

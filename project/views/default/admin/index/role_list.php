@@ -7,7 +7,7 @@
         <tr>
             <td>
                 <div class="explain-col">
-                    <input onclick="location.href = '<?php echo for_url('admin','index','role_add')?>';" type="submit" value="添加角色" class="button" name="search">
+                    <input onclick="location.href = '<?php echo for_url('admin','role','role_add')?>';" type="submit" value="添加角色" class="button" name="search">
                 </div>
             </td>
         </tr>
@@ -68,9 +68,9 @@
             echo '<td>'.(empty($val['enabled']) ? '<font style="color:red;">×</font>' : '<font style="color:green;">√</font>' ).'</td>';
             echo '<td><div style="height: 18px; width: '.$val['rights_per'].'%; background-color:#3A6EA5; font-weight:bold; color:white">&nbsp;'.$val['rights_per'].'%</div></td>';
             echo '<td>';
-            echo '<a href="',for_url('admin','index','role_edit', array($val['role_id'])), '" title="Edit">[编辑]</a>&nbsp;';
+            echo '<a href="',for_url('admin','role','role_edit', array($val['role_id'])), '" title="Edit">[编辑]</a>&nbsp;';
             echo '<a href="javascript:del(', $val['role_id'],');" title="Delete">[删除]</a>&nbsp;';
-            echo '<a href="',for_url('admin','index','role_access', array($val['role_id'])), '" title="Edit Meta">[权限管理]</a>';
+            echo '<a href="',for_url('admin','role','role_access', array($val['role_id'])), '" title="Edit Meta">[权限管理]</a>';
             echo '</td>';
             echo '</tr>';
         }
@@ -82,7 +82,7 @@
 <script>
     function del(id){
         _confirm('确认删除？',function(){
-            location.href = '<?php echo for_url('admin','index','role_del'); ?>' + id;
+            location.href = '<?php echo for_url('admin','role','role_del'); ?>' + id;
         });
     }
 </script>

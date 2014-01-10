@@ -7,7 +7,7 @@
         <tr>
             <td>
                 <div class="explain-col">
-                    <input onclick="location.href = '<?php echo for_url('admin','index','system_add')?>';" type="submit" value="添加系统模块" class="button" name="search">
+                    <input onclick="location.href = '<?php echo for_url('admin','system','system_add')?>';" type="submit" value="添加系统模块" class="button" name="search">
                 </div>
             </td>
         </tr>
@@ -23,7 +23,7 @@
 <script type="text/javascript">
     $(function(){
         $('#tg').treegrid({
-            url: '<?php echo for_url('admin','index','system_list_json'); ?>',
+            url: '<?php echo for_url('admin','system','system_list_json'); ?>',
             height: ( $(window).height() - 60),
             width: 'auto',
             idField:'sys_id',
@@ -47,8 +47,8 @@
                     }},
                     {field: 'op', title: '操作', width: 100, align: 'center', formatter: function (v, d, i) {
                         var op = '';
-                        op += '[<a href="javascript:_del('+ d.sys_id+'\'); }">删除</a>]&nbsp;';
-                        op += '[<a href="'+ crm_base_url + 'admin/index/system_edit/'+ d.sys_id+'">编辑</a>]';
+                        op += '[<a href="javascript:_del('+ d.sys_id+');">删除</a>]&nbsp;';
+                        op += '[<a href="'+ crm_base_url + 'admin/system/system_edit/'+ d.sys_id+'">编辑</a>]';
                         return op;
                     }}
                 ]
@@ -59,19 +59,19 @@
             fitColumns: true,
             nowrap: false,
             onDblClickRow:function(i,d){
-                window.location.href = crm_base_url + '/system/system/system_edit/'+ d.user_id;
+                window.location.href = crm_base_url + '/admin/system/system_edit/'+ d.user_id;
             },
             onLoadError: function(){
                 $.messager.confirm('提示', '获取失败，请重新登陆试试', function(r){
                     if (r){
-                        window.location.href = crm_base_url + 'system/welcome/login';
+                        window.location.href = crm_base_url + 'admin/index/login';
                     }
                 });
             }
         });
     });
-    function del(id){
-        _confirm('确认删除？',function(){location.href = '<?php echo for_url('admin','index','system_del') ;?>'+id;});
+    function _del(id){
+        _confirm('确认删除？',function(){location.href = '<?php echo for_url('admin','system','system_del') ;?>'+id;});
     }
 </script>
 

@@ -47,13 +47,26 @@
     (function(){
 
         $('#tt').tree({
-            url:'<?php echo for_url('admin', 'index', 'get_admin_menu'); ?>',
+            url:'<?php echo for_url('admin', 'system', 'get_admin_menu'); ?>',
             animate:true,
             onClick: function(node){
                 if(typeof node.attributes != 'undefined')
                 {
                     open1( node.text,base_url + node.attributes.url + '?' + Math.random());
                 }
+            },
+            onLoadError: function(){
+                art.dialog({
+                    title: '提示',
+                    content: '获取失败了，重新登录试试',
+                    icon: 'error',
+                    cancelVal: '关闭',
+                    lock: true,
+                    ok: function () {
+                        location.href = '<?php echo for_url('admin', 'index', 'login'); ?>';
+                    },
+                    cancel:function(){}
+                });
             }
         });
 

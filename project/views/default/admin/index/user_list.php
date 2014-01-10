@@ -6,7 +6,7 @@
         <tr>
             <td>
                 <div class="explain-col">
-                    <input onclick="location.href = '<?php echo for_url('admin','index','user_add')?>';" type="submit" value="添加用户" class="button" name="search">
+                    <input onclick="location.href = '<?php echo for_url('admin','user','user_add')?>';" type="submit" value="添加用户" class="button" name="search">
                 </div>
             </td>
         </tr>
@@ -78,9 +78,9 @@
                 echo '<td>'.$val['visit_count'].'</td>';
                 echo '<td>'.(empty($val['enabled']) ? '<font style="color:red;">×</font>' : '<font style="color:green;">√</font>' ).'</td>';
                 echo '<td>';
-                echo '<a href="',for_url('admin','index','user_edit', array($val['user_id'])), '" title="Edit">[编辑]</a>&nbsp;';
+                echo '<a href="',for_url('admin','user','user_edit', array($val['user_id'])), '" title="Edit">[编辑]</a>&nbsp;';
                 echo '<a href="javascript:del(',$val['user_id'],')" title="Delete">[删除]</a>&nbsp;';
-                echo '<a href="',for_url('admin','index','system_role/'.$val['user_id']), '" title="Edit Meta">[角色关联]</a>';
+                echo '<a href="',for_url('admin','role','system_role/'.$val['user_id']), '" title="Edit Meta">[角色关联]</a>';
                 echo '</td>';
                 echo '</tr>';
             }
@@ -96,7 +96,7 @@
 <script>
     function del(id){
         _confirm('确认删除？',function(){
-            location.href = '<?php echo for_url('admin','index','user_del'); ?>' + id;
+            location.href = '<?php echo for_url('admin','user','user_del'); ?>' + id;
         });
     }
 </script>

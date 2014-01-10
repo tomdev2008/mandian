@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <td width="100">成人价</td>
-                <td><input type="text" value="" size="6" id="" name="liner[trip_price]" class="input-text"></td>
+                <td><input type="text" value="" size="6" id="trip_price" name="liner[trip_price]" class="input-text"></td>
             </tr>
             <tr>
                 <td width="100">单房差</td>
@@ -37,15 +37,15 @@
             </tr>
             <tr>
                 <td width="100">库存</td>
-                <td><input type="text" value="" size="6" id="" name="liner[total_num]" class="input-text"></td>
+                <td><input type="text" value="" size="6" id="total_num" name="liner[total_num]" class="input-text"></td>
             </tr>
             <tr>
                 <td width="100">一次最少</td>
-                <td><input type="text" value="" size="6" id="" name="liner[least]" class="input-text"></td>
+                <td><input type="text" value="" size="6" id="least" name="liner[least]" class="input-text"></div></td>
             </tr>
             <tr>
                 <td width="100">一次最多</td>
-                <td><input type="text" value="" size="6" id="" name="liner[most]" class="input-text"></td>
+                <td><input type="text" value="" size="6" id="most" name="liner[most]" class="input-text"></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -128,6 +128,15 @@
         calendar.getTypeList(<?php echo $type_id; ?>);
 
         $('#form1').submit(function(){
+            var trip_price = ($("#trip_price").val());
+            var total_num = ($("#total_num").val());
+            var most = ($("#most").val());
+            var least = ($("#least").val());
+
+            if(trip_price == '' ||total_num == '' ||most == '' ||least == ''){
+                _alert('库存，成人价，人数不能为空');
+                return false;
+            }
             doForm($('#form1').attr('action'),$('#form1').serialize(), function(data){
                 if(data.state){
                     location.reload();

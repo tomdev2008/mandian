@@ -85,7 +85,7 @@ class system_model extends CI_Model
         $this->db->from('crm_system c1');
         $this->db->join('crm_system c2', 'c2.sys_id = c1.sys_parent_id', 'left');
         $query = $this->db->get();
-        return $query->row_array();
+        return $query->result_array();
     }
 
     /**

@@ -24,7 +24,9 @@
     text-align: center;
 }
 
-.date-box:hover{ font-weight: bold}
+.date-box:hover{
+
+}
 
 .date-label{
     text-align: right;

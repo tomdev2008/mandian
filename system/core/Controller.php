@@ -137,17 +137,6 @@ class CI_Admin extends CI_Action
      */
     protected $is_login = true;
 
-    /**
-     * -------------------------
-     * 不需要验证的位置
-     * @var array
-     * -------------------------
-     */
-    private $unpriv = array(
-        'login',
-        'login_act'
-    );
-
     public function __construct()
     {
         parent::__construct();
@@ -168,17 +157,10 @@ class CI_Admin extends CI_Action
         if (!$this->is_login) {
             return true;
         }
-        $m = $this->router->fetch_module();
-        $c = $this->router->fetch_class();
-        $a = $this->router->fetch_method();
 
-        if ($m == 'admin' && $c == 'index' && in_array($a, $this->unpriv)) {
-            return true;
-        } else {
-            $user_id = $this->session->userdata('user_id');
-            if (!isset($_SESSION['user_id']) || !$_SESSION['user_id'] || $user_id != $_SESSION['user_id']) {
-                showmessage('校验失败,请重新登录', for_url('admin', 'index', 'login'));
-            }
+        $user_id = $this->session->userdata('user_id');
+        if (!isset($_SESSION['user_id']) || !$_SESSION['user_id'] || $user_id != $_SESSION['user_id']) {
+            showmessage('校验失败,请重新登录', for_url('admin', 'index', 'login'));
         }
     }
 
@@ -220,24 +202,22 @@ class CI_Admin extends CI_Action
      */
     final public function check_priv()
     {
-
+        return true;
         if (!$this->is_login) {
             return true;
         }
         $m = $this->router->fetch_module();
         $c = $this->router->fetch_class();
-        $a = $this->router->fetch_method();
 
-        if ($m == 'admin' && $c == 'index' && in_array($a, $this->unpriv)) {
-            return true;
-        }
         if ($_SESSION['role_id'] == 1) {
             return true;
         }
         $this->load->bll('system_bll');
-        $act = $this->system_bll->get_sys_by_action($this->router->module, $this->router->class, $this->router->method);
+        $act = $this->system_bll->get_sys_by_action($m, $c);
+        $current_act = unserialize($this->session->userdata('action_list'));
+        $inter = array_intersect($act, $current_act);
 
-        if (empty($act)) {
+        if (empty($inter)) {
             showmessage('您没有权限操作该项', 'blank');
         }
     }

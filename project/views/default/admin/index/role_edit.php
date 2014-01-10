@@ -11,7 +11,7 @@
     <div class="content-wrap">
         <!--表格-->
         <table width="100%" class="table-form contentWrap">
-            <form name="frm" id="form1" action="<?php echo for_url('admin', 'index','role_save'); ?>"  method="post">
+            <form name="frm" id="form1" action="<?php echo for_url('admin', 'role','role_save'); ?>"  method="post">
             <tbody>
             <tr>
                 <td width="80">角色名</td>

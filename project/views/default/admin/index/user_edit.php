@@ -11,7 +11,7 @@
     <div class="content-wrap">
         <!--表格-->
         <table width="100%" class="table-form contentWrap">
-            <form name="form1" id="form1" action="<?php echo for_url('admin','index','user_save'); ?>"  method="post">
+            <form name="form1" id="form1" action="<?php echo for_url('admin','user','user_save'); ?>"  method="post">
                 <tbody>
                 <tr>
                     <td width="80">用户名</td>
