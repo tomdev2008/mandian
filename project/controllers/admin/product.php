@@ -118,31 +118,7 @@ class Product extends CI_Admin
     function pro_details_update()
     {
         $liner = $this->input->get_post('liner');
-        $pro_id = $liner['pro_id'];
-        unset($liner['pro_id']);
-
-        $this->load->bll('product_bll');
-        $this->product_bll->del_product_trip($pro_id);
-
-        foreach ($liner as $l) {
-            if (!empty($l['hotel_info_other'])) {
-                $l['hotel_info'] = $l['hotel_info_other'];
-            }
-            if (!empty($l['traffic_other'])) {
-                $l['traffic'] = $l['traffic_other'];
-            }
-            unset($l['hotel_info_other'], $l['traffic_other']);
-
-            $l['pro_id'] = $pro_id;
-            $l['arrive'] = strtotime($l['arrive']);
-            $l['leave'] = strtotime($l['leave']);
-
-            $r = $this->product_bll->insert_product_trip($l);
-            if (!$r) {
-                exit('{"state":false,"msg":"保存失败"}');
-            }
-        }
-        exit('{"state":true,"msg":"保存成功"}');
+        pp($liner);
     }
 
 

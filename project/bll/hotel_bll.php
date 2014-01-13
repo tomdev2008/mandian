@@ -23,9 +23,9 @@ class Hotel_bll extends CI_Bll
      * @param int $rows
      * @return mixed
      */
-    function get_hotel_list($page = null, $rows = null)
+    function get_hotel_list($page = null, $rows = null, $hotel_name = null)
     {
-        return $this->hotel_model->get_hotel_list($page, $rows);
+        return $this->hotel_model->get_hotel_list($page, $rows, $hotel_name);
     }
 
     function get_hotel_list_count()

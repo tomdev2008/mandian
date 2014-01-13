@@ -24,7 +24,7 @@ class Hotel_model extends CI_Model
      * @param int $rows
      * @return mixed
      */
-    function get_hotel_list($page = null, $rows = null)
+    function get_hotel_list($page = null, $rows = null, $hotel_name =null)
     {
         $this->db->select('*');
         $this->db->from('crm_hotel');
@@ -32,6 +32,11 @@ class Hotel_model extends CI_Model
             $page = ($page <= 1) ?1 :$page ;
             $offset = ($page - 1) * $rows;
             $this->db->limit($rows, $offset);
+        }else{
+            $this->db->limit(50, 0);
+        }
+        if(!empty($train_num)){
+            $this->db->like('hotel_name', $hotel_name, 'both');
         }
         $this->db->where("hotel_enabled", 1);
         $this->db->order_by("hotel_id", "desc");

@@ -8,6 +8,14 @@ class Hotel extends CI_Admin
         parent::__construct();
     }
 
+    function search_hotel(){
+        $this->lib('json');
+        $this->load->bll('hotel_bll');
+        $hotel_name = $this->input->get_post('q');
+        $data = $this->hotel_bll->get_hotel_list(null, null, $hotel_name);
+        exit($this->json->encode($data));
+    }
+
     /**
      * ---------------------------------------------------
      * 酒店管理
