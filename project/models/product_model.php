@@ -6,7 +6,7 @@
  * Date: 13-12-16
  * Time: 下午3:35
  */
-class Productliner_model extends CI_Model
+class Product_model extends CI_Model
 {
 
     var $title = '';
@@ -47,7 +47,7 @@ class Productliner_model extends CI_Model
         return $this->db->update('crm_product', $data);
     }
 
-    function get_list($page = null, $rows = null)
+    function get_list($page = null, $rows = null, $where = array())
     {
         $this->db->select('*');
         $this->db->from('crm_product');
@@ -56,15 +56,27 @@ class Productliner_model extends CI_Model
             $offset = ($page - 1) * $rows;
             $this->db->limit($rows, $offset);
         }
+
+        if(!empty($where)){
+            foreach($where as $key => $val){
+                $this->db->where($key, $val);
+            }
+        }
         $this->db->where("enabled", 1);
         $this->db->order_by("pro_id", "desc");
         $query = $this->db->get();
         return $query->result_array();
     }
 
-    function get_list_count()
+    function get_list_count($where = array())
     {
         $this->db->select('count(*) as acount');
+
+        if(!empty($where)){
+            foreach($where as $key => $val){
+                $this->db->where($key, $val);
+            }
+        }
         $this->db->where("enabled", 1);
         $this->db->from('crm_product');
         $query = $this->db->get();

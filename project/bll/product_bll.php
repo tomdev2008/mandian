@@ -6,7 +6,7 @@
  * Time: 下午3:35
  */
 
-class Productliner_bll extends CI_Bll
+class Product_bll extends CI_Bll
 {
     function __construct()
     {
@@ -24,7 +24,7 @@ class Productliner_bll extends CI_Bll
 
     function insert_product($post = array())
     {
-        $post['pro_type'] = 2;
+        $post['pro_type'] = 1;
         return $this->product_model->insert_product($post);
     }
 
@@ -35,16 +35,15 @@ class Productliner_bll extends CI_Bll
 
     function get_list($page = null, $rows = null, $where = array())
     {
-        $where['pro_type'] = 2;
+        $where['pro_type'] = 1;
         return $this->product_model->get_list($page, $rows, $where);
     }
 
     function get_list_count($where = array())
     {
-        $where['pro_type'] = 2;
+        $where['pro_type'] = 1;
         return $this->product_model->get_list_count($where);
     }
-
 
     function get_by_id($pro_id = null)
     {

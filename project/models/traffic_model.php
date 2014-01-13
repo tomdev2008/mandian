@@ -6,7 +6,7 @@
  * Time: 下午3:35
  */
 
-class Plane_model extends CI_Model
+class Traffic_model extends CI_Model
 {
 
     var $title = '';
@@ -16,10 +16,80 @@ class Plane_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-    } 
+    }
+    /**
+     * 火车
+     * @param int $page
+     * @param int $rows
+     * @return mixed
+     */
+    function get_train_list($page = null, $rows = null)
+    {
+        $this->db->select('*');
+        $this->db->from('crm_train');
+        if(!empty($rows) && !empty($rows)){
+            $page = ($page <= 1) ?1 :$page ;
+            $offset = ($page - 1) * $rows;
+            $this->db->limit($rows, $offset);
+        }
+        $this->db->where("enabled", 1);
+        $this->db->order_by("train_id", "desc");
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function get_train_list_count()
+    {
+        $this->db->select('count(*) as acount');
+        $this->db->where("enabled", 1);
+        $this->db->from('crm_train');
+        $query = $this->db->get();
+        $r = $query->row_array();
+        return $r['acount'];
+    }
+
+    function get_train_by_id($id = null)
+    {
+        $this->db->where('train_id', intval($id));
+        $this->db->select('*');
+        $this->db->where("enabled", 1);
+        $this->db->from('crm_train');
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+    function insert_train($post = array())
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'train_id') {
+                $data[$key] = $val;
+            }
+        }
+        return $this->db->insert('crm_train', $data);
+    }
+
+    function update_train($post = array())
+    {
+
+        foreach ($post as $key => $val) {
+            if ($key != 'train_id') {
+                $data[$key] = $val;
+            }
+        }
+        $this->db->where('train_id', $post['train_id']);
+        return $this->db->update('crm_train', $data);
+    }
+
+    public function del_train($id = null){
+        $this->db->where('train_id', intval($id));
+        $data['enabled'] = 0;
+        return $this->db->update('crm_train', $data);
+        //return $this->db->delete('crm', array('plane_id' => intval($id)));
+    }
+
 
     /**
-     * 用户
+     * 飞机
      * @param int $page
      * @param int $rows
      * @return mixed
