@@ -34,6 +34,11 @@
                     <td><div id="sys_nameTip" class="input-tip"></div></td>
                 </tr>
                 <tr>
+                    <td width="80">模块英文名</td>
+                    <td><input type="text" value="<?php echo $data['sys_enname'] ?>" size="30" class="input-text" id="sys_enname" name="system[sys_enname]"></td>
+                    <td></td>
+                </tr>
+                <tr>
                     <td width="80">模块module</td>
                     <td><input type="text" value="<?php echo $data['sys_module'] ?>" size="30" class="input-text" id="sys_module" name="system[sys_module]"></td>
                     <td><div id="sys_moduleTip" class="input-tip"></div></td>

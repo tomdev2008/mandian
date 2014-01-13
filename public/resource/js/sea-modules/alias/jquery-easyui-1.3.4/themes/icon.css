@@ -59,6 +59,27 @@
 	background:url('icons/tip.png') no-repeat center center;
 }
 
+.icon-options{
+	background:url('icons/options.png') no-repeat center center;
+}
+
+.icon-tag{
+	background:url('icons/tag.png') no-repeat center center;
+}
+
+.icon-male{
+	background:url('icons/male.png') no-repeat center center;
+}
+.icon-application{
+	background:url('icons/application.png') no-repeat center center;
+}
+.icon-base{
+	background:url('icons/base.png') no-repeat center center;
+}
+.icon-group{
+	background:url('icons/group.png') no-repeat center center;
+}
+
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;
 }

@@ -89,13 +89,14 @@ class User_bll extends CI_Bll
                 $result[$val['sys_id']] = array(
                     'id' => $val['sys_id'],
                     'text' => $val['sys_name'],
-                    'children' => array(),
-                    "state" => "closed"
+                    'entext' => $val['sys_enname'],
+                    'children' => array()
                 );
             } else {
                 $result_sub[$val['sys_parent_id']][] = array(
                     'id' => $val['sys_id'],
                     'text' => $val['sys_name'],
+                    'entext' => $val['sys_enname'],
                     'attributes' => array(
                         'url' => $val['sys_module'] .'/'. $val['sys_controller'] . '/' .$val['sys_action'],
                     )

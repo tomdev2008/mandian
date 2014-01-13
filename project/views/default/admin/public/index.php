@@ -14,7 +14,8 @@
     <link href="/public/resource/css/admin.css" rel="stylesheet"/>
 
     <!-- easyui -->
-    <link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/metro-orange/easyui.css" rel="stylesheet"/>
+    <link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/default/easyui.css" rel="stylesheet"/>
+    <link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/icon.css" rel="stylesheet"/>
     <script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
     <script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
 
@@ -34,7 +35,25 @@
     </div>
 </div>
 <div data-options="region:'west',split:true,title:'导航'" style="width:220px;padding:5px;">
-    <ul class="easyui-tree" id="tt"></ul>
+    <ul class="easyui-tree">
+        <?php
+            foreach($tree_list as $tree){
+                $cls = empty($tree['entext']) ? '' : 'iconCls="icon-' . $tree['entext'] .'"';
+                echo '<li ',$cls,' ><span>',$tree['text'],'</span>';
+                if($tree['children']){
+                    echo '<ul>';
+                    foreach($tree['children'] as $tree_child){
+                        $cls = empty($tree_child['entext']) ? '' : 'iconCls="icon-' . $tree_child['entext'] .'"';
+                        echo '<li ',$cls,' ><a href="javascript:open1(\'',$tree_child['text'],'\',\'',$tree_child['attributes']['url'],'\')">',$tree_child['text'],'</a></li>';
+                    }
+                    echo '</ul>';
+                }
+                echo '</li>';
+            }
+        ?>
+    </ul>
+
+    <!--<ul class="easyui-tree" id="tt"></ul>-->
 </div>
 <div region="center" border="false">
     <div id="tabs-el" class="easyui-tabs" fit="true" border="false" plain="true">
@@ -50,7 +69,7 @@
     window.base_url = '<?php echo base_url(); ?>';
     (function(){
 
-        $('#tt').tree({
+        /*$('#tt').tree({
             url:'<?php echo for_url('admin', 'index', 'get_admin_menu'); ?>',
             animate:true,
             onClick: function(node){
@@ -72,7 +91,7 @@
                     cancel:function(){}
                 });
             }
-        });
+        });*/
 
     })();
 
@@ -84,7 +103,7 @@
         var heights = Body.height() - 100;
         $('#tabs-el').tabs('add',{
             title:name,
-            content: '<iframe name="right" src="'+plugin+'" frameborder="false" style="border: 0px;" scrolling="auto" width="100%" height="'+heights+'px" allowtransparency="true"></iframe>',
+            content: '<iframe name="right" src="'+base_url + '/' + plugin+'" frameborder="false" style="border: 0px;" scrolling="auto" width="100%" height="'+heights+'px" allowtransparency="true"></iframe>',
             closable:true
         });
     }

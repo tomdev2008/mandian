@@ -24,20 +24,11 @@ a:hover, a:active, a:focus{text-decoration: none;}
 body{ background: #FBFBFB}
 
 /* header style start */
-#header{position:relative;height:67px;border-top:4px solid #ec6b10;border-bottom:1px solid #ff1e02;background:#fff url(/public/resource/images/header_bg.gif) no-repeat center 0}
+#header{position:relative;height:67px;border-top:4px solid #fff;border-bottom:1px solid #fff;background:#600}
 .logo{display:inline;float:left;width:303px;height:43px;margin:10px 0 0 15px}
-#menu{position:absolute;left:355px;bottom:0;_bottom:-1px;z-index:22;background:url(/public/resource/images/admin_bg.gif) no-repeat right -387px;_background:none}
-#menu ul{height:28px;padding:3px 2px 0 2px;background:none;background:url(images/admin_bg.gif) no-repeat 0 -356px;overflow:hidden}
-#menu ul li{float:left;text-align:center;background:url(/public/resource/images/admin_bg.gif) repeat-x 0 -328px}
-#menu ul li a{display:block;float:left;height:28px;_width:30px;padding:0 18px;line-height:28px;font-size:14px;font-weight:bold;color:#fff;text-decoration:none;background:url(/public/resource/admin_bg.gif) no-repeat 0 -300px;outline:none}
-#menu ul li.first a{background:none}
-#menu ul li.last a{_border-right:1px solid #f77804}
-#menu ul li.selected{margin-top:-3px}
-#menu ul li.selected a{height:30px;line-height:30px;border:1px solid #f77804;border-bottom:0;background:url(/public/resource/images/admin_bg.gif) 50% -80px no-repeat}
 #header p{position:absolute;top:5px;right:25px;z-index:23;text-align:right}
-#header p span{color:#383838;line-height:23px;margin-right:13px}
-#header p a{display:block;float:right;height:19px;margin:0 2px;padding:3px 5px 0}
-#header p a.selected{border:1px #f99840 solid;background:url(/public/resource/images/admin_bg.gif) repeat-x 0 -418px}
+#header p span{color:#383838;line-height:23px;margin-right:13px; color: #fff}
+#header p a{display:block;float:right;height:19px;margin:0 2px;padding:3px 5px 0; color: #fff}
 /* header style end */
 
 

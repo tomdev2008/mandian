@@ -17,6 +17,7 @@ class Index extends CI_Admin
     function index(){
         $data['user_name'] = $this->session->userdata('user_name');
         $data['role_name'] = $this->session->userdata('role_name');
+        $data['tree_list'] = parent::admin_menu();
         $this->view('/admin/public/index',$data);
     }
     function home(){
