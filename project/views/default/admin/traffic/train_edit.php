@@ -32,6 +32,9 @@
                         <option value="K-快速">K-快速</option>
                         <option value="其他">其他</option>
                     </select>
+                    <script type="text/javascript">
+                        $('#train_type').val('<?php echo $data['train_type'] ?>');
+                    </script>
                 </td>
                 <td></td>
             </tr>

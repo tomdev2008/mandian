@@ -144,7 +144,7 @@
 </div>
 </body>
 <!--/内容区-->
-<!-- formValidator-4.1.0.js -->
+<!-- jQuery.AutoComplete.js -->
 <link rel="stylesheet" type="text/css" href="/public/resource/js/sea-modules/alias/jQuery.AutoComplete-master/jquery.autocomplete.css" />
 <script type="text/javascript" src="/public/resource/js/sea-modules/alias/jQuery.AutoComplete-master/jquery.autocomplete.js"></script>
 

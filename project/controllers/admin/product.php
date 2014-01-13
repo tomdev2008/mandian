@@ -108,7 +108,6 @@ class Product extends CI_Admin
         $this->load->bll('product_bll');
         $product = $this->product_bll->get_by_id($pro_id);
 
-        pp($product);
         $data['pro_id'] = $pro_id;
         $this->view('/admin/public/pager_header');
         $this->view('/admin/product/product_header', array('pro_id' => $pro_id, 't' => 'pro_details'));

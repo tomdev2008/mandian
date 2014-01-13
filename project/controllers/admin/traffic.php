@@ -7,6 +7,33 @@ class Traffic extends CI_Admin
     {
         parent::__construct();
     }
+
+    /**
+     * ---------------------------------------------------
+     * 航班查询
+     * ---------------------------------------------------
+     */
+    function search_plane(){
+        $this->lib('json');
+        $this->load->bll('traffic_bll');
+        $plane_num = $this->input->get_post('q');
+        $data = $this->traffic_bll->get_list(null, null, $plane_num);
+        exit($this->json->encode($data));
+    }
+
+    /**
+     * ---------------------------------------------------
+     * 火车查询
+     * ---------------------------------------------------
+     */
+    function search_train(){
+        $this->lib('json');
+        $this->load->bll('traffic_bll');
+        $train_num = $this->input->get_post('q');
+        $data = $this->traffic_bll->get_train_list(null, null, $train_num);
+        exit($this->json->encode($data));
+    }
+
     /**
      * ---------------------------------------------------
      * 火车车次管理

@@ -23,7 +23,7 @@ class Traffic_model extends CI_Model
      * @param int $rows
      * @return mixed
      */
-    function get_train_list($page = null, $rows = null)
+    function get_train_list($page = null, $rows = null, $train_num = null)
     {
         $this->db->select('*');
         $this->db->from('crm_train');
@@ -31,6 +31,9 @@ class Traffic_model extends CI_Model
             $page = ($page <= 1) ?1 :$page ;
             $offset = ($page - 1) * $rows;
             $this->db->limit($rows, $offset);
+        }
+        if(!empty($train_num)){
+            $this->db->like('train_num', $train_num, 'both');
         }
         $this->db->where("enabled", 1);
         $this->db->order_by("train_id", "desc");
@@ -94,7 +97,7 @@ class Traffic_model extends CI_Model
      * @param int $rows
      * @return mixed
      */
-    function get_list($page = null, $rows = null)
+    function get_list($page = null, $rows = null,$plane_num = null)
     {
         $this->db->select('*');
         $this->db->from('crm_plane');
@@ -102,6 +105,9 @@ class Traffic_model extends CI_Model
             $page = ($page <= 1) ?1 :$page ;
             $offset = ($page - 1) * $rows;
             $this->db->limit($rows, $offset);
+        }
+        if(!empty($train_num)){
+            $this->db->like('flight_num', $plane_num, 'both');
         }
         $this->db->where("enabled", 1);
         $this->db->order_by("plane_id", "desc");

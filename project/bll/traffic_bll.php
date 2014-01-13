@@ -21,9 +21,9 @@ class Traffic_bll extends CI_Bll
      * @param int $rows
      * @return mixed
      */
-    function get_train_list($page = null, $rows = null)
+    function get_train_list($page = null, $rows = null,$train_num = null)
     {
-        return $this->traffic_model->get_train_list($page, $rows);
+        return $this->traffic_model->get_train_list($page, $rows, $train_num);
     }
 
     function get_train_list_count()
@@ -57,9 +57,9 @@ class Traffic_bll extends CI_Bll
      * @param int $rows
      * @return mixed
      */
-    function get_list($page = null, $rows = null)
+    function get_list($page = null, $rows = null,$plane_num = null)
     {
-        return $this->traffic_model->get_list($page, $rows);
+        return $this->traffic_model->get_list($page, $rows,$plane_num);
     }
 
     function get_list_count()
