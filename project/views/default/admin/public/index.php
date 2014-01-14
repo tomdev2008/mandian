@@ -27,7 +27,7 @@
         </div>
         <p>
             <a href="javascript:logOut();">退出管理</a>
-            <a href="<?php echo for_url('admin', 'index', 'index') ?>">后台首页</a>
+            <a href="<?php echo for_url('admin', 'index', 'index' ,'?pc_hash='. $pc_hash) ?>">后台首页</a>
             <a href="#" target='_blank'>站点首页</a>
             <span>您好 <label class='bold'><?php echo $user_name; ?></label>，
             当前身份 <label class='bold'><?php echo $role_name; ?></label></span>
@@ -38,13 +38,13 @@
     <ul class="easyui-tree">
         <?php
             foreach($tree_list as $tree){
-                $cls = empty($tree['entext']) ? '' : 'iconCls="icon-' . $tree['entext'] .'"';
+                $cls = empty($tree['entext']) ? 'iconCls="icon-action_check"' : 'iconCls="icon-' . $tree['entext'] .'"';
                 echo '<li ',$cls,' ><span>',$tree['text'],'</span>';
                 if($tree['children']){
                     echo '<ul>';
                     foreach($tree['children'] as $tree_child){
-                        $cls = empty($tree_child['entext']) ? '' : 'iconCls="icon-' . $tree_child['entext'] .'"';
-                        echo '<li ',$cls,' ><a href="javascript:open1(\'',$tree_child['text'],'\',\'',$tree_child['attributes']['url'],'\')">',$tree_child['text'],'</a></li>';
+                        $cls = empty($tree_child['entext']) ? 'iconCls="icon-action_check"' : 'iconCls="icon-' . $tree_child['entext'] .'"';
+                        echo '<li ',$cls,' ><a href="javascript:open1(\'',$tree_child['text'],'\',\'',$tree_child['attributes']['url'],'?pc_hash='.$pc_hash.'\')">',$tree_child['text'],'</a></li>';
                     }
                     echo '</ul>';
                 }

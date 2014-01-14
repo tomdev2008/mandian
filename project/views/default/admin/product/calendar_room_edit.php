@@ -3,7 +3,7 @@
 </style>
 
 <body class="easyui-layout">
-<form name="frm" id="form1" action="<?php echo for_url('admin', 'productliner','calendar_room_update'); ?>"  method="post">
+<form name="frm" id="form1" action="<?php echo for_url('admin', 'product','calendar_room_update'); ?>"  method="post">
 <div data-options="region:'center'" style="padding:5px;">
     <table>
         <tr>
@@ -98,7 +98,7 @@
                 content: '加载中……'
             });
             var _data = 'type_id=' + id + '&date=' + '<?php echo $datestr; ?>';
-            var _url = '<?php echo for_url('admin', 'productliner', 'room_date')?>';
+            var _url = '<?php echo for_url('admin', 'product', 'trip_date')?>';
             $.ajax({
                 url: _url,
                 type:'post',

@@ -14,24 +14,30 @@ class Index extends CI_Admin
      * 视图
      * ---------------------------------------------------
      */
-    function index(){
+    function index()
+    {
         $data['user_name'] = $this->session->userdata('user_name');
         $data['role_name'] = $this->session->userdata('role_name');
+        $data['pc_hash'] = $this->pc_hash;
         $data['tree_list'] = parent::admin_menu();
-        $this->view('/admin/public/index',$data);
+        $this->view('/admin/public/index', $data);
     }
-    function home(){
+
+    function home()
+    {
         $data['user_name'] = $this->session->userdata('user_name');
         $data['role_name'] = $this->session->userdata('role_name');
 
-        $this->view( '/admin/public/pager_header');
-        $this->view('/admin/public/home',$data);
-        $this->view( '/admin/public/pager_footer');
+        $this->view('/admin/public/pager_header');
+        $this->view('/admin/public/home', $data);
+        $this->view('/admin/public/pager_footer');
     }
-    function top(){
+
+    function top()
+    {
         $data['user_name'] = $this->session->userdata('user_name');
         $data['role_name'] = $this->session->userdata('role_name');
-        $this->view('/admin/public/top',$data);
+        $this->view('/admin/public/top', $data);
     }
 
 
@@ -44,12 +50,14 @@ class Index extends CI_Admin
     {
         $this->view('/admin/public/login');
     }
+
     function logout()
     {
         $this->load->bll('user_bll');
         $this->user_bll->logout();
         showmessage('登录退出，正在跳转……', for_url('admin', 'index', 'login'));
     }
+
     public function login_act()
     {
         $this->load->bll('user_bll');
@@ -62,6 +70,7 @@ class Index extends CI_Admin
         if (!$r) {
             showmessage('登录失败，请重新登录。');
         }
+        $pc_hash = $this->session->userdata('pc_hash');
         showmessage('登录成功，正在跳转……', for_url('admin', 'index', 'index'));
     }
 
@@ -71,7 +80,8 @@ class Index extends CI_Admin
      * 获取导航
      * ---------------------------------------------------
      */
-    function get_admin_menu(){
+    function get_admin_menu()
+    {
         $r = parent::admin_menu();
         $this->lib('json');
         exit($this->json->encode($r));

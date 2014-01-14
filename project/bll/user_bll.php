@@ -41,7 +41,7 @@ class User_bll extends CI_Bll
         $session['role_id'] = $r['role_id'];
         $session['role_name'] = $r['role_name'];
         $session['action_list'] = serialize($this->get_user_role_access($r['role_id']));
-        $session['pc_hash'] = random_string('', 6);
+        $session['pc_hash'] = random_string('alnum', 5);
 
         //写入
         $_SESSION['user_id'] = $session['user_id'] ;
@@ -82,6 +82,9 @@ class User_bll extends CI_Bll
      */
     function get_user_role_access_header($role_id){
         $rights = $this->_model->get_user_role_access($role_id);
+        if ($this->session->userdata('user_name') === 'admin') {
+            $rights = $this->_model->get_all_user_role_access($role_id);
+        }
         $result = array();
         $result_sub = array();
         foreach ($rights as $val) {

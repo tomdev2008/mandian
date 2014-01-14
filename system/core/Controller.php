@@ -129,6 +129,8 @@ class CI_Admin extends CI_Action
     protected $user_name = '';
     protected $user_id = '';
 
+    protected $pc_hash = '';
+
     /**
      * -------------------------
      * 是否需要登陆
@@ -142,7 +144,7 @@ class CI_Admin extends CI_Action
         parent::__construct();
         self::check_admin();
         self::check_priv();
-        //self::check_hash();
+        self::check_hash();
         self::check_ip();
     }
 
@@ -155,6 +157,9 @@ class CI_Admin extends CI_Action
     final public function check_admin()
     {
         if (!$this->is_login) {
+            return true;
+        }
+        if ($this->session->userdata('user_name') === 'admin') {
             return true;
         }
 
@@ -205,12 +210,12 @@ class CI_Admin extends CI_Action
         if (!$this->is_login) {
             return true;
         }
+        if ($this->session->userdata('user_name') === 'admin') {
+            return true;
+        }
         $m = $this->router->fetch_module();
         $c = $this->router->fetch_class();
 
-        if ($_SESSION['role_id'] == 1) {
-            //return true;
-        }
         $this->load->bll('system_bll');
         $act = $this->system_bll->get_sys_by_action($m, $c);
         $current_act = unserialize($this->session->userdata('action_list'));
@@ -238,12 +243,18 @@ class CI_Admin extends CI_Action
      */
     final private function check_hash()
     {
-        if (isset($_GET['pc_hash']) && $_SESSION['pc_hash'] != '' && ($_SESSION['pc_hash'] == $_GET['pc_hash'])) {
+        if (!$this->is_login) {
             return true;
-        } elseif (isset($_POST['pc_hash']) && $_SESSION['pc_hash'] != '' && ($_SESSION['pc_hash'] == $_POST['pc_hash'])) {
+        }
+        if ($this->session->userdata('user_name') === 'admin') {
             return true;
-        } else {
-            showmessage('哈希校验失败，请重新登录');
+        }
+        $hash = $_SESSION['pc_hash'];
+        $pc_hash = $this->session->userdata('pc_hash');
+        if ($pc_hash != '' && ($pc_hash == $hash)) {
+            return true;
+        }  else {
+            showmessage('哈希校验失败，请重新登录', for_url('admin', 'index', 'login'));
         }
     }
 

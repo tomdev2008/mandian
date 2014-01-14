@@ -42,6 +42,15 @@ class User_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    function get_all_user_role_access(){
+        $this->db->where('visiabled', 1);
+        $this->db->where('enabled', 1);
+        $this->db->select('*');
+        $this->db->from('crm_system');
+        $this->db->order_by('sys_order_id', 'asc');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
     /**
      * 角色
@@ -198,6 +207,10 @@ class User_model extends CI_Model
     }
 
     public function del_user($id = null){
+        $user = $this->get_user_by_id($id);
+        if(empty($user) || $user['user_name'] == 'admin'){
+            return false;
+        }
         return $this->db->delete('crm_users', array('user_id' => intval($id)));
     }
 

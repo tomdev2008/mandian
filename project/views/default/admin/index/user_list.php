@@ -67,6 +67,9 @@
             <tbody>
             <?php
             foreach($rows as $val){
+                if($val['user_name'] == 'admin'){
+                    continue;
+                }
                 echo '<tr>';
                 echo '<td> <input type="checkbox" /> </td>';
                 echo '<td>'.$val['user_name'].'</td>';

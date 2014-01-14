@@ -142,7 +142,7 @@ class Product_model extends CI_Model
 
     /**
      * ---------------------------------------
-     * 线路管理
+     * 邮轮线路管理
      * @param array $post
      * ---------------------------------------
      */
@@ -191,10 +191,50 @@ class Product_model extends CI_Model
         }
         return $this->db->delete('crm_liner_trip', array('pro_id' => intval($pro_id)));
     }
+    /**
+     * ---------------------------------------
+     * 产品线路管理
+     * @param array $post
+     * ---------------------------------------
+     */
+    function get_main_trips($pro_id = null)
+    {
+        if (empty($pro_id)) {
+            return false;
+        }
+        $this->db->select('*');
+        $this->db->where('pro_id', intval($pro_id));
+        $this->db->from('crm_refer_trip');
+        $this->db->order_by("refer_trip_id", "asc");
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function insert_main_product_trip($post = array())
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'refer_trip_id') {
+                $data[$key] = $val;
+            }
+        }
+        $r = $this->db->insert('crm_refer_trip', $data);
+        if ($r) {
+            return $this->db->insert_id();
+        }
+        return $r;
+    }
+
+    function del_main_product_trip($pro_id = null)
+    {
+        if (empty($pro_id)) {
+            return false;
+        }
+        return $this->db->delete('crm_refer_trip', array('pro_id' => intval($pro_id)));
+    }
 
 
     /**
-     * 价格库存
+     * 邮轮价格库存
      */
     function get_room_type($pro_id = null)
     {
@@ -249,9 +289,64 @@ class Product_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    /**
+     * 价格库存
+     */
+    function get_trip_type($pro_id = null)
+    {
+        if (empty($pro_id)) {
+            return false;
+        }
+        $this->db->select('*');
+        $this->db->where('pro_id', intval($pro_id));
+        $this->db->from('crm_trip_type');
+        $this->db->order_by("type_id", "asc");
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function del_trip_type($pro_id = null)
+    {
+        if (empty($pro_id)) {
+            return false;
+        }
+        return $this->db->delete('crm_room_type', array('pro_id' => intval($pro_id)));
+    }
+
+    function insert_trip_type($pro_id = null, $trip_name = null)
+    {
+        if (empty($pro_id) || empty($trip_name)) {
+            return false;
+        }
+        $data['pro_id'] = $pro_id;
+        $data['type_name'] = $trip_name;
+        $r = $this->db->insert('crm_trip_type', $data);
+        if ($r) {
+            return $this->db->insert_id();
+        }
+        return $r;
+    }
+
+    function trip_date_list($type_id = null, $start_date = null, $end_date = null)
+    {
+        if (empty($type_id)) {
+            return false;
+        }
+
+        $this->db->select('*');
+        $this->db->where('type_id', intval($type_id));
+        $this->db->where('set_out_time >=', intval($start_date));
+        $this->db->where('set_out_time <=', intval($end_date));
+
+        $this->db->from('crm_trip');
+        $this->db->order_by("set_out_time", "asc");
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
     /**
-     * 库存添加
+     * 邮轮库存添加
      * @param null $type_id
      * @return bool
      */
@@ -271,6 +366,32 @@ class Product_model extends CI_Model
             }
         }
         $r = $this->db->insert('crm_room', $data);
+        if ($r) {
+            return $this->db->insert_id();
+        }
+        return $r;
+    }
+    /**
+     * 产品库存添加
+     * @param null $type_id
+     * @return bool
+     */
+    function del_trips($type_id = null)
+    {
+        if (empty($type_id)) {
+            return false;
+        }
+        return $this->db->delete('crm_trip', array('type_id' => intval($type_id)));
+    }
+
+    function insert_trips($post = null)
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'trip_id') {
+                $data[$key] = $val;
+            }
+        }
+        $r = $this->db->insert('crm_trip', $data);
         if ($r) {
             return $this->db->insert_id();
         }

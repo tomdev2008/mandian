@@ -42,15 +42,6 @@
 </div>
 </body>
 <!--/内容区-->
-<!-- formValidator-4.1.0.js -->
-<link rel="stylesheet" type="text/css" href="/public/resource/js/sea-modules/alias/jQuery.AutoComplete-master/jquery.autocomplete.css" />
-<script type="text/javascript" src="/public/resource/js/sea-modules/alias/jQuery.AutoComplete-master/jquery.autocomplete.js"></script>
-
-<!-- formValidator-4.1.0.js -->
-<script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
-<script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
-<!-- My97DatePicker -->
-<script language="JavaScript" type="text/javascript" src="/public/resource/js/sea-modules/alias/My97DatePicker/WdatePicker.js" charset="UTF-8"></script>
 <script type="text/javascript">
     $(function(){
 
@@ -58,7 +49,7 @@
             doForm($('#form1').attr('action'),$('#form1').serialize(), function(data){
                 _alert(data.msg, function(){
                     if(data.state){
-                        location.href = '<?php echo for_url('admin', 'productliner','other_info', array( $pro_id)); ?>';
+                        location.href = '<?php echo for_url('admin', 'product','other_info', array( $pro_id)); ?>';
                     }
                 })
                 return ;
@@ -66,58 +57,4 @@
             return false;
         });
     });
-
-    //图片处理
-    $('a[name=a-handle]').live(
-        {
-            'dblclick': function(){
-                var _this = $(this);
-                _this.parents('li').remove();
-            }
-        }
-    );
-    var picHelper = {
-        flashuploadMain: function () {
-            var iTop = (window.screen.availHeight - 550) / 2;
-            var iLeft = (window.screen.availWidth - 640) / 2;
-            window.open('<?php echo for_url('admin', 'attachment', 'swfupload' ,'?_callback=picHelper.submitCkeditorMain'); ?>', '选择图片', 'height=460, width=500, top=' + iTop + ', left=' + iLeft + ', toolbar=no, menubar=no, scrollbars=no, resizable=no,location=n o, status=no');
-        },
-
-        submitCkeditorMain: function (data) {
-            if ($('a[name=a-handle]').size() >= 1) {
-                _alert('只能添加一个图片');
-                return;
-            }
-            var ids = data.split(',');
-            var html = $('#img-temp').html();
-            $.each(ids, function (i, n) {
-                $.ajax({
-                    url: '<?php echo for_url('admin','attachment','get_img'); ?>',
-                    type: 'post',
-                    data: 'id=' + n,
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.state) {
-                            var _tmp = $(html).clone();
-                            _tmp.find('img').attr({'src': data.path});
-                            _tmp.append('<input type="hidden" name="liner[main_img]" value="' + data.attachment_id + '" />');
-                            $('#fsUploadProgress').append(_tmp);
-                        }
-
-                    },
-                    error: function () {
-                        _alert('出错了');
-                    }
-                });
-            });
-        }
-    }
-</script>
-<script id="img-temp" type="text/html" >
-    <li>
-        <div id="" class="img-wrap">
-            <a href="javascript:;" name="a-handle" title="双击删除" class="on"><div class="icon"></div>
-                <img width="80" src="" title="双击删除"></a>
-        </div>
-    </li>
 </script>

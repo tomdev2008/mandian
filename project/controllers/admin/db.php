@@ -30,7 +30,7 @@ class Db extends CI_Admin
         $r = $this->system_bll->restore_back($sql);
 
         if ($r) {
-            showmessage('恢复数据成功', for_url('admin', 'index', 'dumpsql'));
+            showmessage('恢复数据成功', for_url('admin', 'db', 'dumpsql'));
         } else {
             showmessage('恢复数据失败');
         }

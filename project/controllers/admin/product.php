@@ -109,14 +109,14 @@ class Product extends CI_Admin
         $this->load->bll('traffic_bll');
         $this->load->bll('hotel_bll');
         $product = $this->product_bll->get_by_id($pro_id);
-        if ($product['traffic_to'] == '飞机'){
+        if ($product['traffic_to'] == '飞机') {
             $traffic_to_info = $this->traffic_bll->get_product_traffic_plane($pro_id, 1);
-        }else{
+        } else {
             $traffic_to_info = $this->traffic_bll->get_product_traffic_train($pro_id, 1);
         }
-        if ($product['traffic_back'] == '飞机'){
+        if ($product['traffic_back'] == '飞机') {
             $traffic_back_info = $this->traffic_bll->get_product_traffic_plane($pro_id, 2);
-        }else{
+        } else {
             $traffic_back_info = $this->traffic_bll->get_product_traffic_train($pro_id, 2);
         }
         $hotel_info = $this->hotel_bll->get_product_hotel($pro_id);
@@ -188,18 +188,7 @@ class Product extends CI_Admin
         $this->product_bll->del_product_trip($pro_id);
 
         foreach ($liner as $l) {
-            if (!empty($l['hotel_info_other'])) {
-                $l['hotel_info'] = $l['hotel_info_other'];
-            }
-            if (!empty($l['traffic_other'])) {
-                $l['traffic'] = $l['traffic_other'];
-            }
-            unset($l['hotel_info_other'], $l['traffic_other']);
-
             $l['pro_id'] = $pro_id;
-            $l['arrive'] = strtotime($l['arrive']);
-            $l['leave'] = strtotime($l['leave']);
-
             $r = $this->product_bll->insert_product_trip($l);
             if (!$r) {
                 exit('{"state":false,"msg":"保存失败"}');
@@ -216,7 +205,7 @@ class Product extends CI_Admin
     function trip_price($pro_id = null)
     {
         $this->load->bll('product_bll');
-        $data['rows'] = $this->product_bll->get_room_type($pro_id);
+        $data['rows'] = $this->product_bll->get_trip_type($pro_id);
         $data['pro_id'] = $pro_id;
 
         $this->view('/admin/public/pager_header');
@@ -245,7 +234,7 @@ class Product extends CI_Admin
             exit('{"state":false,"msg":"保存失败"}');
         }
         $this->load->bll('product_bll');
-        $r = $this->product_bll->update_room($liner);
+        $r = $this->product_bll->update_trip($liner);
 
         if ($r) {
             exit('{"state":true,"msg":"保存成功"}');
@@ -272,50 +261,33 @@ class Product extends CI_Admin
         return $this->calendar->generate($year, $month);
     }
 
-    function room_date()
+    function trip_date()
     {
         $type_id = $this->input->get_post('type_id');
         $date = $this->input->get_post('date');
         $this->load->bll('product_bll');
-        $data = $this->product_bll->room_date_list($type_id, $date);
+        $data = $this->product_bll->trip_date_list($type_id, $date);
         $this->lib('json');
         exit($this->json->encode($data));
     }
 
 
-    function add_room_type($pro_id = null)
+    function add_trip_type()
     {
-        if (empty($pro_id)) {
-            showmessage('出错了');
+        $c = $this->input->get_post('c');
+        $pro_id = $this->input->get_post('pro_id');
+        if (empty($pro_id) || empty($c)) {
+            exit('{"state":false,"msg":"保存失败"}');
         }
-        $this->load->bll('product_bll');
-        $this->load->bll('liner_bll');
-        //已选择房型
-        $room_types = $this->product_bll->get_room_type($pro_id);
-        $data['room_type'] = array();
-        foreach ($room_types as $id) {
-            $data['room_type'][] = $id;
-        }
-        //邮轮房型
-        $liner = $this->product_bll->get_by_id($pro_id);
-        $data['rows'] = $this->liner_bll->get_room_list($liner['liner_id']);
-        $data['pro_id'] = $pro_id;
 
-        $this->view('/admin/public/pager_header');
-        $this->view('/admin/product/add_room_type', $data);
-        $this->view('/admin/public/pager_footer');
-    }
-
-    function add_room_action()
-    {
-        $liner = $this->input->get_post('liner');
         $this->load->bll('product_bll');
-        $r = $this->product_bll->update_room_type($liner['pro_id'], $liner['liner_room_id']);
+        $r = $this->product_bll->insert_trip_type($pro_id, $c);
         if ($r) {
             exit('{"state":true,"msg":"保存成功"}');
         } else {
             exit('{"state":false,"msg":"保存失败"}');
         }
+
     }
 
     /**

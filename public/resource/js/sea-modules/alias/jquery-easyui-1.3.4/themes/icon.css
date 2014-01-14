@@ -79,7 +79,12 @@
 .icon-group{
 	background:url('icons/group.png') no-repeat center center;
 }
-
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat center center;
+}
+.icon-action_check{
+	background:url('icons/action_check.png') no-repeat center center;
+}
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;
 }

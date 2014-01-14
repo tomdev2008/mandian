@@ -111,12 +111,12 @@ class Product_bll extends CI_Bll
         if (empty($pro_id)) {
             return false;
         }
-        return $this->product_model->get_trips($pro_id);
+        return $this->product_model->get_main_trips($pro_id);
     }
 
     function insert_product_trip($post = array())
     {
-        return $this->product_model->insert_product_trip($post);
+        return $this->product_model->insert_main_product_trip($post);
     }
 
     function update_product_trip($post = array())
@@ -130,40 +130,34 @@ class Product_bll extends CI_Bll
         {
             return false;
         }
-        return $this->product_model->del_product_trip($pro_id);
+        return $this->product_model->del_main_product_trip($pro_id);
     }
 
     /**
      * 价格库存
      */
-    function get_room_type($pro_id = null)
+    function get_trip_type($pro_id = null)
     {
         if(empty($pro_id))
         {
             return false;
         }
-        return $this->product_model->get_room_type($pro_id);
+        return $this->product_model->get_trip_type($pro_id);
     }
 
-    function update_room_type($pro_id = null, $room_ids = array())
+    function insert_trip_type($pro_id = null, $trip_name = null)
     {
         if(empty($pro_id))
         {
             return false;
         }
-        $this->product_model->del_room_type($pro_id);
 
-        foreach($room_ids as $room_id){
-            $r = $this->product_model->insert_room_type($pro_id, $room_id);
-            if(!$r)
-            {
-                return false;
-            }
-        }
+        $r = $this->product_model->insert_trip_type($pro_id, $trip_name);
         return true;
     }
 
-    function room_date_list($type_id = null, $date = null)
+
+    function trip_date_list($type_id = null, $date = null)
     {
         if(empty($type_id))
         {
@@ -173,31 +167,30 @@ class Product_bll extends CI_Bll
         $time = strtotime($date);
         $start_date = mktime(0, 0, 0, date('m', $time), 1, date('Y', $time));
         $end_date = mktime(0, 0, 0, date('m', $time), date('t', $time), date('Y', $time));
-        $r = $this->product_model->room_date_list($type_id, $start_date, $end_date);
+        $r = $this->product_model->trip_date_list($type_id, $start_date, $end_date);
         foreach($r as &$val){
             list($val['y'], $val['m'], $val['d']) = array(date('Y', $val['set_out_time']), date('m', $val['set_out_time']), date('j', $val['set_out_time']));
         }
         return $r;
     }
-
     /**
      * 更新room表
      * @return bool
      */
-    function update_room($post = array())
+    function update_trip($post = array())
     {
         if(empty($post['type_id']))
         {
             return false;
         }
-        $this->product_model->del_rooms($post['type_id']);
+        $this->product_model->del_trips($post['type_id']);
 
         $days = $post['days'];
         $datestr = $post['date_str'];
         unset($post['days'], $post['date_str']);
         foreach($days as $d){
             $post['set_out_time'] = strtotime($datestr . str_pad($d, 2, '0', STR_PAD_LEFT));
-            $r = $this->product_model->insert_rooms($post);
+            $r = $this->product_model->insert_trips($post);
             if(!$r)
             {
                 return false;
