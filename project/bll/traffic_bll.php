@@ -16,6 +16,46 @@ class Traffic_bll extends CI_Bll
     }
 
     /**
+     * -------------------------------------------------
+     * 火车车次 航线 与 产品关联
+     * @param array $post
+     * @return mixed
+     * -------------------------------------------------
+     */
+    function update_product_traffic_train($pro_id = null,$train_id = null, $traffic_type = 1)
+    {
+        $this->traffic_model->del_product_train($pro_id, $traffic_type);
+        foreach($train_id as $id){
+            $data = array(
+                'pro_id' => $pro_id,
+                'train_id' => $id,
+                'traffic_type' => $traffic_type
+            );
+            $this->traffic_model->insert_product_train($data);
+        }
+        return  true;
+    }
+    function get_product_traffic_train($pro_id = null,$traffic_type = 1){
+        return $this->traffic_model->get_product_traffic_train($pro_id ,$traffic_type);
+    }
+    function get_product_traffic_plane($pro_id = null,$traffic_type = 1){
+        return $this->traffic_model->get_product_traffic_plane($pro_id ,$traffic_type);
+    }
+    function update_product_traffic_plane($pro_id = null,$train_id = null, $traffic_type = 1)
+    {
+        $this->traffic_model->del_product_plane($pro_id, $traffic_type);
+        foreach($train_id as $id){
+            $data = array(
+                'pro_id' => $pro_id,
+                'plane_id' => $id,
+                'traffic_type' => $traffic_type
+            );
+            $this->traffic_model->insert_product_plane($data);
+        }
+        return  true;
+    }
+
+    /**
      * 火车数据
      * @param int $page
      * @param int $rows

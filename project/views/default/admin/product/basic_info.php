@@ -121,13 +121,13 @@
             <tr>
                 <td width="80">大交通</td>
                 <td>
-                    <select name="traffic_to" id="traffic_to">
+                    <select name="liner[traffic_to]" id="traffic_to">
                         <option value="飞机" selected="selected">飞机去</option>
                         <option value="火车" >火车去</option>
                         <option value="汽车" >汽车去</option>
                         <option value="邮轮" >邮轮去</option>
                     </select>
-                    <select name="traffic_back" id="traffic_back">
+                    <select name="liner[traffic_back]" id="traffic_back">
                         <option value="飞机" selected="selected">飞机回</option>
                         <option value="火车" >火车回</option>
                         <option value="汽车" >汽车回</option>

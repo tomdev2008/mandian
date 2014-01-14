@@ -53,14 +53,14 @@ class Product extends CI_Admin
 
         $this->load->bll('product_bll');
         if (!empty($id)) {
-             $liner = $this->product_bll->get_by_id($id);
-             $data['data'] = $liner;
-             $data['data']['end_list'] = array();
-             foreach (explode(',', $liner['end']) as $val) {
-                 $data['data']['end_list'][] = $this->departure_bll->get_place_by_id($val);
-             }
-             $data['data']['sub_img_list'] = $this->product_bll->get_product_imgs_str($id);
-         }
+            $liner = $this->product_bll->get_by_id($id);
+            $data['data'] = $liner;
+            $data['data']['end_list'] = array();
+            foreach (explode(',', $liner['end']) as $val) {
+                $data['data']['end_list'][] = $this->departure_bll->get_place_by_id($val);
+            }
+            $data['data']['sub_img_list'] = $this->product_bll->get_product_imgs_str($id);
+        }
         $this->view('/admin/public/pager_header');
         $this->view('/admin/product/product_header', array('pro_id' => $id, 't' => 'basic_info'));
         $this->view('/admin/product/basic_info', $data);
@@ -106,9 +106,26 @@ class Product extends CI_Admin
             showmessage('出错了');
         }
         $this->load->bll('product_bll');
+        $this->load->bll('traffic_bll');
+        $this->load->bll('hotel_bll');
         $product = $this->product_bll->get_by_id($pro_id);
-
+        if ($product['traffic_to'] == '飞机'){
+            $traffic_to_info = $this->traffic_bll->get_product_traffic_plane($pro_id, 1);
+        }else{
+            $traffic_to_info = $this->traffic_bll->get_product_traffic_train($pro_id, 1);
+        }
+        if ($product['traffic_back'] == '飞机'){
+            $traffic_back_info = $this->traffic_bll->get_product_traffic_plane($pro_id, 2);
+        }else{
+            $traffic_back_info = $this->traffic_bll->get_product_traffic_train($pro_id, 2);
+        }
+        $hotel_info = $this->hotel_bll->get_product_hotel($pro_id);
         $data['pro_id'] = $pro_id;
+        $data['traffic_to_info'] = $traffic_to_info;
+        $data['traffic_back_info'] = $traffic_back_info;
+        $data['hotel_info'] = $hotel_info;
+        $data['traffic_to'] = $product['traffic_to'];
+        $data['traffic_back'] = $product['traffic_back'];
         $this->view('/admin/public/pager_header');
         $this->view('/admin/product/product_header', array('pro_id' => $pro_id, 't' => 'pro_details'));
         $this->view('/admin/product/pro_details', $data);
@@ -118,7 +135,21 @@ class Product extends CI_Admin
     function pro_details_update()
     {
         $liner = $this->input->get_post('liner');
-        pp($liner);
+        $this->load->bll('traffic_bll');
+        $this->load->bll('hotel_bll');
+        if ($liner['traffic_to'] == '飞机') {
+            $this->traffic_bll->update_product_traffic_plane($liner['pro_id'], $liner['traffic_to_info'], 1);
+        } else {
+            $this->traffic_bll->update_product_traffic_train($liner['pro_id'], $liner['traffic_to_info'], 1);
+        }
+        if ($liner['traffic_back'] == '飞机') {
+            $this->traffic_bll->update_product_traffic_plane($liner['pro_id'], $liner['traffic_back_info'], 2);
+        } else {
+            $this->traffic_bll->update_product_traffic_train($liner['pro_id'], $liner['traffic_back_info'], 2);
+        }
+        $this->hotel_bll->update_product_hotel($liner['pro_id'], $liner['hotel_info']);
+
+        exit('{"state":true,"msg":"保存成功"}');
     }
 
 
@@ -194,14 +225,14 @@ class Product extends CI_Admin
         $this->view('/admin/public/pager_footer');
     }
 
-    function calendar_room_edit($type_id = null, $year = null,$month = null)
+    function calendar_room_edit($type_id = null, $year = null, $month = null)
     {
         if (empty($type_id)) {
             showmessage('出错了');
         }
         $data['type_id'] = $type_id;
         $data['calendar'] = $this->get_calendar($type_id, $year, $month);
-        $data['datestr'] = (empty($year) || empty($month))? date('Ym'): $year . '' .$month;
+        $data['datestr'] = (empty($year) || empty($month)) ? date('Ym') : $year . '' . $month;
         $this->view('/admin/public/pager_header');
         $this->view('/admin/product/calendar_room_edit', $data);
         $this->view('/admin/public/pager_footer');
@@ -227,17 +258,17 @@ class Product extends CI_Admin
      * 准备日历
      * @return mixed
      */
-    function get_calendar($type_id = null, $year = null,$month = null)
+    function get_calendar($type_id = null, $year = null, $month = null)
     {
-        $prefs = array (
-            'show_next_prev'  => TRUE,
-            'next_prev_url'   => for_url('admin', 'product', 'calendar_room_edit', array($type_id)),
+        $prefs = array(
+            'show_next_prev' => TRUE,
+            'next_prev_url' => for_url('admin', 'product', 'calendar_room_edit', array($type_id)),
             'template' => $this->view('/admin/public/calenda_template', null, true),
         );
         $this->lib('calendar', $prefs);
         $time = time();
-        $year = empty($year)? date('Y', $time): $year;
-        $month = empty($month)? date('m', $time):  $month;
+        $year = empty($year) ? date('Y', $time) : $year;
+        $month = empty($month) ? date('m', $time) : $month;
         return $this->calendar->generate($year, $month);
     }
 
@@ -262,8 +293,7 @@ class Product extends CI_Admin
         //已选择房型
         $room_types = $this->product_bll->get_room_type($pro_id);
         $data['room_type'] = array();
-        foreach($room_types as $id)
-        {
+        foreach ($room_types as $id) {
             $data['room_type'][] = $id;
         }
         //邮轮房型

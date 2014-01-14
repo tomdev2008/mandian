@@ -16,7 +16,7 @@ class Traffic extends CI_Admin
     function search_plane(){
         $this->lib('json');
         $this->load->bll('traffic_bll');
-        $plane_num = $this->input->get_post('q');
+        $plane_num = $this->input->get_post('s');
         $data = $this->traffic_bll->get_list(null, null, $plane_num);
         exit($this->json->encode($data));
     }

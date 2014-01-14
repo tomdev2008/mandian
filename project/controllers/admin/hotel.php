@@ -11,7 +11,7 @@ class Hotel extends CI_Admin
     function search_hotel(){
         $this->lib('json');
         $this->load->bll('hotel_bll');
-        $hotel_name = $this->input->get_post('q');
+        $hotel_name = $this->input->get_post('s');
         $data = $this->hotel_bll->get_hotel_list(null, null, $hotel_name);
         exit($this->json->encode($data));
     }

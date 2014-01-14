@@ -16,7 +16,49 @@ class Hotel_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-    } 
+    }
+
+
+    /**
+     * -------------------------------------------------
+     * 酒店 与 产品关联
+     * @param array $post
+     * @return mixed
+     * -------------------------------------------------
+     */
+
+    function get_product_hotel($pro_id = null){
+
+        $pro_id = intval($pro_id);
+        if (empty($pro_id)) {
+            return false;
+        }
+        $this->db->where('crm_pro_hotel.pro_id', $pro_id);
+        $this->db->select('crm_hotel.*');
+        $this->db->join('crm_hotel', 'crm_hotel.hotel_id = crm_pro_hotel.hotel_id', 'left');
+        $this->db->from('crm_pro_hotel');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function insert_product_hotel($post = array())
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'pro_hotel_id') {
+                $data[$key] = $val;
+            }
+        }
+        return $this->db->insert('crm_pro_hotel', $data);
+    }
+
+    function del_product_hotel($pro_id = null)
+    {
+        $pro_id = intval($pro_id);
+        if(empty($pro_id)){
+            return ;
+        }
+        return $this->db->delete('crm_pro_hotel', array('pro_id' => intval($pro_id)));
+    }
 
     /**
      * 用户
@@ -35,7 +77,7 @@ class Hotel_model extends CI_Model
         }else{
             $this->db->limit(50, 0);
         }
-        if(!empty($train_num)){
+        if(!empty($hotel_name)){
             $this->db->like('hotel_name', $hotel_name, 'both');
         }
         $this->db->where("hotel_enabled", 1);

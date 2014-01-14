@@ -18,6 +18,30 @@ class Hotel_bll extends CI_Bll
     }
 
     /**
+     * -------------------------------------------------
+     * 酒店 与 产品关联
+     * @param array $post
+     * @return mixed
+     * -------------------------------------------------
+     */
+    function get_product_hotel($pro_id = null){
+        return $this->hotel_model->get_product_hotel($pro_id );
+    }
+
+    function update_product_hotel($pro_id = null,$train_id = null)
+    {
+        $this->hotel_model->del_product_hotel($pro_id);
+        foreach($train_id as $id){
+            $data = array(
+                'pro_id' => $pro_id,
+                'hotel_id' => $id,
+            );
+            $this->hotel_model->insert_product_hotel($data);
+        }
+        return  true;
+    }
+
+    /**
      * 获取用户数据
      * @param int $page
      * @param int $rows
