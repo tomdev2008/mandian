@@ -44,7 +44,7 @@
                     echo '<ul>';
                     foreach($tree['children'] as $tree_child){
                         $cls = empty($tree_child['entext']) ? 'iconCls="icon-action_check"' : 'iconCls="icon-' . $tree_child['entext'] .'"';
-                        echo '<li ',$cls,' ><a href="javascript:open1(\'',$tree_child['text'],'\',\'',$tree_child['attributes']['url'],'?pc_hash='.$pc_hash.'\')">',$tree_child['text'],'</a></li>';
+                        echo '<li ',$cls,' ><a href="javascript:open1(\'',$tree_child['text'],'\',\'',$tree_child['attributes']['url'],'\')">',$tree_child['text'],'</a></li>';
                     }
                     echo '</ul>';
                 }
