@@ -154,7 +154,13 @@ select {
 
 .table-list td, .table-list th {
     padding-left: 12px;
+    text-align: center;
 }
+
+.table-list td.left {
+    text-align: left;
+}
+
 div.btn {
     background: none repeat scroll 0 0 #F6F6F6;
     height: 30px;

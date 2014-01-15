@@ -19,7 +19,7 @@ class Order_model extends CI_Model
 
     function get_list($page = null, $rows = null)
     {
-        $this->db->select('crm_product.pro_name,crm_order.*');
+        $this->db->select('crm_product.pro_name,crm_trip.set_out_time,crm_order.*');
         $this->db->from('crm_order');
         if(!empty($rows) && !empty($rows)){
             $page = ($page <= 1) ?1 :$page ;
@@ -27,6 +27,7 @@ class Order_model extends CI_Model
             $this->db->limit($rows, $offset);
         }
         $this->db->join('crm_product', 'crm_product.pro_id = crm_order.pro_id', 'left');
+        $this->db->join('crm_trip', 'crm_trip.trip_id = crm_order.trip_id', 'left');
         $this->db->where("crm_order.enabled", 1);
         $this->db->order_by("crm_order.add_time", "desc");
         $query = $this->db->get();

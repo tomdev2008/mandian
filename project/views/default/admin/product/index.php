@@ -68,7 +68,7 @@
         foreach($rows as $val){
             echo '<tr>';
             echo '<td> <input type="checkbox" /> </td>';
-            echo '<td>'.$val['pro_name'].'</td>';
+            echo '<td class="left">'.$val['pro_name'].'</td>';
             echo '<td></td>';
             echo '<td></td>';
             echo '<td></td>';

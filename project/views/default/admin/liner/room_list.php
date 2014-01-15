@@ -68,7 +68,7 @@
             <?php
             foreach($rows as $val){
                 echo '<tr>';
-                echo '<td>'.$val['room_name'].'</td>';
+                echo '<td class="left">'.$val['room_name'].'</td>';
                 echo '<td>'.$val['people_num'].'</td>';
                 echo '<td>'.$val['room_area'].'</td>';
                 echo '<td>'.$val['room_floor'].'</td>';

@@ -65,8 +65,8 @@
         foreach($rows as $val){
             echo '<tr>';
             echo '<td> <input type="checkbox" /> </td>';
-            echo '<td>'.$val['liner_name'].'</td>';
-            echo '<td>'.$val['liner_english_name'].'</td>';
+            echo '<td class="left">'.$val['liner_name'].'</td>';
+            echo '<td class="left">'.$val['liner_english_name'].'</td>';
             echo '<td>'.$val['liner_tonnage'].'</td>';
             echo '<td>';
             echo '<a href="',for_url('admin','liner','edit', array($val['liner_id'])), '" title="Edit">[编辑]</a>&nbsp;';

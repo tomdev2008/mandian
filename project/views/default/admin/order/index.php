@@ -22,7 +22,7 @@
         <tr>
             <th>订单号</th>
             <th>产品名称</th>
-            <th>发团日期&价格&人数</th>
+            <th>发团日期</th>
             <th>联系人/电话</th>
             <th>下单日期</th>
             <th>状态</th>
@@ -38,8 +38,8 @@
         foreach($rows as $val){
             echo '<tr>';
             echo '<td>'.$val['order_id'].'</td>';
-            echo '<td>'.$val['pro_name'].'</td>';
-            echo '<td>'.'</td>';
+            echo '<td class="left">'.$val['pro_name'].'</td>';
+            echo '<td>'.date('Y-m-d', $val['set_out_time']).'</td>';
             echo '<td>'.$val['contact_name'].'/'.$val['contact_phone'].'</td>';
             echo '<td>'.date('Y-m-d H:i:s', $val['add_time']).'</td>';
             echo '<td>'.($order_state[$val['order_state']]).'</td>';
