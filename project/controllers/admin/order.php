@@ -133,4 +133,15 @@ class Order extends CI_Admin
         return $this->_model->save_user($post);
     }
 
+    /**
+     * -------------------------------
+     * 常用报表
+     * -------------------------------
+     */
+    function stat()
+    {
+        $this->view( '/admin/public/pager_header');
+        $this->view( '/admin/order/stat');
+        $this->view( '/admin/public/pager_footer');
+    }
 }
