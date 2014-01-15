@@ -142,6 +142,9 @@ class CI_Admin extends CI_Action
     public function __construct()
     {
         parent::__construct();
+        if (!$this->is_login) {
+            return true;
+        }
         self::check_admin();
         self::check_priv();
         self::check_hash();
@@ -156,9 +159,6 @@ class CI_Admin extends CI_Action
      */
     final public function check_admin()
     {
-        if (!$this->is_login) {
-            return true;
-        }
         if ($this->session->userdata('user_name') === 'admin') {
             return true;
         }
@@ -207,9 +207,6 @@ class CI_Admin extends CI_Action
      */
     final public function check_priv()
     {
-        if (!$this->is_login) {
-            return true;
-        }
         if ($this->session->userdata('user_name') === 'admin') {
             return true;
         }
@@ -243,9 +240,6 @@ class CI_Admin extends CI_Action
      */
     final private function check_hash()
     {
-        if (!$this->is_login) {
-            return true;
-        }
         if ($this->session->userdata('user_name') === 'admin') {
             return true;
         }

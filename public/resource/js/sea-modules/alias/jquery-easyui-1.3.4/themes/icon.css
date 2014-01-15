@@ -79,6 +79,9 @@
 .icon-group{
 	background:url('icons/group.png') no-repeat center center;
 }
+.icon-reply{
+	background:url('icons/reply.png') no-repeat center center;
+}
 .icon-blank{
 	background:url('icons/blank.gif') no-repeat center center;
 }

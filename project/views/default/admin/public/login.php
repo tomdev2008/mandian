@@ -5,7 +5,7 @@
     <base href="<?php echo base_url(); ?>public/resource/" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="css/admin.css" rel="stylesheet"/>
-    <title></title>
+    <title>旅行</title>
     <style type="text/css">
 
         /* login style start */
