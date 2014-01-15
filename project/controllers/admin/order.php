@@ -144,4 +144,62 @@ class Order extends CI_Admin
         $this->view( '/admin/order/stat');
         $this->view( '/admin/public/pager_footer');
     }
+    function stat_get()
+    {
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+        $order_state = $this->input->post('order_state');
+
+        $this->load->bll('order_bll');
+        $data = $this->order_bll->get_list(null, null, null, null, $order_state, null, $start_date, $end_date);
+
+        $order_state = array('未支付' => '', '未付款，已确认' => '', '已支付已预定' => '', '交易成功' => '', '交易关闭' => '', '退款中' => '', '付款超时' => '');
+        $result = array();
+        $result['xAxis']['categories'] = array();
+        foreach ($data as $val) {
+            $date = date('Y-m', $val['add_time']);
+            if (!in_array($date, $result['xAxis']['categories'])) {
+                $result['xAxis']['categories'][] = $date;
+                switch($val['order_state']){
+                    case 1:
+                        $order_state['未支付'][$date] += $val['total_price'];
+                        break;
+                    case 2:
+                        $order_state['未付款，已确认'][$date]  += $val['total_price'];
+                        break;
+                    case 3:
+                        $order_state['已支付已预定'][$date]  += $val['total_price'];
+                        break;
+                    case 4:
+                        $order_state['交易成功'][$date]  += $val['total_price'];
+                        break;
+                    case 5:
+                        $order_state['交易关闭'][$date]  += $val['total_price'];
+                        break;
+                    case 6:
+                        $order_state['退款中'][$date]  += $val['total_price'];
+                        break;
+                    case 7:
+                        $order_state['付款超时'][$date]  += $val['total_price'];
+                        break;
+                }
+            }
+        }
+        foreach( $result['xAxis']['categories'] as $d){
+            foreach( $order_state as $k => $v){
+                if(!isset($v[$d])){
+                    $order_state[$k][$d] = 0;
+                }
+            }
+        }
+        $result['series'] = array();
+        foreach($order_state as $key => $val){
+            $result['series'][] = array(
+                'name' => $key,
+                'data' =>array_values($val) ,
+            );
+        }
+        $this->lib('json');
+        exit($this->json->encode($result));
+    }
 }
