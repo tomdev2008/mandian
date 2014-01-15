@@ -3,17 +3,38 @@
 <body>
 
     <!--查询表单-->
+    <form name="frm" id="form1" action="<?php echo for_url('admin', 'order','index'); ?>"  method="post">
     <table width="100%" cellspacing="0" class="search-form">
         <tbody>
         <tr>
             <td>
                 <div class="explain-col">
-
+                    订单号：<input type="text" value="<?php echo $filter['order_num']; ?>" size="10" class="input-text" name="order[order_num]">
+                    产品名称：<input type="text" value="<?php echo $filter['pro_name']; ?>" size="20" class="input-text" name="order[pro_name]">
+                    订单状态：
+                    <select id="order_state" name="order[order_state]">
+                        <option value="0">全部</option>
+                        <option value="1">未支付</option>
+                        <option value="2">未付款，已确认</option>
+                        <option value="3">已支付已预定</option>
+                        <option value="4">交易成功</option>
+                        <option value="5">交易关闭</option>
+                        <option value="6">退款中</option>
+                        <option value="7">付款超时</option>
+                    </select>
+                    <script type="text/javascript">
+                        $('#order_state').val('<?php echo $filter['order_state'] ?>');
+                    </script>
+                    联系人：<input type="text" value="<?php echo $filter['contact_name']; ?>" size="10" class="input-text" name="order[contact_name]">
+                    下单时间：<input type="text" onfocus="WdatePicker()" value="<?php echo $filter['start_time']; ?>" size="5" class="input-text" name="order[start_time]">
+                    到<input type="text" onfocus="WdatePicker()" value="<?php echo $filter['end_time']; ?>" size="5" class="input-text" name="order[end_time]">
+                    <input type="submit" id="btn" class="button" value="查询">
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
+    </form>
     <!--/查询表单-->
 
     <!--列表-->
@@ -37,7 +58,7 @@
         $order_source = array( 0 => '','1' => '是爱旅行','2' => '是去哪儿网','3' => '蚂蜂窝','4' => '其它');
         foreach($rows as $val){
             echo '<tr>';
-            echo '<td>'.$val['order_id'].'</td>';
+            echo '<td>'.$val['order_num'].'</td>';
             echo '<td class="left">'.$val['pro_name'].'</td>';
             echo '<td>'.date('Y-m-d', $val['set_out_time']).'</td>';
             echo '<td>'.$val['contact_name'].'/'.$val['contact_phone'].'</td>';
@@ -45,7 +66,7 @@
             echo '<td>'.($order_state[$val['order_state']]).'</td>';
             echo '<td>'.($order_source[$val['source']]).'</td>';
             echo '<td>￥'.$val['total_price'].'</td>';
-            echo '<td><a href="',for_url('admin','order','edit', array($val['order_id'])), '" title="Edit">[详情]</a></td>';
+            echo '<td><a href="',for_url('admin','order','detail', array($val['order_id'])), '" title="Edit">[详情]</a></td>';
             echo '</tr>';
         }
         ?>
@@ -84,10 +105,5 @@
     </table>
     <!--/列表-->
 </body>
-<script>
-    function del(id){
-        _confirm('确认删除？',function(){
-            location.href = '<?php echo for_url('admin','hotel','del'); ?>' + id;
-        });
-    }
-</script>
+<!-- My97DatePicker -->
+<script language="JavaScript" type="text/javascript" src="/public/resource/js/sea-modules/alias/My97DatePicker/WdatePicker.js" charset="UTF-8"></script>
