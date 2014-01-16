@@ -35,24 +35,9 @@ class System extends CI_Admin
     function site_setting_cache()
     {
         $this->load->helper('file');
-
-        if (!defined('ENVIRONMENT') OR !file_exists($file_path = APPPATH . 'config/' . ENVIRONMENT . '/config.php')) {
-            $file_path = APPPATH . 'config/config.php';
-        }
-        $config_content = str_replace('<?php', '', read_file($file_path));
-        $config = array();
-        eval($config_content);
-        if (!$config) {
-            showmessage('缓存失败');
-        }
-
         $this->load->bll('system_bll');
-        $setting = $this->system_bll->get_site_setting();
-        foreach ($setting as $key => $val) {
-            $config[$key] = $val;
-        }
-        $config_str = "<?php\r\n\$config = " . var_export($config, true) . ";";
-        if (write_file($file_path, $config_str)) {
+        $r = $this->system_bll->site_setting_cache();
+        if ($r) {
             showmessage('缓存成功', for_url('admin', 'system', 'site_setting'));
         } else {
             showmessage('缓存失败');

@@ -1,11 +1,11 @@
 <?php
+
 /**
  * 用户表业务逻辑层
  * User: Administrator
  * Date: 13-12-16
  * Time: 下午3:35
  */
-
 class System_bll extends CI_Bll
 {
 
@@ -21,15 +21,43 @@ class System_bll extends CI_Bll
     /**
      * 站点设置
      */
-    function get_site_setting(){
-        return  $this->_model->get_site_setting();
+    function get_site_setting()
+    {
+        return $this->_model->get_site_setting();
     }
-    function set_site_setting($post = array()){
+
+    function set_site_setting($post = array())
+    {
         $this->_model->del_site_setting();
         return $this->_model->set_site_setting($post);
     }
 
-    function get_sys_by_role_id($role_id = null){
+    function site_setting_cache()
+    {
+        if (!defined('ENVIRONMENT') OR !file_exists($file_path = APPPATH . 'config/' . ENVIRONMENT . '/config.php')) {
+            $file_path = APPPATH . 'config/config.php';
+        }
+        $config_content = str_replace('<?php', '', read_file($file_path));
+        $config = array();
+        eval($config_content);
+        if (!$config) {
+            return false;
+        }
+
+        $setting = $this->system_bll->get_site_setting();
+        foreach ($setting as $key => $val) {
+            $config[$key] = $val;
+        }
+        $config_str = "<?php\r\n\$config = " . var_export($config, true) . ";";
+        if (write_file($file_path, $config_str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function get_sys_by_role_id($role_id = null)
+    {
         $role_id = intval($role_id);
         if (empty($role_id)) {
             return false;
@@ -37,39 +65,42 @@ class System_bll extends CI_Bll
 
         $r = $this->_model->get_system_by_role_id($role_id);
         $result = array();
-        foreach($r as $val){
+        foreach ($r as $val) {
             $result[] = $val['sr_sys_id'];
         }
         return $result;
     }
 
-    function get_sys_by_action($m = null,$c = null, $a = null){
+    function get_sys_by_action($m = null, $c = null, $a = null)
+    {
 
         $r = $this->_model->get_sys_by_action($m, $c, $a);
         $result = array();
-        foreach($r as $act){
+        foreach ($r as $act) {
             $result[] = $act['sys_id'];
         }
         return $result;
     }
 
-    function get_backup_list(){
-        $sql_path = ROOTPATH . 'temp' . DS .  'sqldump'. DS ;
+    function get_backup_list()
+    {
+        $sql_path = ROOTPATH . 'temp' . DS . 'sqldump' . DS;
         $this->load->helper('directory');
         return directory_map($sql_path);
     }
 
-    function restore_back($sql){
+    function restore_back($sql)
+    {
         $db = $this->_model->get_db();
         $this->load->library('sqldump', array('db' => $db, 'max_size' => 0));
 
-        $sql_path = ROOTPATH . 'temp' . DS .  'sqldump'. DS . $sql ;
-        if(!file_exists($sql_path)){
+        $sql_path = ROOTPATH . 'temp' . DS . 'sqldump' . DS . $sql;
+        if (!file_exists($sql_path)) {
             return false;
         }
         $sql_str = @file_get_contents($sql_path);
-        $r =  $this->sqldump->sql_import($sql_str);
-        if(!$r){
+        $r = $this->sqldump->sql_import($sql_str);
+        if (!$r) {
             show_message($this->sqldump->error_msg);
         }
         return true;
@@ -78,9 +109,10 @@ class System_bll extends CI_Bll
     /**
      * 数据库备份
      */
-    function backup($dump = array()){
+    function backup($dump = array())
+    {
         $path = ROOTPATH . 'temp' . DS . 'sqldump';
-        if(!is_dir($path)){
+        if (!is_dir($path)) {
             mkdir($path);
             chmod($path, 0777);
         }
@@ -95,16 +127,12 @@ class System_bll extends CI_Bll
         $run_log = ROOTPATH . '/temp/log/run.log';
 
         /* 初始化输入变量 */
-        if (empty($dump['name']))
-        {
+        if (empty($dump['name'])) {
             $sql_file_name = $this->sqldump->get_random_name();
-        }
-        else
-        {
+        } else {
             $sql_file_name = str_replace("0xa", '', trim($dump['name'])); // 过滤 0xa 非法字符
             $pos = strpos($sql_file_name, '.sql');
-            if ($pos !== false)
-            {
+            if ($pos !== false) {
                 $sql_file_name = substr($sql_file_name, 0, $pos);
             }
         }
@@ -117,13 +145,11 @@ class System_bll extends CI_Bll
 
         /* 变量验证 */
         $allow_max_size = intval(@ini_get('upload_max_filesize')); //单位M
-        if ($allow_max_size > 0 && $max_size > ($allow_max_size * 1024))
-        {
+        if ($allow_max_size > 0 && $max_size > ($allow_max_size * 1024)) {
             $max_size = $allow_max_size * 1024; //单位K
         }
 
-        if ($max_size > 0)
-        {
+        if ($max_size > 0) {
             $this->sqldump->max_size = $max_size * 1024;
         }
 
@@ -131,12 +157,10 @@ class System_bll extends CI_Bll
         $type = empty($_POST['type']) ? 'full' : trim($_POST['type']);
         $tables = array();
 
-        switch ($type)
-        {
+        switch ($type) {
             case 'full':
                 $temp = $this->_model->get_all_table();
-                foreach ($temp AS $table)
-                {
+                foreach ($temp AS $table) {
                     $tables[$table] = -1;
                 }
 
@@ -147,27 +171,20 @@ class System_bll extends CI_Bll
         /* 开始备份 */
         $tables = $this->sqldump->dump_table($run_log, $vol);
 
-        if ($tables === false)
-        {
+        if ($tables === false) {
             die($this->sqldump->errorMsg());
         }
 
-        if (empty($tables))
-        {
+        if (empty($tables)) {
             /* 备份结束 */
-            if ($vol > 1)
-            {
+            if ($vol > 1) {
                 /* 有多个文件 */
-                if (!@file_put_contents(ROOTPATH . 'temp' . DS .  'sqldump'. DS . $sql_file_name .  '_' . $vol . '.sql', $this->sqldump->dump_sql))
-                {
+                if (!@file_put_contents(ROOTPATH . 'temp' . DS . 'sqldump' . DS . $sql_file_name . '_' . $vol . '.sql', $this->sqldump->dump_sql)) {
                     show_message('备份数据库失败');
                 }
-            }
-            else
-            {
+            } else {
                 /* 只有一个文件 */
-                if (!@file_put_contents(ROOTPATH . 'temp' . DS .  'sqldump'. DS . $sql_file_name . '.sql', $this->sqldump->dump_sql))
-                {
+                if (!@file_put_contents(ROOTPATH . 'temp' . DS . 'sqldump' . DS . $sql_file_name . '.sql', $this->sqldump->dump_sql)) {
                     show_message('备份数据库失败');
                 }
             }
@@ -189,14 +206,14 @@ class System_bll extends CI_Bll
         }
 
         //清空权限
-        if(!($this->_model->del_system_role($role_id))){
+        if (!($this->_model->del_system_role($role_id))) {
             return false;
         }
 
         //新建权限
         foreach ($sys as $sys_id) {
             $r = $this->_model->insert_system_role(array('role_id' => $role_id, 'sys_id' => $sys_id));
-            if(!$r){
+            if (!$r) {
                 return false;
             }
         }
@@ -240,14 +257,14 @@ class System_bll extends CI_Bll
                     'id' => $val['sys_id'],
                     'text' => $val['sys_name'],
                     'attributes' => array(
-                        'url' => $val['sys_module'] .'/'. $val['sys_controller'] . '/' .$val['sys_action'],
+                        'url' => $val['sys_module'] . '/' . $val['sys_controller'] . '/' . $val['sys_action'],
                     )
                 );
             }
         }
         $r = array();
         foreach ($result as $key => $val) {
-            if(isset($result_sub[$key])){
+            if (isset($result_sub[$key])) {
                 $val['children'] = $result_sub[$key];
             }
             $r[] = $val;
@@ -296,7 +313,7 @@ class System_bll extends CI_Bll
         }
         $r = array();
         foreach ($result as $key => $val) {
-            if(isset($result_sub[$key])){
+            if (isset($result_sub[$key])) {
                 $val['children'] = $result_sub[$key];
             }
             $r[] = $val;
