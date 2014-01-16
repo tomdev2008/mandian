@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>旅游管理后台</title>
+    <meta charset="<?php echo config_item('charset'); ?>">
+    <title><?php echo config_item('site_name'); ?>--管理后台</title>
+    <meta name="keywords" content="<?php echo config_item('site_keyword'); ?>" />
+    <meta name="description" content="<?php echo config_item('site_description'); ?>" />
+
     <!-- jquery -->
     <script src="/public/resource/js/sea-modules/alias/jquery/jquery-1.8.3.min.js"></script>
 

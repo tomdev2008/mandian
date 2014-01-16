@@ -2,9 +2,6 @@
 <html>
 <head>
 <title>404 Page Not Found</title>
-
-<base href="<?php echo base_url(); ?>public/resource/" />
-<link href="css/admin.css" rel="stylesheet"/>
 <style type="text/css">
 body {
 	background-color: #fff;
@@ -52,10 +49,6 @@ p {
 </style>
 </head>
 <body>
-<div id="header">
-    <div class="logo">
-    </div>
-</div>
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
