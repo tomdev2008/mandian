@@ -29,6 +29,7 @@
         <div class="logo">
         </div>
         <p>
+            <span>当前环境[<?php echo ENVIRONMENT; ?>]</span>
             <a href="javascript:logOut();">退出管理</a>
             <a href="<?php echo for_url('admin', 'index', 'index' ,'?pc_hash='. $pc_hash) ?>">后台首页</a>
             <a href="#" target='_blank'>站点首页</a>

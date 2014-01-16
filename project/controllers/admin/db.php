@@ -1,11 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
 class Db extends CI_Admin
 {
 
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('file');
     }
 
     /**
@@ -37,13 +37,32 @@ class Db extends CI_Admin
 
     }
 
+    function flushdbsql_act()
+    {
+        $path = ROOTPATH . 'temp' . DS . 'sqldump' . DS ;
+        if(delete_files($path)) {
+            showmessage('清空成功', for_url('admin', 'db', 'dumpsql'));
+        } else {
+            showmessage('清空失败');
+        }
+    }
+
+    function delsql_act($sql){
+        $path = ROOTPATH . 'temp' . DS . 'sqldump' . DS . $sql;
+        if(@unlink($path)) {
+            showmessage('删除成功', for_url('admin', 'db', 'dumpsql'));
+        } else {
+            showmessage('删除失败');
+        }
+    }
+
     function system_sqldump_act()
     {
 
         $this->load->bll('system_bll');
         $dump = $this->input->post('dump');
         $this->system_bll->backup($dump);
-        showmessage('备份数据库成功', for_url('admin', 'index', 'dumpsql'));
+        showmessage('备份数据库成功', for_url('admin', 'db', 'dumpsql'));
 
     }
 }

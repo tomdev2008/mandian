@@ -21,7 +21,7 @@ class Departure_model extends CI_Model
     function get_branch_list()
     {
         $this->db->select('*');
-        $this->db->from('crm_branch');
+        $this->db->from($this->db->dbprefix('branch'));
         $this->db->order_by("branch_id", "desc");
         $query = $this->db->get();
         return $query->result_array();
@@ -34,7 +34,7 @@ class Departure_model extends CI_Model
         }
         $this->db->select('*');
         $this->db->where("branch_id", $branch_id);
-        $this->db->from('crm_departure');
+        $this->db->from($this->db->dbprefix('departure'));
         $this->db->order_by("departure_id", "desc");
         $query = $this->db->get();
         return $query->result_array();
@@ -47,7 +47,7 @@ class Departure_model extends CI_Model
         }
         $this->db->select('place_id,place_name');
         $this->db->like('place_name', $val, 'after');
-        $this->db->from('crm_place');
+        $this->db->from($this->db->dbprefix('place'));
         $this->db->order_by("place_id", "desc");
         $query = $this->db->get();
         return $query->result_array();
@@ -57,7 +57,7 @@ class Departure_model extends CI_Model
     {
         $this->db->where('place_id', intval($id));
         $this->db->select('place_id,place_name');
-        $this->db->from('crm_place');
+        $this->db->from($this->db->dbprefix('place'));
         $query = $this->db->get();
         return $query->row_array();
     }

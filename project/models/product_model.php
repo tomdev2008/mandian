@@ -29,7 +29,7 @@ class Product_model extends CI_Model
                 $data[$key] = $val;
             }
         }
-        $r = $this->db->insert('crm_product', $data);
+        $r = $this->db->insert($this->db->dbprefix('product'), $data);
         if ($r) {
             return $this->db->insert_id();
         }
@@ -44,13 +44,13 @@ class Product_model extends CI_Model
             }
         }
         $this->db->where('pro_id', $post['pro_id']);
-        return $this->db->update('crm_product', $data);
+        return $this->db->update($this->db->dbprefix('product'), $data);
     }
 
     function get_list($page = null, $rows = null, $where = array())
     {
         $this->db->select('*');
-        $this->db->from('crm_product');
+        $this->db->from($this->db->dbprefix('product'));
         if (!empty($rows) && !empty($rows)) {
             $page = ($page <= 1) ? 1 : $page;
             $offset = ($page - 1) * $rows;
@@ -78,7 +78,7 @@ class Product_model extends CI_Model
             }
         }
         $this->db->where("enabled", 1);
-        $this->db->from('crm_product');
+        $this->db->from($this->db->dbprefix('product'));
         $query = $this->db->get();
         $r = $query->row_array();
         return $r['acount'];
@@ -89,7 +89,7 @@ class Product_model extends CI_Model
         $this->db->where('pro_id', intval($id));
         $this->db->select('*');
         $this->db->where("enabled", 1);
-        $this->db->from('crm_product');
+        $this->db->from($this->db->dbprefix('product'));
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -98,7 +98,7 @@ class Product_model extends CI_Model
     {
         $this->db->where('pro_id', intval($id));
         $data['enabled'] = 0;
-        return $this->db->update('crm_product', $data);
+        return $this->db->update($this->db->dbprefix('product'), $data);
     }
 
     /**
@@ -111,7 +111,7 @@ class Product_model extends CI_Model
         if (empty($pro_id)) {
             return false;
         }
-        return $this->db->delete('crm_product_image_list', array('pro_id' => intval($pro_id)));
+        return $this->db->delete($this->db->dbprefix('product_image_list'), array('pro_id' => intval($pro_id)));
     }
 
     function insert_product_imgs($img_id = null, $pro_id = null)
@@ -123,7 +123,7 @@ class Product_model extends CI_Model
             'attachment_id' => $img_id,
             'pro_id' => $pro_id,
         );
-        $r = $this->db->insert('crm_product_image_list', $data);
+        $r = $this->db->insert($this->db->dbprefix('product_image_list'), $data);
         return $r;
     }
 
@@ -134,7 +134,7 @@ class Product_model extends CI_Model
         }
         $this->db->select('*');
         $this->db->where('pro_id', intval($pro_id));
-        $this->db->from('crm_product_image_list');
+        $this->db->from($this->db->dbprefix('product_image_list'));
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -153,7 +153,7 @@ class Product_model extends CI_Model
         }
         $this->db->select('*');
         $this->db->where('pro_id', intval($pro_id));
-        $this->db->from('crm_liner_trip');
+        $this->db->from($this->db->dbprefix('liner_trip'));
         $this->db->order_by("liner_trip_id", "asc");
         $query = $this->db->get();
         return $query->result_array();
@@ -166,7 +166,7 @@ class Product_model extends CI_Model
                 $data[$key] = $val;
             }
         }
-        $r = $this->db->insert('crm_liner_trip', $data);
+        $r = $this->db->insert($this->db->dbprefix('liner_trip'), $data);
         if ($r) {
             return $this->db->insert_id();
         }
@@ -181,7 +181,7 @@ class Product_model extends CI_Model
             }
         }
         $this->db->where('liner_trip_id', $post['liner_trip_id']);
-        return $this->db->update('crm_liner_trip', $data);
+        return $this->db->update($this->db->dbprefix('liner_trip'), $data);
     }
 
     function del_product_trip($pro_id = null)
@@ -189,7 +189,7 @@ class Product_model extends CI_Model
         if (empty($pro_id)) {
             return false;
         }
-        return $this->db->delete('crm_liner_trip', array('pro_id' => intval($pro_id)));
+        return $this->db->delete($this->db->dbprefix('liner_trip'), array('pro_id' => intval($pro_id)));
     }
     /**
      * ---------------------------------------
@@ -204,7 +204,7 @@ class Product_model extends CI_Model
         }
         $this->db->select('*');
         $this->db->where('pro_id', intval($pro_id));
-        $this->db->from('crm_refer_trip');
+        $this->db->from($this->db->dbprefix('refer_trip'));
         $this->db->order_by("refer_trip_id", "asc");
         $query = $this->db->get();
         return $query->result_array();
@@ -217,7 +217,7 @@ class Product_model extends CI_Model
                 $data[$key] = $val;
             }
         }
-        $r = $this->db->insert('crm_refer_trip', $data);
+        $r = $this->db->insert($this->db->dbprefix('refer_trip'), $data);
         if ($r) {
             return $this->db->insert_id();
         }
@@ -229,7 +229,7 @@ class Product_model extends CI_Model
         if (empty($pro_id)) {
             return false;
         }
-        return $this->db->delete('crm_refer_trip', array('pro_id' => intval($pro_id)));
+        return $this->db->delete($this->db->dbprefix('refer_trip'), array('pro_id' => intval($pro_id)));
     }
 
 
@@ -243,9 +243,9 @@ class Product_model extends CI_Model
         }
         $this->db->select('*');
         $this->db->where('pro_id', intval($pro_id));
-        $this->db->from('crm_room_type');
-        $this->db->join('crm_liner_room', 'crm_liner_room.liner_room_id = crm_room_type.liner_room_id', 'left');
-        $this->db->order_by("crm_liner_room.liner_room_id", "asc");
+        $this->db->from($this->db->dbprefix('room_type'));
+        $this->db->join($this->db->dbprefix('liner_room'), $this->db->dbprefix('liner_room').'.liner_room_id = '.$this->db->dbprefix('room_type').'.liner_room_id', 'left');
+        $this->db->order_by($this->db->dbprefix('liner_room').'.liner_room_id', 'asc');
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -255,7 +255,7 @@ class Product_model extends CI_Model
         if (empty($pro_id)) {
             return false;
         }
-        return $this->db->delete('crm_room_type', array('pro_id' => intval($pro_id)));
+        return $this->db->delete($this->db->dbprefix('room_type'), array('pro_id' => intval($pro_id)));
     }
 
     function insert_room_type($pro_id = null, $room_id = null)
@@ -265,7 +265,7 @@ class Product_model extends CI_Model
         }
         $data['pro_id'] = $pro_id;
         $data['liner_room_id'] = $room_id;
-        $r = $this->db->insert('crm_room_type', $data);
+        $r = $this->db->insert($this->db->dbprefix('room_type'), $data);
         if ($r) {
             return $this->db->insert_id();
         }
@@ -283,7 +283,7 @@ class Product_model extends CI_Model
         $this->db->where('set_out_time >=', intval($start_date));
         $this->db->where('set_out_time <=', intval($end_date));
 
-        $this->db->from('crm_room');
+        $this->db->from($this->db->dbprefix('room'));
         $this->db->order_by("set_out_time", "asc");
 
         $query = $this->db->get();
@@ -299,7 +299,7 @@ class Product_model extends CI_Model
         }
         $this->db->select('*');
         $this->db->where('pro_id', intval($pro_id));
-        $this->db->from('crm_trip_type');
+        $this->db->from($this->db->dbprefix('trip_type'));
         $this->db->order_by("type_id", "asc");
         $query = $this->db->get();
         return $query->result_array();
@@ -310,7 +310,7 @@ class Product_model extends CI_Model
         if (empty($pro_id)) {
             return false;
         }
-        return $this->db->delete('crm_room_type', array('pro_id' => intval($pro_id)));
+        return $this->db->delete($this->db->dbprefix('room_type'), array('pro_id' => intval($pro_id)));
     }
 
     function insert_trip_type($pro_id = null, $trip_name = null)
@@ -320,7 +320,7 @@ class Product_model extends CI_Model
         }
         $data['pro_id'] = $pro_id;
         $data['type_name'] = $trip_name;
-        $r = $this->db->insert('crm_trip_type', $data);
+        $r = $this->db->insert($this->db->dbprefix('trip_type'), $data);
         if ($r) {
             return $this->db->insert_id();
         }
@@ -338,7 +338,7 @@ class Product_model extends CI_Model
         $this->db->where('set_out_time >=', intval($start_date));
         $this->db->where('set_out_time <=', intval($end_date));
 
-        $this->db->from('crm_trip');
+        $this->db->from($this->db->dbprefix('trip'));
         $this->db->order_by("set_out_time", "asc");
 
         $query = $this->db->get();
@@ -355,7 +355,7 @@ class Product_model extends CI_Model
         if (empty($type_id)) {
             return false;
         }
-        return $this->db->delete('crm_room', array('type_id' => intval($type_id)));
+        return $this->db->delete($this->db->dbprefix('room'), array('type_id' => intval($type_id)));
     }
 
     function insert_rooms($post = null)
@@ -365,7 +365,7 @@ class Product_model extends CI_Model
                 $data[$key] = $val;
             }
         }
-        $r = $this->db->insert('crm_room', $data);
+        $r = $this->db->insert($this->db->dbprefix('room'), $data);
         if ($r) {
             return $this->db->insert_id();
         }
@@ -381,7 +381,7 @@ class Product_model extends CI_Model
         if (empty($type_id)) {
             return false;
         }
-        return $this->db->delete('crm_trip', array('type_id' => intval($type_id)));
+        return $this->db->delete($this->db->dbprefix('trip'), array('type_id' => intval($type_id)));
     }
 
     function insert_trips($post = null)
@@ -391,7 +391,7 @@ class Product_model extends CI_Model
                 $data[$key] = $val;
             }
         }
-        $r = $this->db->insert('crm_trip', $data);
+        $r = $this->db->insert($this->db->dbprefix('trip'), $data);
         if ($r) {
             return $this->db->insert_id();
         }

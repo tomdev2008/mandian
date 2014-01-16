@@ -19,7 +19,7 @@ class User_model extends CI_Model
     }
 
     public function del_role($id = null){
-        return $this->db->delete('crm_roles', array('role_id' => intval($id)));
+        return $this->db->delete($this->db->dbprefix('roles'), array('role_id' => intval($id)));
     }
 
     /**
@@ -32,13 +32,13 @@ class User_model extends CI_Model
             return false;
         }
 
-        $this->db->where('crm_system_roles.sr_role_id', $role_id);
-        $this->db->where('crm_system.visiabled', 1);
-        $this->db->where('crm_system.enabled', 1);
+        $this->db->where($this->db->dbprefix('system_roles').'.sr_role_id', $role_id);
+        $this->db->where($this->db->dbprefix('system').'.visiabled', 1);
+        $this->db->where($this->db->dbprefix('system').'.enabled', 1);
         $this->db->select('*');
-        $this->db->from('crm_system_roles');
-        $this->db->join('crm_system', 'crm_system.sys_id = crm_system_roles.sr_sys_id', 'left');
-        $this->db->order_by('crm_system.sys_order_id', 'asc');
+        $this->db->from($this->db->dbprefix('system_roles'));
+        $this->db->join($this->db->dbprefix('system'), $this->db->dbprefix('system').'.sys_id = '.$this->db->dbprefix('system_roles').'.sr_sys_id', 'left');
+        $this->db->order_by($this->db->dbprefix('system').'.sys_order_id', 'asc');
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -46,7 +46,7 @@ class User_model extends CI_Model
         $this->db->where('visiabled', 1);
         $this->db->where('enabled', 1);
         $this->db->select('*');
-        $this->db->from('crm_system');
+        $this->db->from($this->db->dbprefix('system'));
         $this->db->order_by('sys_order_id', 'asc');
         $query = $this->db->get();
         return $query->result_array();
@@ -62,10 +62,10 @@ class User_model extends CI_Model
     function get_role_list($page = null, $rows = null)
     {
         if(empty($page) || empty($rows)){
-            $query = $this->db->get('crm_roles');
+            $query = $this->db->get($this->db->dbprefix('roles'));
         }else{
             $offset = ($page - 1) * $rows;
-            $query = $this->db->get('crm_roles', $rows, $offset);
+            $query = $this->db->get($this->db->dbprefix('roles'), $rows, $offset);
         }
         return $query->result_array();
     }
@@ -73,7 +73,7 @@ class User_model extends CI_Model
     function get_role_list_count()
     {
         $this->db->select('count(*) as acount');
-        $this->db->from('crm_roles');
+        $this->db->from($this->db->dbprefix('roles'));
         $query = $this->db->get();
         $r = $query->row_array();
         return $r['acount'];
@@ -81,7 +81,7 @@ class User_model extends CI_Model
 
     function insert_role($post = array())
     {
-        return $this->db->insert('crm_roles', $post);
+        return $this->db->insert($this->db->dbprefix('roles'), $post);
     }
 
     function save_role($post = array())
@@ -93,14 +93,14 @@ class User_model extends CI_Model
             }
         }
         $this->db->where('role_id', $post['role_id']);
-        return $this->db->update('crm_roles', $data);
+        return $this->db->update($this->db->dbprefix('roles'), $data);
     }
 
     function get_role_by_id($id = null)
     {
         $this->db->where('role_id', intval($id));
         $this->db->select('*');
-        $this->db->from('crm_roles');
+        $this->db->from($this->db->dbprefix('roles'));
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -114,8 +114,8 @@ class User_model extends CI_Model
     function get_user_list($page = null, $rows = null)
     {
         $this->db->select('*');
-        $this->db->join('crm_roles', 'crm_roles.role_id = crm_users.role_id', 'left');
-        $this->db->from('crm_users');
+        $this->db->join($this->db->dbprefix('roles'), $this->db->dbprefix('roles').'.role_id = '. $this->db->dbprefix('users').'.role_id', 'left');
+        $this->db->from($this->db->dbprefix('users'));
         $this->db->order_by("reg_time", "desc");
         if(!empty($rows) && !empty($offset)){
             $offset = ($page - 1) * $rows;
@@ -128,7 +128,7 @@ class User_model extends CI_Model
     function get_user_list_count()
     {
         $this->db->select('count(*) as acount');
-        $this->db->from('crm_users');
+        $this->db->from($this->db->dbprefix('users'));
         $query = $this->db->get();
         $r = $query->row_array();
         return $r['acount'];
@@ -138,8 +138,8 @@ class User_model extends CI_Model
     {
         $this->db->where('user_id', intval($id));
         $this->db->select('*');
-        $this->db->join('crm_roles', 'crm_roles.role_id = crm_users.role_id', 'left');
-        $this->db->from('crm_users');
+        $this->db->join($this->db->dbprefix('roles'), $this->db->dbprefix('roles.').'.role_id = '.$this->db->dbprefix('users').'.role_id', 'left');
+        $this->db->from($this->db->dbprefix('users'));
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -151,8 +151,8 @@ class User_model extends CI_Model
         $this->db->where('user_name', $user_name);
         $this->db->where('password', $pwd);
         $this->db->select('*');
-        $this->db->join('crm_roles', 'crm_roles.role_id = crm_users.role_id', 'left');
-        $this->db->from('crm_users');
+        $this->db->join($this->db->dbprefix('roles'), $this->db->dbprefix('roles').'.role_id = '.$this->db->dbprefix('users').'.role_id', 'left');
+        $this->db->from($this->db->dbprefix('users'));
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -191,7 +191,7 @@ class User_model extends CI_Model
                 $data[$key] = $val;
             }
         }
-        return $this->db->insert('crm_users', $data);
+        return $this->db->insert($this->db->dbprefix('users'), $data);
     }
 
     function save_user($post = array())
@@ -203,7 +203,7 @@ class User_model extends CI_Model
             }
         }
         $this->db->where('user_id', $post['user_id']);
-        return $this->db->update('crm_users', $data);
+        return $this->db->update($this->db->dbprefix('users'), $data);
     }
 
     public function del_user($id = null){
@@ -211,7 +211,7 @@ class User_model extends CI_Model
         if(empty($user) || $user['user_name'] == 'admin'){
             return false;
         }
-        return $this->db->delete('crm_users', array('user_id' => intval($id)));
+        return $this->db->delete($this->db->dbprefix('users'), array('user_id' => intval($id)));
     }
 
 }

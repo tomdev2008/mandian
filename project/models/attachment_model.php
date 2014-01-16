@@ -1,11 +1,11 @@
 <?php
+
 /**
  * 用户表
  * hotel: Administrator
  * Date: 13-12-16
  * Time: 下午3:35
  */
-
 class Attachment_model extends CI_Model
 {
 
@@ -26,9 +26,8 @@ class Attachment_model extends CI_Model
                 $data[$key] = $val;
             }
         }
-        $r = $this->db->insert('crm_attachment_img', $data);
-        if($r)
-        {
+        $r = $this->db->insert($this->db->dbprefix('attachment_img'), $data);
+        if ($r) {
             return $this->db->insert_id();
         }
         return false;
@@ -37,9 +36,9 @@ class Attachment_model extends CI_Model
     function get_img_list($page = null, $rows = null)
     {
         $this->db->select('*');
-        $this->db->from('crm_attachment_img');
-        if(!empty($rows) && !empty($rows)){
-            $page = ($page <= 1) ?1 :$page ;
+        $this->db->from($this->db->dbprefix('attachment_img'));
+        if (!empty($rows) && !empty($rows)) {
+            $page = ($page <= 1) ? 1 : $page;
             $offset = ($page - 1) * $rows;
             $this->db->limit($rows, $offset);
         }
@@ -51,7 +50,7 @@ class Attachment_model extends CI_Model
     function get_img_list_count()
     {
         $this->db->select('count(*) as acount');
-        $this->db->from('crm_attachment_img');
+        $this->db->from($this->db->dbprefix('attachment_img'));
         $query = $this->db->get();
         $r = $query->row_array();
         return $r['acount'];
@@ -61,7 +60,7 @@ class Attachment_model extends CI_Model
     {
         $this->db->where('attachment_id', intval($id));
         $this->db->select('*');
-        $this->db->from('crm_attachment_img');
+        $this->db->from($this->db->dbprefix('attachment_img'));
         $query = $this->db->get();
         return $query->row_array();
     }
