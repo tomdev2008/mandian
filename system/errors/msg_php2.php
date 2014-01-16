@@ -18,15 +18,10 @@
         .showMsg .guery{background-position: left -460px;}
         -->
     </style>
-    <link href="/public/resource/css/admin.css" rel="stylesheet"/>
     <!-- jquery -->
     <script src="/public/resource/js/sea-modules/alias/jquery/jquery-1.8.3.min.js"></script>
 </head>
 <body>
-<div id="header">
-    <div class="logo">
-    </div>
-</div>
 <div class="showMsg" style="text-align:center">
     <h5>提示</h5>
     <div class="content guery" style="display:inline-block;display:-moz-inline-stack;zoom:1;*display:inline;max-width:330px"><?php echo $msg?></div>

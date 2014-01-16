@@ -18,6 +18,17 @@ class System_bll extends CI_Bll
         $this->_model = $this->system_model;
     }
 
+    /**
+     * 站点设置
+     */
+    function get_site_setting(){
+        return  $this->_model->get_site_setting();
+    }
+    function set_site_setting($post = array()){
+        $this->_model->del_site_setting();
+        return $this->_model->set_site_setting($post);
+    }
+
     function get_sys_by_role_id($role_id = null){
         $role_id = intval($role_id);
         if (empty($role_id)) {

@@ -18,6 +18,23 @@ class system_model extends CI_Model
     }
 
     /**
+     * 站点设置
+     */
+    function get_site_setting()
+    {
+        $this->db->select('*');
+        $this->db->from('crm_site_settings');
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    function set_site_setting($post = array()){
+        return $this->db->insert('crm_site_settings', $post);
+    }
+    function del_site_setting(){
+        return $this->db->empty_table('crm_site_settings');
+    }
+
+    /**
      * 获取所有表
      * @return mixed
      */

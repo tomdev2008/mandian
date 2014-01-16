@@ -8,6 +8,29 @@ class System extends CI_Admin
         parent::__construct();
     }
 
+    /**
+     * 站点设置
+     */
+    function site_setting()
+    {
+        $this->load->bll('system_bll');
+        $r['data'] = $this->system_bll->get_site_setting();
+        $this->view('/admin/public/pager_header');
+        $this->view('/admin/index/site_setting', $r);
+        $this->view('/admin/public/pager_footer');
+    }
+    function save_site_setting()
+    {
+        $this->load->bll('system_bll');
+        $system = $this->input->post('system');
+        $r = $this->system_bll->set_site_setting($system);
+        if ($r) {
+            showmessage('站点设置成功', for_url('admin', 'system', 'site_setting'));
+        } else {
+            showmessage('站点设置失败');
+        }
+    }
+
 
     /**
      * ---------------------------------------------------
