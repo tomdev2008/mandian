@@ -1,16 +1,15 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+
+    <meta charset="<?php echo config_item('charset'); ?>">
+    <title><?php echo config_item('site_name'); ?>--管理后台</title>
+    <meta name="keywords" content="<?php echo config_item('site_keyword'); ?>" />
+    <meta name="description" content="<?php echo config_item('site_description'); ?>" />
     <base href="<?php echo base_url(); ?>public/resource/" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="css/admin.css" rel="stylesheet"/>
-    <title>旅行</title>
     <style type="text/css">
 
         /* login style start */
-        body#login,body#login #footer{background:#ebebeb url(images/login_bg.gif) 0 0 repeat-x;}
-        body#login{background-position:0 36px;}
+        body#login{background:#ebebeb url(images/login_bg.gif) 0 0 repeat-x;}
         .login_box,.login_title,.login_cont input.normal,.login_cont input.submit,.login_cont a.pwd{background:#fff url(images/loginbox_bg.gif) no-repeat}
         .login_box{position:absolute;top: 50%;left:50%;width:334px;height:220px;margin: -132px 0 0 -167px;padding-bottom:30px;background-position:0 -15px;_background:none;}
         .login_title{height:37px;padding-left:35px;color:#fff;text-align:left;font:bold 14px/37px Arial, Helvetica, sans-serif;}
@@ -46,10 +45,6 @@
 </head>
 <body id="login">
 <div class="container">
-    <div id="header">
-        <div class="logo">
-        </div>
-    </div>
     <div id="wrapper" class="clearfix">
         <div class="login_box">
             <div class="login_title">管理登录</div>
