@@ -55,7 +55,7 @@ class Index extends CI_Admin
      * ---------------------------------------------------
      */
     public function login()
-    {
+    { 
         $this->view('/admin/public/login');
     }
 
