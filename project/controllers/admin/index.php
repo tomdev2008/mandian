@@ -74,14 +74,17 @@ class Index extends CI_Admin
         $verify_code = $this->input->get_post('verify_code');
 
         if (empty($verify_code) || empty($_SESSION['verify_code']) || (strcmp($verify_code, $_SESSION['verify_code']) !== 0)) {
+            $this->log->write_log('error', '登录失败_验证码不对[' . $user_name . ']');
             showmessage('验证码验证失败，请重试');
         }
 
         if (empty($user_name) || empty($password)) {
+            $this->log->write_log('error', '登录失败_用户名密码空[' . $user_name . ']');
             showmessage('用户名、密码不能为空');
         }
         $r = $this->user_bll->login($user_name, $password);
         if (!$r) {
+            $this->log->write_log('ERROR', '登录失败_用户名密码不对[' . $user_name . ']');
             showmessage('登录失败，请重新登录。');
         }
         $pc_hash = $this->session->userdata('pc_hash');

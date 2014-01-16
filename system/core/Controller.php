@@ -142,6 +142,7 @@ class CI_Admin extends CI_Action
     public function __construct()
     {
         parent::__construct();
+        $this->lib('Log');
         if (!$this->is_login) {
             return true;
         }
