@@ -32,8 +32,17 @@
             cursor: pointer;
             background: url(images/admin_bg.gif) 0 -271px repeat-x;
         }
-
+        .verify_image{ float: right; margin-right: 70px; cursor: pointer}
     </style>
+    <!-- jquery -->
+    <script src="/public/resource/js/sea-modules/alias/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.verify_image').click(function(){
+                $(this).attr('src', '<?php echo for_url('admin', 'index', 'verify_image') ?>?_=' + Math.random());
+            });
+        })
+    </script>
 </head>
 <body id="login">
 <div class="container">
@@ -46,22 +55,39 @@
             <div class="login_title">管理登录</div>
             <div class="login_cont">
                 <b style="color:red"></b>
-                <form  action="<?php echo for_url('admin', 'index','login_act'); ?>"  method="post"><div style="display:none">
-                        <input type="hidden" name="dilicms_csrf_token" value="a41917424569e02e36c3ed735af94e1a" />
-                    </div>						<table class="form_table">
-                        <col width="90px" />
-                        <col />
+
+                <form action="<?php echo for_url('admin', 'index', 'login_act'); ?>" method="post">
+                    <div style="display:none">
+                        <input type="hidden" name="dilicms_csrf_token" value="a41917424569e02e36c3ed735af94e1a"/>
+                    </div>
+                    <table class="form_table">
+                        <col width="90px"/>
+                        <col/>
                         <tr>
-                            <th>用户名：</th><td><input autocomplete="off" class="normal" type="text" name="user_name" alt="请填写用户名" /></td>
+                            <th>用户名：</th>
+                            <td><input class="normal" type="text" name="user_name" alt="请填写用户名"/></td>
                         </tr>
                         <tr>
-                            <th>密码：</th><td><input class="normal" type="password" name="password" alt="请填写密码" /></td>
+                            <th>密码：</th>
+                            <td><input class="normal" type="password" name="password" alt="请填写密码"/></td>
                         </tr>
                         <tr>
-                            <th></th><td><input class="submit" type="submit" value="登录" /><input class="submit" type="reset" value="取消" /></td>
+                            <th>验证码：</th>
+                            <td>
+                                <input class="normal" type="text" name="verify_code" style="width: 50px;" alt="请填写验证码"/>
+                                <img class="verify_image" src="<?php echo for_url('admin', 'index', 'verify_image') ?>" alt="点击刷新验证码" title="点击刷新验证码">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="submit" type="submit" value="登录"/>
+                                <input class="submit" type="reset" value="取消"/>
+                            </td>
                         </tr>
                     </table>
-                </form>				</div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

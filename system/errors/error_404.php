@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <title>404 Page Not Found</title>
+
+<base href="<?php echo base_url(); ?>public/resource/" />
+<link href="css/admin.css" rel="stylesheet"/>
 <style type="text/css">
-
-::selection{ background-color: #E13300; color: white; }
-::moz-selection{ background-color: #E13300; color: white; }
-::webkit-selection{ background-color: #E13300; color: white; }
-
 body {
 	background-color: #fff;
-	margin: 40px;
 	font: 13px/20px normal Helvetica, Arial, sans-serif;
 	color: #4F5155;
 }
@@ -43,7 +40,8 @@ code {
 }
 
 #container {
-	margin: 10px;
+    width: 500px;
+	margin: 160px auto;
 	border: 1px solid #D0D0D0;
 	-webkit-box-shadow: 0 0 8px #D0D0D0;
 }
@@ -54,6 +52,10 @@ p {
 </style>
 </head>
 <body>
+<div id="header">
+    <div class="logo">
+    </div>
+</div>
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>

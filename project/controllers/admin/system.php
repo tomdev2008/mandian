@@ -9,7 +9,6 @@ class System extends CI_Admin
     }
 
 
-
     /**
      * ---------------------------------------------------
      * 系统管理
@@ -25,7 +24,9 @@ class System extends CI_Admin
         $this->view('/admin/public/pager_footer');
     }
 
-    public function system_list_json(){
+    public function system_list_json()
+    {
+        header("Content-type: application/json");
         $this->lib('json');
         $this->load->bll('system_bll');
         $r = $this->system_bll->get_system_tree_list();
@@ -89,7 +90,7 @@ class System extends CI_Admin
             $r = $this->system_bll->save_system($system);
         }
         if ($r) {
-            showmessage('模块保存成功', for_url('admin','system','system_list'));
+            showmessage('模块保存成功', for_url('admin', 'system', 'system_list'));
         } else {
             showmessage('模块保存失败');
         }
@@ -103,7 +104,7 @@ class System extends CI_Admin
             $r = $this->system_bll->del_system($id);
         }
         if ($r) {
-            showmessage('模块删除成功', for_url('admin','system','system_list'));
+            showmessage('模块删除成功', for_url('admin', 'system', 'system_list'));
         } else {
             showmessage('模块删除失败');
         }

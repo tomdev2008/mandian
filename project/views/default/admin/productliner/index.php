@@ -23,12 +23,10 @@
             <th>
                 <input class="check-all" type="checkbox" />
             </th>
-            <th>产品ID</th>
             <th>产品名称</th>
-            <th>出发地-目的地</th>
-            <th>类型	发团日期&价格</th>
-            <th>售出/库存</th>
+            <th>出发地</th>
             <th>创建日期</th>
+            <th>状态</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -69,11 +67,9 @@
             echo '<tr>';
             echo '<td> <input type="checkbox" /> </td>';
             echo '<td class="left">'.$val['pro_name'].'</td>';
-            echo '<td></td>';
-            echo '<td></td>';
-            echo '<td></td>';
-            echo '<td></td>';
-            echo '<td></td>';
+            echo '<td>'.$val['start'].'</td>';
+            echo '<td>'.date('Y-m-d H:i:s', $val['add_time']).'</td>';
+            echo '<td class="left">'.$state[$val['state']].'</td>';
             echo '<td>';
             echo '<a href="',for_url('admin','productliner','basic_info', array($val['pro_id'])), '" title="Edit">[编辑]</a>&nbsp;';
             echo '<a href="javascript:del(', $val['pro_id'],');" title="Delete">[删除]</a>&nbsp;';

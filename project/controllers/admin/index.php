@@ -35,6 +35,19 @@ class Index extends CI_Admin
         $this->view('/admin/public/pager_footer');
     }
 
+    /**
+     * ---------------------------------------------------
+     * 验证码
+     * ---------------------------------------------------
+     */
+    function verify_image() {
+
+        $conf['name'] = 'verify_code'; //作为配置参数
+        $this->load->library('captcha', $conf);
+        $this->captcha->show();
+        $yzm_session = $_SESSION['verify_code'];
+        echo $yzm_session;
+    }
 
     /**
      * ---------------------------------------------------
@@ -58,6 +71,12 @@ class Index extends CI_Admin
         $this->load->bll('user_bll');
         $user_name = $this->input->get_post('user_name');
         $password = $this->input->get_post('password');
+        $verify_code = $this->input->get_post('verify_code');
+
+        if (empty($verify_code) || empty($_SESSION['verify_code']) || (strcmp($verify_code, $_SESSION['verify_code']) !== 0)) {
+            showmessage('验证码验证失败，请重试');
+        }
+
         if (empty($user_name) || empty($password)) {
             showmessage('用户名、密码不能为空');
         }

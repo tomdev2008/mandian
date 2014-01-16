@@ -7,7 +7,7 @@
     <style type="text/css">
         <!--
         *{ padding:0; margin:0; font-size:12px}
-        body{ background-color: #f1f1f1}
+        body{ background-color: #ebebeb}
         a:link,a:visited{text-decoration:none;color:#0068a6}
         a:hover,a:active{color:#ff6600;text-decoration: underline}
         .showMsg{border: 1px solid #1e64c8; zoom:1; width:450px; background-color: #fff; height:172px;position:absolute;top:44%;left:50%;margin:-87px 0 0 -225px}
@@ -18,10 +18,15 @@
         .showMsg .guery{background-position: left -460px;}
         -->
     </style>
+    <link href="/public/resource/css/admin.css" rel="stylesheet"/>
     <!-- jquery -->
     <script src="/public/resource/js/sea-modules/alias/jquery/jquery-1.8.3.min.js"></script>
 </head>
 <body>
+<div id="header">
+    <div class="logo">
+    </div>
+</div>
 <div class="showMsg" style="text-align:center">
     <h5>提示</h5>
     <div class="content guery" style="display:inline-block;display:-moz-inline-stack;zoom:1;*display:inline;max-width:330px"><?php echo $msg?></div>

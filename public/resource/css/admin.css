@@ -72,12 +72,12 @@ body{ background: #FBFBFB}
 .top-wrap div.nav{ width: 2000px; height: 34px; background-color: #f1f1f1;}
 
 /*内容区*/
-.middle-wrap{position: relative; margin:0px auto;width: 980px; overflow:hidden; box-shadow: 2px 2px 2px 1px #999; background-color: #fff;}
+.middle-wrap{position: relative; margin:0px auto;width: 980px; overflow:hidden; box-shadow: 2px 2px 2px 1px #999; background-color: #fff; margin-bottom: 150px;}
 .middle-wrap .lines-wrap{ width:100%; margin:0px auto; height: 30px;}
 .middle-wrap .lines-wrap p{ margin: 0px 10px; color:#3A6EA5; font-weight: bold; line-height: 30px; font-size: 14px; text-shadow: 1px 1px 1px #999;}
 .middle-wrap .content-wrap{ width:98%; margin:0px auto; height: auto !important; height: 100px; min-height: 100px;  background-color: #fff; margin-bottom: 10px;}
 
-.table-form {font-size: 12px; width: 100%; margin-bottom: 150px;}
+.table-form {font-size: 12px; width: 100%;}
 .table-form table{ width: 100%;}
 .table-form thead th {
     background: none repeat scroll 0 0 #EEF3F7;
