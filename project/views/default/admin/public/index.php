@@ -104,7 +104,7 @@
             $('#tabs-el').tabs('close', name);
         }
         var Body = $(window);
-        var heights = Body.height() - 100;
+        var heights = Body.height() - 110;
         $('#tabs-el').tabs('add',{
             title:name,
             content: '<iframe name="right" src="'+base_url + '/' + plugin+'" frameborder="false" style="border: 0px;" scrolling="auto" width="100%" height="'+heights+'px" allowtransparency="true"></iframe>',
