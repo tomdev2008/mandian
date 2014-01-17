@@ -141,7 +141,7 @@ select {
     height: 30px;
 }
 .table-list tfoot td {
-    background: none repeat scroll 0 0 #EEF3F7;
+    background: none repeat scroll 0 0 #fff;
     border-bottom: 1px solid #D5DFE8;
     font-weight: normal;
     height: 30px;

@@ -140,7 +140,7 @@
             <tr>
                 <td width="80">简介</td>
                 <td>
-                    <textarea style="width: 600px;" class="input-text" id="introduce" name="liner[introduce]"><?php echo $data['introduce'] ?></textarea>
+                    <textarea style="width: 600px;height: 150px;" class="input-text" id="introduce" name="liner[introduce]"><?php echo $data['introduce'] ?></textarea>
                 </td>
                 <td></td>
             </tr>
@@ -161,12 +161,6 @@
 </div>
 </body>
 <!--/内容区-->
-
-
-<!-- ueditor -->
-<script type="text/javascript" charset="utf-8" src="/public/resource/js/sea-modules/alias/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/public/resource/js/sea-modules/alias/ueditor/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="/public/resource/js/sea-modules/alias/ueditor/lang/zh-cn/zh-cn.js"></script>
 <!-- formValidator-4.1.0.js -->
 <script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
@@ -174,14 +168,10 @@
 <script language="JavaScript" type="text/javascript" src="/public/resource/js/sea-modules/alias/My97DatePicker/WdatePicker.js" charset="UTF-8"></script>
 <script type="text/javascript">
     $(function(){
-
-        //编辑器
-        UE.getEditor("introduce");
         //验证
         $.formValidator.initConfig({formID:"form1",theme:'ArrowSolidBox',mode:'AutoTip',onError:function(msg){
             _alert(msg,'error')
         }, onSuccess: function(){
-            $("#introduce").val(UE.getEditor('introduce').getContent());
             doForm($('#form1').attr('action'),$('#form1').serialize(), function(data){
                 _alert(data.msg, function(){
                     if(data.state){

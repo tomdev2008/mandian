@@ -62,7 +62,7 @@
             <tr>
                 <td width="80">酒店介绍</td>
                 <td>
-                    <textarea style="width: 600px;" class="input-text" id="hotel_info" name="hotel[hotel_info]"><?php echo $data['hotel_info'] ?></textarea>
+                    <textarea style="width: 600px; height: 150px;" class="input-text" id="hotel_info" name="hotel[hotel_info]"><?php echo $data['hotel_info'] ?></textarea>
                 </td>
                 <td></td>
             </tr>
@@ -103,25 +103,19 @@
 </body>
 <!--/内容区-->
 
-
-<!-- ueditor -->
-<script type="text/javascript" charset="utf-8" src="/public/resource/js/sea-modules/alias/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/public/resource/js/sea-modules/alias/ueditor/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="/public/resource/js/sea-modules/alias/ueditor/lang/zh-cn/zh-cn.js"></script>
-
 <!-- formValidator-4.1.0.js -->
 <script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
 <script type="text/javascript">
     $(function(){
         //编辑器
-        UE.getEditor("hotel_info");
+        //UE.getEditor("hotel_info");
 
         //验证
         $.formValidator.initConfig({formID:"form1",theme:'ArrowSolidBox',mode:'AutoTip',onError:function(msg){
             _alert(msg,'error')
         }, onSuccess: function(){
-            $("#hotel_info").val(UE.getEditor('hotel_info').getContent());
+            //$("#hotel_info").val(UE.getEditor('hotel_info').getContent());
             doForm($('#form1').attr('action'),$('#form1').serialize(), function(data){
                 _alert(data.msg, function(){
                     if(data.state){

@@ -66,8 +66,8 @@
             echo '<tr>';
             echo '<td> <input type="checkbox" /> </td>';
             echo '<td class="left">'.$val['hotel_name'].'</td>';
-            echo '<td>'.$val['hotel_english_name'].'</td>';
-            echo '<td>'.$val['hotel_address'].'</td>';
+            echo '<td class="left">'.$val['hotel_english_name'].'</td>';
+            echo '<td class="left">'.$val['hotel_address'].'</td>';
             echo '<td>';
             echo '<a href="',for_url('admin','hotel','edit', array($val['hotel_id'])), '" title="Edit">[编辑]</a>&nbsp;';
             echo '<a href="javascript:del(', $val['hotel_id'],');" title="Delete">[删除]</a>&nbsp;';
