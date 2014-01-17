@@ -26,7 +26,6 @@
     <p>
         <button onclick="window.print()" class="btn">打印</button>
     </p>
-    <p><strong>注：</strong>如果您使用的是谷歌浏览器，弹出打印对话框后，在<em>选项</em> 中取消<em>打印页眉页脚</em> 的勾选，即可只打印网页内容主体。(去除烦人的时间和标题和页脚多余的页码)</p>
 </div>
 <table>
     <caption>结算单</caption>
