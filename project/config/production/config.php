@@ -1,6 +1,6 @@
 <?php
 $config = array (
-  'base_url' => 'http://ts.com:8080/',
+  'base_url' => 'http://bj-bgp-s1-web.ua.gs/',
   'index_page' => 'index.php',
   'uri_protocol' => 'AUTO',
   'url_suffix' => '',

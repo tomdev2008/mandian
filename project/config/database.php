@@ -48,11 +48,12 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-//$db['default']['hostname'] = '192.168.100.10';
+//$db['default']['hostname'] = '114.111.162.220';
 $db['default']['hostname'] = '127.0.0.1';
 $db['default']['username'] = 'root';
-//$db['default']['password'] = 'youlunhai@321';
+//$db['default']['password'] = 'mandian@321';
 $db['default']['password'] = '123456';
+//$db['default']['database'] = 'mandianDB';
 $db['default']['database'] = 'momo-crm';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'crm_';

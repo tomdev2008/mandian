@@ -95,14 +95,20 @@ class system_model extends CI_Model
     {
 
         $sql = "SELECT c1.*, c2.sys_name as p_name
-                    FROM (".$this->db->dbprefix('system')." c1)
-                    LEFT JOIN ".$this->db->dbprefix('system')." c2 ON c2.sys_id = c1.sys_parent_id
-                    WHERE c1.sys_module =  ?
-                    AND c1.sys_controller =  ?
-                    AND c1.sys_action =  ?
-                    ORDER BY sys_order_id asc";
-
-        $query = $this->db->query($sql, array($m, $c, $a));
+                    FROM (" . $this->db->dbprefix('system') . " c1)
+                    LEFT JOIN " . $this->db->dbprefix('system') . " c2 ON c2.sys_id = c1.sys_parent_id
+                    WHERE 1=1 ";
+        if (!empty($m)) {
+            $sql .= " AND c1.sys_module = '" . $m ."'";
+        }
+        if (!empty($c)) {
+            $sql .= " AND c1.sys_controller = '" . $c ."'";
+        }
+        if (!empty($a)) {
+            $sql .= " AND c1.sys_action = '" . $a ."'";
+        }
+        $sql .= " ORDER BY c1.sys_order_id asc";
+        $query = $this->db->query($sql);
         return $query->result_array();
     }
 

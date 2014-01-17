@@ -1,11 +1,11 @@
 <?php
+
 /**
  * 用户表
  * User: Administrator
  * Date: 13-12-16
  * Time: 下午3:35
  */
-
 class User_model extends CI_Model
 {
 
@@ -18,7 +18,8 @@ class User_model extends CI_Model
         parent::__construct();
     }
 
-    public function del_role($id = null){
+    public function del_role($id = null)
+    {
         return $this->db->delete($this->db->dbprefix('roles'), array('role_id' => intval($id)));
     }
 
@@ -27,22 +28,25 @@ class User_model extends CI_Model
      * @param null $role_id
      * @return bool
      */
-    function get_user_role_access($role_id = null){
-        if(empty($role_id)){
+    function get_user_role_access($role_id = null)
+    {
+        if (empty($role_id)) {
             return false;
         }
 
-        $this->db->where($this->db->dbprefix('system_roles').'.sr_role_id', $role_id);
-        $this->db->where($this->db->dbprefix('system').'.visiabled', 1);
-        $this->db->where($this->db->dbprefix('system').'.enabled', 1);
+        $this->db->where($this->db->dbprefix('system_roles') . '.sr_role_id', $role_id);
+        $this->db->where($this->db->dbprefix('system') . '.visiabled', 1);
+        $this->db->where($this->db->dbprefix('system') . '.enabled', 1);
         $this->db->select('*');
         $this->db->from($this->db->dbprefix('system_roles'));
-        $this->db->join($this->db->dbprefix('system'), $this->db->dbprefix('system').'.sys_id = '.$this->db->dbprefix('system_roles').'.sr_sys_id', 'left');
-        $this->db->order_by($this->db->dbprefix('system').'.sys_order_id', 'asc');
+        $this->db->join($this->db->dbprefix('system'), $this->db->dbprefix('system') . '.sys_id = ' . $this->db->dbprefix('system_roles') . '.sr_sys_id', 'left');
+        $this->db->order_by($this->db->dbprefix('system') . '.sys_order_id', 'asc');
         $query = $this->db->get();
         return $query->result_array();
     }
-    function get_all_user_role_access(){
+
+    function get_all_user_role_access()
+    {
         $this->db->where('visiabled', 1);
         $this->db->where('enabled', 1);
         $this->db->select('*');
@@ -61,9 +65,9 @@ class User_model extends CI_Model
 
     function get_role_list($page = null, $rows = null)
     {
-        if(empty($page) || empty($rows)){
+        if (empty($page) || empty($rows)) {
             $query = $this->db->get($this->db->dbprefix('roles'));
-        }else{
+        } else {
             $offset = ($page - 1) * $rows;
             $query = $this->db->get($this->db->dbprefix('roles'), $rows, $offset);
         }
@@ -114,10 +118,10 @@ class User_model extends CI_Model
     function get_user_list($page = null, $rows = null)
     {
         $this->db->select('*');
-        $this->db->join($this->db->dbprefix('roles'), $this->db->dbprefix('roles').'.role_id = '. $this->db->dbprefix('users').'.role_id', 'left');
+        $this->db->join($this->db->dbprefix('roles'), $this->db->dbprefix('roles') . '.role_id = ' . $this->db->dbprefix('users') . '.role_id', 'left');
         $this->db->from($this->db->dbprefix('users'));
         $this->db->order_by("reg_time", "desc");
-        if(!empty($rows) && !empty($offset)){
+        if (!empty($rows) && !empty($offset)) {
             $offset = ($page - 1) * $rows;
             $this->db->limit($rows, $offset);
         }
@@ -136,22 +140,23 @@ class User_model extends CI_Model
 
     function get_user_by_id($id = null)
     {
-        $this->db->where('user_id', intval($id));
+        $this->db->where($this->db->dbprefix('users') . '.user_id', intval($id));
         $this->db->select('*');
-        $this->db->join($this->db->dbprefix('roles'), $this->db->dbprefix('roles.').'.role_id = '.$this->db->dbprefix('users').'.role_id', 'left');
+        $this->db->join($this->db->dbprefix('roles'), $this->db->dbprefix('roles') . '.role_id = ' . $this->db->dbprefix('users') . '.role_id', 'left');
         $this->db->from($this->db->dbprefix('users'));
         $query = $this->db->get();
         return $query->row_array();
     }
 
-    function get_user($user_name = null, $pwd = null){
-        if(empty($user_name)){
+    function get_user($user_name = null, $pwd = null)
+    {
+        if (empty($user_name)) {
             return false;
         }
         $this->db->where('user_name', $user_name);
         $this->db->where('password', $pwd);
-        $this->db->select('*');
-        $this->db->join($this->db->dbprefix('roles'), $this->db->dbprefix('roles').'.role_id = '.$this->db->dbprefix('users').'.role_id', 'left');
+        $this->db->select($this->db->dbprefix('users') . '.*,' . $this->db->dbprefix('roles') . '.role_name');
+        $this->db->join($this->db->dbprefix('roles'), $this->db->dbprefix('roles') . '.role_id = ' . $this->db->dbprefix('users') . '.role_id', 'left');
         $this->db->from($this->db->dbprefix('users'));
         $query = $this->db->get();
         return $query->row_array();
@@ -206,9 +211,10 @@ class User_model extends CI_Model
         return $this->db->update($this->db->dbprefix('users'), $data);
     }
 
-    public function del_user($id = null){
+    public function del_user($id = null)
+    {
         $user = $this->get_user_by_id($id);
-        if(empty($user) || $user['user_name'] == 'admin'){
+        if (empty($user) || $user['user_name'] == 'admin') {
             return false;
         }
         return $this->db->delete($this->db->dbprefix('users'), array('user_id' => intval($id)));

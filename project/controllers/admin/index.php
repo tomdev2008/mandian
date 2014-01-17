@@ -73,7 +73,10 @@ class Index extends CI_Admin
         $password = $this->input->get_post('password');
         $verify_code = $this->input->get_post('verify_code');
 
-        if (empty($verify_code) || empty($_SESSION['verify_code']) || (strcmp($verify_code, $_SESSION['verify_code']) !== 0)) {
+        if (empty($verify_code) || empty($_SESSION['verify_code'])) {
+            showmessage('验证码为空，请重试');
+        }
+        if (strcmp($verify_code, $_SESSION['verify_code']) !== 0) {
             $this->log->write_log('error', '登录失败_验证码不对[' . $user_name . ']');
             showmessage('验证码验证失败，请重试');
         }
@@ -92,15 +95,4 @@ class Index extends CI_Admin
     }
 
 
-    /**
-     * ---------------------------------------------------
-     * 获取导航
-     * ---------------------------------------------------
-     */
-    function get_admin_menu()
-    {
-        $r = parent::admin_menu();
-        $this->lib('json');
-        exit($this->json->encode($r));
-    }
 }

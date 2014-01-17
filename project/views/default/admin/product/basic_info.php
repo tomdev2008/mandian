@@ -190,7 +190,7 @@
                 <td width="80">服务评分</td>
                 <td>
                     <label for="flight_score">交通评分：
-                        <select id="flight_score" name="flight_score">
+                        <select id="flight_score" name="liner[flight_score]">
                             <option value="5">5</option>
                             <option value="4">4</option>
                             <option value="3">3</option>
@@ -203,7 +203,7 @@
                         </script>
                     </label>
                     <label for="hotel_score">酒店评分：
-                        <select id="hotel_score" name="hotel_score">
+                        <select id="hotel_score" name="liner[hotel_score]">
                             <option value="5">5</option>
                             <option value="4">4</option>
                             <option value="3">3</option>
@@ -216,7 +216,7 @@
                         </script>
                     </label>
                     <label for="scenery_score">风景评分：
-                        <select id="scenery_score" name="scenery_score">
+                        <select id="scenery_score" name="liner[scenery_score]">
                             <option value="5">5</option>
                             <option value="4">4</option>
                             <option value="3">3</option>
@@ -229,7 +229,7 @@
                         </script>
                     </label>
                     <label for="serve_score">服务评分：
-                        <select id="serve_score" name="serve_score">
+                        <select id="serve_score" name="liner[serve_score]">
                             <option value="5">5</option>
                             <option value="4">4</option>
                             <option value="3" selected="selected">3</option>
@@ -243,7 +243,7 @@
                     </label>
                     <br/>
                     <label for="trip_score">行程评分：
-                        <select id="trip_score" name="trip_score">
+                        <select id="trip_score" name="liner[trip_score]">
                             <option value="5">5</option>
                             <option value="4">4</option>
                             <option value="3">3</option>
@@ -256,7 +256,7 @@
                         </script>
                     </label>
                     <label for="food_score">美食评分：
-                        <select id="food_score" name="food_score">
+                        <select id="food_score" name="liner[food_score]">
                             <option value="5">5</option>
                             <option value="4">4</option>
                             <option value="3" selected="selected">3</option>
