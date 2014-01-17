@@ -1,11 +1,11 @@
 <?php
+
 /**
  * 订单业务逻辑层
  * hotel: Administrator
  * Date: 13-12-16
  * Time: 下午3:35
  */
-
 class Order_bll extends CI_Bll
 {
 
@@ -37,16 +37,18 @@ class Order_bll extends CI_Bll
     {
         return $this->order_model->get_list_count($order_num, $pro_name, $order_state, $contact_name, $start_time, $end_time);
     }
-    function get_by_id($order_id = null){
-        if(empty($order_id))
-        {
+
+    function get_by_id($order_id = null)
+    {
+        if (empty($order_id)) {
             return false;
         }
         return $this->order_model->get_by_id($order_id);
     }
-    function get_order_users_id($id = null){
-        if(empty($id))
-        {
+
+    function get_order_users_id($id = null)
+    {
+        if (empty($id)) {
             return false;
         }
         return $this->order_model->get_order_users_id($id);
@@ -58,13 +60,14 @@ class Order_bll extends CI_Bll
      * @param null $order_id
      * @return bool
      */
-    function get_user_by_id($id = null){
-        if(empty($id))
-        {
+    function get_user_by_id($id = null)
+    {
+        if (empty($id)) {
             return false;
         }
         return $this->order_model->get_user_by_id($id);
     }
+
     function insert_user($post = array())
     {
         return $this->order_model->insert_user($post);
@@ -75,11 +78,56 @@ class Order_bll extends CI_Bll
         return $this->order_model->save_user($post);
     }
 
-    function del_user($id = null){
-        if(empty($id))
-        {
+    function del_user($id = null)
+    {
+        if (empty($id)) {
             return false;
         }
         return $this->order_model->del_user($id);
+    }
+
+    /**
+     * 结算单
+     * @param null $page
+     * @param null $rows
+     * @return mixed
+     */
+    function get_settlements_list($page = null, $rows = null)
+    {
+        return $this->order_model->get_settlements_list($page, $rows);
+    }
+
+    function get_settlements_list_count()
+    {
+        return $this->order_model->get_settlements_list_count();
+    }
+
+    function get_settlements_by_id($id = null)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        return $this->order_model->get_settlements_by_id($id);
+    }
+
+    function settlements_del($id = null)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        return $this->order_model->settlements_del($id);
+    }
+
+    /**
+     * 获取供应商
+     * @param null $id
+     * @return bool
+     */
+    function get_supplier_by_id($id = null)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        return $this->order_model->get_supplier_by_id($id);
     }
 }

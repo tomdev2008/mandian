@@ -18,6 +18,93 @@ class Order_model extends CI_Model
     }
 
     /**
+     * 获取供应商
+     * @param null $id
+     * @return bool
+     */
+    function get_supplier_by_id($id = null)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        $this->db->select('*');
+        $this->db->from($this->db->dbprefix('supplier'));
+        $this->db->where("supplier_id", $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+    /**
+     * 结算单
+     * @param null $page
+     * @param null $rows
+     * @return mixed
+     */
+
+    function get_settlements_by_id($id = null)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        $this->db->where($this->db->dbprefix('settlements') . '.settlement_id', intval($id));
+
+        $select = $this->db->dbprefix('settlements') . '.*,'
+            . $this->db->dbprefix('product') . '.pro_name,'
+            . $this->db->dbprefix('order') . '.*';
+        $this->db->select($select);
+        $this->db->from($this->db->dbprefix('settlements'));
+        $this->db->join($this->db->dbprefix('order'), $this->db->dbprefix('order') . '.order_id = ' . $this->db->dbprefix('settlements') . '.order_id', 'left');
+        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product') . '.pro_id = ' . $this->db->dbprefix('order') . '.pro_id', 'left');
+        $this->db->where($this->db->dbprefix('order') . '.enabled', 1);
+        $this->db->order_by($this->db->dbprefix('settlements') . '.settlement_id', "desc");
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+    function get_settlements_list($page = null, $rows = null)
+    {
+        $select = $this->db->dbprefix('settlements') . '.*,'
+            . $this->db->dbprefix('product') . '.pro_name,'
+            . $this->db->dbprefix('order') . '.order_num,'
+            . $this->db->dbprefix('order') . '.pay_time,'
+            . $this->db->dbprefix('order') . '.total_price';
+        $this->db->select($select);
+        $this->db->from($this->db->dbprefix('settlements'));
+        if (!empty($rows) && !empty($rows)) {
+            $page = ($page <= 1) ? 1 : $page;
+            $offset = ($page - 1) * $rows;
+            $this->db->limit($rows, $offset);
+        }
+        $this->db->join($this->db->dbprefix('order'), $this->db->dbprefix('order') . '.order_id = ' . $this->db->dbprefix('settlements') . '.order_id', 'left');
+        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product') . '.pro_id = ' . $this->db->dbprefix('order') . '.pro_id', 'left');
+        $this->db->where($this->db->dbprefix('order') . '.enabled', 1);
+        $this->db->order_by($this->db->dbprefix('settlements') . '.settlement_id', "desc");
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function get_settlements_list_count()
+    {
+        $this->db->select('count(*) as acount');
+        $this->db->from($this->db->dbprefix('settlements'));
+        $this->db->join($this->db->dbprefix('order'), $this->db->dbprefix('order') . '.order_id = ' . $this->db->dbprefix('settlements') . '.order_id', 'left');
+        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product') . '.pro_id = ' . $this->db->dbprefix('order') . '.pro_id', 'left');
+        $this->db->where($this->db->dbprefix('order') . '.enabled', 1);
+        $this->db->order_by($this->db->dbprefix('settlements') . '.settlement_id', "desc");
+        $query = $this->db->get();
+        $r = $query->row_array();
+        return $r['acount'];
+    }
+
+    function settlements_del($id = null)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        return $this->db->delete($this->db->dbprefix('settlements'), array('settlement_id' => intval($id)));
+    }
+
+    /**
      * -----------------------------------------------
      * 订单获取
      * @param null $page
@@ -37,32 +124,32 @@ class Order_model extends CI_Model
             $this->db->where($this->db->dbprefix('order.order_num'), $order_num);
         }
         if (!empty($pro_name)) {
-            $this->db->like($this->db->dbprefix('product').'.pro_name', $pro_name);
+            $this->db->like($this->db->dbprefix('product') . '.pro_name', $pro_name);
         }
         if (!empty($order_state)) {
-            $this->db->where($this->db->dbprefix('order').'.order_state', $order_state);
+            $this->db->where($this->db->dbprefix('order') . '.order_state', $order_state);
         }
         if (!empty($contact_name)) {
-            $this->db->like($this->db->dbprefix('order').'.contact_name', $contact_name);
+            $this->db->like($this->db->dbprefix('order') . '.contact_name', $contact_name);
         }
         if (!empty($start_time)) {
-            $this->db->where($this->db->dbprefix('order').'.add_time >=', strtotime($start_time));
+            $this->db->where($this->db->dbprefix('order') . '.add_time >=', strtotime($start_time));
         }
         if (!empty($end_time)) {
-            $this->db->where($this->db->dbprefix('order').'.add_time <=', strtotime($end_time));
+            $this->db->where($this->db->dbprefix('order') . '.add_time <=', strtotime($end_time));
         }
 
-        $this->db->select($this->db->dbprefix('product').'.pro_name,'.$this->db->dbprefix('trip').'.set_out_time,'.$this->db->dbprefix('order.*'));
+        $this->db->select($this->db->dbprefix('product') . '.pro_name,' . $this->db->dbprefix('trip') . '.set_out_time,' . $this->db->dbprefix('order.*'));
         $this->db->from($this->db->dbprefix('order'));
         if (!empty($rows) && !empty($rows)) {
             $page = ($page <= 1) ? 1 : $page;
             $offset = ($page - 1) * $rows;
             $this->db->limit($rows, $offset);
         }
-        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product').'.pro_id = '.$this->db->dbprefix('order.pro_id'), 'left');
-        $this->db->join($this->db->dbprefix('trip'), $this->db->dbprefix('trip').'.trip_id = '.$this->db->dbprefix('order').'.trip_id', 'left');
+        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product') . '.pro_id = ' . $this->db->dbprefix('order.pro_id'), 'left');
+        $this->db->join($this->db->dbprefix('trip'), $this->db->dbprefix('trip') . '.trip_id = ' . $this->db->dbprefix('order') . '.trip_id', 'left');
         $this->db->where($this->db->dbprefix('order.enabled'), 1);
-        $this->db->order_by($this->db->dbprefix('order').'.add_time', "desc");
+        $this->db->order_by($this->db->dbprefix('order') . '.add_time', "desc");
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -73,27 +160,27 @@ class Order_model extends CI_Model
             $this->db->where($this->db->dbprefix('order.order_num'), $order_num);
         }
         if (!empty($pro_name)) {
-            $this->db->like($this->db->dbprefix('product').'.pro_name', $pro_name);
+            $this->db->like($this->db->dbprefix('product') . '.pro_name', $pro_name);
         }
         if (!empty($order_state)) {
-            $this->db->where($this->db->dbprefix('order').'.order_state', $order_state);
+            $this->db->where($this->db->dbprefix('order') . '.order_state', $order_state);
         }
         if (!empty($contact_name)) {
-            $this->db->like($this->db->dbprefix('order').'.contact_name', $contact_name);
+            $this->db->like($this->db->dbprefix('order') . '.contact_name', $contact_name);
         }
         if (!empty($start_time)) {
-            $this->db->where($this->db->dbprefix('order').'.add_time >=', strtotime($start_time));
+            $this->db->where($this->db->dbprefix('order') . '.add_time >=', strtotime($start_time));
         }
         if (!empty($end_time)) {
-            $this->db->where($this->db->dbprefix('order').'.add_time <=', strtotime($end_time));
+            $this->db->where($this->db->dbprefix('order') . '.add_time <=', strtotime($end_time));
         }
 
         $this->db->select('count(*) as acount');
         $this->db->from($this->db->dbprefix('order'));
-        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product').'.pro_id = '.$this->db->dbprefix('order.pro_id'), 'left');
-        $this->db->join($this->db->dbprefix('trip'), $this->db->dbprefix('trip').'.trip_id = '.$this->db->dbprefix('order').'.trip_id', 'left');
+        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product') . '.pro_id = ' . $this->db->dbprefix('order.pro_id'), 'left');
+        $this->db->join($this->db->dbprefix('trip'), $this->db->dbprefix('trip') . '.trip_id = ' . $this->db->dbprefix('order') . '.trip_id', 'left');
         $this->db->where($this->db->dbprefix('order.enabled'), 1);
-        $this->db->order_by($this->db->dbprefix('order').'.add_time', "desc");
+        $this->db->order_by($this->db->dbprefix('order') . '.add_time', "desc");
         $query = $this->db->get();
         $r = $query->row_array();
         return $r['acount'];
@@ -105,12 +192,12 @@ class Order_model extends CI_Model
             return false;
         }
 
-        $this->db->select($this->db->dbprefix('product').'.*,'.$this->db->dbprefix('trip').'.set_out_time,'.$this->db->dbprefix('order.*'));
+        $this->db->select($this->db->dbprefix('product') . '.*,' . $this->db->dbprefix('trip') . '.set_out_time,' . $this->db->dbprefix('order.*'));
         $this->db->from($this->db->dbprefix('order'));
-        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product').'.pro_id = '.$this->db->dbprefix('order.pro_id'), 'left');
-        $this->db->join($this->db->dbprefix('trip'), $this->db->dbprefix('trip').'.trip_id = '.$this->db->dbprefix('order').'.trip_id', 'left');
-        $this->db->where($this->db->dbprefix('order').'.order_id', $order_id);
-        $this->db->where($this->db->dbprefix('order').'.enabled', 1);
+        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product') . '.pro_id = ' . $this->db->dbprefix('order.pro_id'), 'left');
+        $this->db->join($this->db->dbprefix('trip'), $this->db->dbprefix('trip') . '.trip_id = ' . $this->db->dbprefix('order') . '.trip_id', 'left');
+        $this->db->where($this->db->dbprefix('order') . '.order_id', $order_id);
+        $this->db->where($this->db->dbprefix('order') . '.enabled', 1);
         $query = $this->db->get();
         return $query->row_array();
     }
