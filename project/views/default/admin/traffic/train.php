@@ -35,7 +35,7 @@
         </thead>
         <tfoot>
         <tr>
-            <td colspan="8">
+            <td colspan="9">
                 <div class="bulk-actions align-left">
                     <!--<select name="dropdown">
                         <option value="option1">操作...</option>
