@@ -32,7 +32,7 @@
             </tr>
 
             <tr>
-                <td class="er" style="color: #ff0000;">PHP配置文件</td>
+                <td class="er">PHP配置文件</td>
                 <td class="fl"><?= $Info['php_ini_file'] ?></td>
             </tr>
 
@@ -57,7 +57,7 @@
             </thead>
 
             <tr>
-                <td width="120" class="er">系统日志</td>
+                <td width="120" class="er" style="color: #ff0000;">系统日志</td>
                 <td width="380" class="fl">今天有<b><?= $data['log_errors_count']; ?></b>个警告&nbsp;</td>
             </tr>
         </table>
