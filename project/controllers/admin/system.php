@@ -145,4 +145,21 @@ class System extends CI_Admin
         }
     }
 
+    /**
+     * 系统日志
+     */
+    function system_log()
+    {
+        $this->load->bll('system_bll');
+        $page = $this->input->get_post('p');
+        $date = $this->input->get_post('date');
+        $rows = 20;
+        $r['date'] = $date;
+        $r['rows'] = $this->system_bll->get_log_list($page, $rows, $date);
+        $r['total'] = ceil($this->system_bll->get_log_list_count() / $rows);
+        $this->view('/admin/public/pager_header');
+        $this->view('/admin/index/system_log', $r);
+        $this->view('/admin/public/pager_footer');
+    }
+
 }

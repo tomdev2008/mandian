@@ -88,7 +88,7 @@ class CI_Log {
 
 		if ( ! file_exists($filepath))
 		{
-			$message .= "<"."?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?".">\n\n";
+			$message .= "<"."?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');\n\n";
 		}
 
 		if ( ! $fp = @fopen($filepath, FOPEN_WRITE_CREATE))
@@ -96,7 +96,7 @@ class CI_Log {
 			return FALSE;
 		}
 
-		$message .= $level.' '.(($level == 'INFO') ? ' -' : '-').' '.date($this->_date_fmt). ' --> '.$msg."\n";
+		$message .= '$data[\''.$level.'\'][\''.date($this->_date_fmt). '\'] = \''. ($msg)."';\n";
 
 		flock($fp, LOCK_EX);
 		fwrite($fp, $message);

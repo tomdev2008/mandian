@@ -346,4 +346,33 @@ class System_bll extends CI_Bll
         return $this->_model->del_system($id);
     }
 
+    /**
+     * 获取系统日志
+     */
+    function get_log_list($page = 1, $rows = 20, $date = null)
+    {
+        $date = empty($date) ? date('Y-m-d', time()) : $date;
+        $log_path = ROOTPATH . 'temp/log/log-' . $date . '.php';
+        if (!file_exists($log_path)) {
+            return array();
+        }
+        $offset = ($page - 1) * $rows;
+        $data = array();
+        include($log_path);
+        $data = array_slice($data, $offset, $rows);
+        return $data;
+    }
+
+    function get_log_list_count($date = null)
+    {
+        $date = empty($date) ? date('Y-m-d', time()) : $date;
+        $log_path = ROOTPATH . 'temp/log/log-' . $date . '.php';
+        if (!file_exists($log_path)) {
+            return 0;
+        }
+        $data = array();
+        include($log_path);
+        return count($data);
+    }
+
 }
