@@ -15,18 +15,17 @@
                             <option value="0">--快速设置--</option>
                             <option value="prevfy">上财年</option>
                             <option value="thisfy">本财年</option>
-                            <option value="nextfy">下财年</option>
                             <option value="prevfq">上季度</option>
                             <option value="thisfq">本季度</option>
-                            <option value="nextfq">下季度</option>
+ 
                         </select>
                         <input type="text" size="8" id="start_time" name="start_date"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">-
                         <input type="text" size="8" id="end_time" name="end_date"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">
                         &nbsp;
+                        分组：
                         <select id="xtype" name="xtype">
-                            <option value="0">--浏览方式--</option>
-                            <option value="m">x-月</option>
-                            <option value="d">x-日</option>
+                            <option value="m" selected>月</option>
+                            <option value="d">日</option>
                         </select>
                         <input type="button" id="btn" class="button" value="生成报表">
                     </div>
@@ -96,7 +95,7 @@
 
                     opt.series = data.series1;
                     opt.chart.renderTo = 'container1';
-                    Highcharts.Chart(opt);
+                    new Highcharts.Chart(opt);
 
                     opt.series = data.series2;
                     opt.chart.renderTo = 'container2';
@@ -130,16 +129,16 @@
                     starDate = year + '-01-01';
                     endDate = year + '-12-31';
                     break;
-                case 'nextfy'://下财年
-                    var year = (new Date()).getFullYear()+1;
-                    starDate = year + '-01-01';
-                    endDate = year + '-12-31';
                     break;
                 case 'prevfq'://上季度
+                    <?php  $season = ceil((date('n'))/3);//当月是第几季度 ?>
+                    starDate = '<?= date('Y-m-d', mktime(0, 0, 0,$season*3-3+1,1,date('Y')))?>';
+                    endDate = '<?= date('Y-m-d', mktime(23,59,59,$season*3,date('t',mktime(0, 0 , 0,$season*3,1,date("Y"))),date('Y')))?>';
                     break;
                 case 'thisfq'://本季度
-                    break;
-                case 'nextfq'://下季度
+                    <?php  $season = ceil((date('n'))/3);//当月是第几季度 ?>
+                    starDate = '<?= date('Y-m-d H:i:s', mktime(0, 0, 0,$season*3-3+1,1,date('Y')))?>';
+                    endDate = '<?= date('Y-m-d H:i:s', mktime(23,59,59,$season*3,date('t',mktime(0, 0 , 0,$season*3,1,date("Y"))),date('Y')))?>';
                     break;
             }
             $('#start_time').val(starDate);
