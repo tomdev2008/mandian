@@ -58,7 +58,7 @@
 
             <tr>
                 <td width="120" class="er">系统日志</td>
-                <td width="380" class="fl">今天有<b><?= $data['log_errors_count']; ?></b>个警告</td>
+                <td width="380" class="fl">今天有<b><?= $data['log_errors_count']; ?></b>个警告&nbsp;</td>
             </tr>
         </table>
         <!--/表格-->

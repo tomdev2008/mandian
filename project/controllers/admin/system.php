@@ -162,4 +162,15 @@ class System extends CI_Admin
         $this->view('/admin/public/pager_footer');
     }
 
+    function system_log_clear()
+    {
+        $this->load->bll('system_bll');
+        $r = $this->system_bll->system_log_clear();
+        if ($r) {
+            showmessage('日志清空成功', for_url('admin', 'system', 'system_log'));
+        } else {
+            showmessage('日志清空失败');
+        }
+    }
+
 }

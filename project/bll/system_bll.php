@@ -375,4 +375,11 @@ class System_bll extends CI_Bll
         return count($data['ERROR']);
     }
 
+    function system_log_clear()
+    {
+        $this->load->helper('file');
+        $log_path = ROOTPATH . 'temp/log/';
+        return delete_files($log_path);
+    }
+
 }

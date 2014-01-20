@@ -9,6 +9,7 @@
                     <div class="explain-col">
                         日期：<input type="text" value="<?php echo $date; ?>" size="10" class="input-text" onfocus="WdatePicker()" name="date">
                         <input type="submit" id="btn" class="button" value="查询">
+                        <input type="button" id="clearLog" class="button" value="清空日志">
                     </div>
                 </td>
             </tr>
@@ -76,11 +77,12 @@
 </body>
 <!-- My97DatePicker -->
 <script language="JavaScript" type="text/javascript" src="/public/resource/js/sea-modules/alias/My97DatePicker/WdatePicker.js" charset="UTF-8"></script>
-
-<script>
-    function del(id){
-        _confirm('确认删除？',function(){
-            location.href = '<?php echo for_url('admin','user','user_del'); ?>' + id;
-        });
-    }
+<script type="text/javascript">
+    $(function(){
+        $('#clearLog').click(function(){
+            _confirm('确认清空？', function(){
+                location.href = '<?php echo for_url('admin','system','system_log_clear'); ?>';
+            })
+        })
+    })
 </script>
