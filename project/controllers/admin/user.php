@@ -79,7 +79,7 @@ class User extends CI_Admin
             $r = $this->user_bll->save_user($user);
         }
         if ($r) {
-            showmessage('用户保存成功',for_url('admin','user','user_list'));
+            showmessage('用户保存成功',for_url('admin','user','user_edit', array($r)));
         } else {
             showmessage('用户保存失败');
         }

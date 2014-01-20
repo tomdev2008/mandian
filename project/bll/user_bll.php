@@ -1,11 +1,11 @@
 <?php
+
 /**
  * 用户表业务逻辑层
  * User: Administrator
  * Date: 13-12-16
  * Time: 下午3:35
  */
-
 class User_bll extends CI_Bll
 {
 
@@ -44,9 +44,9 @@ class User_bll extends CI_Bll
         $session['pc_hash'] = random_string('alnum', 5);
 
         //写入
-        $_SESSION['user_id'] = $session['user_id'] ;
-        $_SESSION['role_id'] = $session['role_id'] ;
-        $_SESSION['pc_hash'] = $session['pc_hash'] ;
+        $_SESSION['user_id'] = $session['user_id'];
+        $_SESSION['role_id'] = $session['role_id'];
+        $_SESSION['pc_hash'] = $session['pc_hash'];
 
         //更新登录时间、ip、次数
         $data = array(
@@ -65,7 +65,8 @@ class User_bll extends CI_Bll
     /**
      * 退出
      */
-    function logout(){
+    function logout()
+    {
         $session['user_name'] = '';
         $session['user_id'] = '';
         $session['role_id'] = '';
@@ -80,7 +81,8 @@ class User_bll extends CI_Bll
      * @param $role_id
      * @return array
      */
-    function get_user_role_access_header($role_id){
+    function get_user_role_access_header($role_id)
+    {
         $rights = $this->_model->get_user_role_access($role_id);
         if ($this->session->userdata('user_name') === 'admin') {
             $rights = $this->_model->get_all_user_role_access($role_id);
@@ -101,14 +103,14 @@ class User_bll extends CI_Bll
                     'text' => $val['sys_name'],
                     'entext' => $val['sys_enname'],
                     'attributes' => array(
-                        'url' => $val['sys_module'] .'/'. $val['sys_controller'] . '/' .$val['sys_action'],
+                        'url' => $val['sys_module'] . '/' . $val['sys_controller'] . '/' . $val['sys_action'],
                     )
                 );
             }
         }
         $r = array();
         foreach ($result as $key => $val) {
-            if(isset($result_sub[$key])){
+            if (isset($result_sub[$key])) {
                 $val['children'] = $result_sub[$key];
             }
             $r[] = $val;
@@ -121,14 +123,15 @@ class User_bll extends CI_Bll
      * @param $role_id
      * @return array
      */
-    function get_user_role_access($role_id){
+    function get_user_role_access($role_id)
+    {
         $rights = $this->_model->get_user_role_access($role_id);
         $current_rights = array();
-        foreach($rights as $val){
-            if(empty($val['sys_controller']) || empty($val['sys_action'])){
+        foreach ($rights as $val) {
+            if (empty($val['sys_controller']) || empty($val['sys_action'])) {
                 continue;
             }
-            $current_rights[] = $val['sys_id'] ;
+            $current_rights[] = $val['sys_id'];
         }
         return $current_rights;
     }
@@ -184,6 +187,9 @@ class User_bll extends CI_Bll
 
     function save_user($post = array())
     {
+        if (isset($post['password'])) {
+            $post['password'] = substr(md5($post['password']), 0, 7);
+        }
         return $this->_model->save_user($post);
     }
 
@@ -229,6 +235,7 @@ class User_bll extends CI_Bll
     {
         return $this->_model->get_role_by_id($id);
     }
+
     public function del_role($id = null)
     {
         return $this->_model->del_role($id);

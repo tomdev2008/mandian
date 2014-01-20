@@ -18,13 +18,11 @@
                     <td width="260"><input type="text" value="<?php echo $data['user_name'] ?>" size="30" class="input-text" id="user_name" name="user[user_name]"></td>
                     <td><div id="user_nameTip" class="input-tip"></div></td>
                 </tr>
-                <?php if(empty($data['user_id'])){  ?>
-                    <tr>
-                        <td width="80">密码</td>
-                        <td width="260"><input type="password" value="<?php echo $data['password'] ?>" size="30" class="input-text" id="pwd" name="user[password]"></td>
-                        <td><div id="pwdTip" class="input-tip"></div></td>
-                    </tr>
-                <?php  }?>
+                <tr>
+                    <td width="80">密码</td>
+                    <td width="260"><input type="password" value="" size="30" class="input-text" id="pwd" name="user[password]"></td>
+                    <td><div id="pwdTip" class="input-tip"></div></td>
+                </tr>
                 <tr>
                     <td width="80">E-mail</td>
                     <td width="260"><input type="text" value="<?php echo $data['email'] ?>" size="30" id="email" class="input-text" name="user[email]"></td>

@@ -29,12 +29,13 @@
         <div class="logo">
         </div>
         <p>
-            <span>当前环境[<?php echo ENVIRONMENT; ?>]</span>
-            <a href="javascript:logOut();">退出管理</a>
-            <a href="<?php echo for_url('admin', 'index', 'index' ,'?pc_hash='. $pc_hash) ?>">后台首页</a>
-            <a href="#" target='_blank'>站点首页</a>
-            <span>您好 <label class='bold'><?php echo $user_name; ?></label>，
-            当前身份 <label class='bold'><?php echo $role_name; ?></label></span>
+            <span>当前环境：<?php echo ENVIRONMENT; ?></span>
+            <a href="javascript:logOut();">[退出管理]</a>
+            <a href="<?php echo for_url('admin', 'index', 'index' ) ?>">[后台首页]</a>
+            <a href="javascript:editProfile();">[修改资料]</a>
+            <a href="#" target='_blank'>[站点首页]</a>
+            <span>您好:<label class='bold'><?php echo $user_name; ?></label>，
+            当前身份:<label class='bold'><?php echo $role_name; ?></label></span>
         </p>
     </div>
 </div>
@@ -117,6 +118,19 @@
         if(_confirm('确认退出？',function(){
             location.href = '<?php echo for_url('admin', 'index', 'logout')?>';
         }));
+    }
+
+    function editProfile(){
+        if ($('#tabs-el').tabs('exists','修改资料')){
+            $('#tabs-el').tabs('close', '修改资料');
+        }
+        var Body = $(window);
+        var heights = Body.height() - 110;
+        $('#tabs-el').tabs('add',{
+            title:'修改资料',
+            content: '<iframe name="right" src="<?php echo for_url('admin', 'user', 'user_edit', array($user_id)) ?>" frameborder="false" style="border: 0px;" scrolling="auto" width="100%" height="'+heights+'px" allowtransparency="true"></iframe>',
+            closable:true
+        });
     }
 
     window._confirm = function(_t, _call){

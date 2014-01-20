@@ -196,7 +196,11 @@ class User_model extends CI_Model
                 $data[$key] = $val;
             }
         }
-        return $this->db->insert($this->db->dbprefix('users'), $data);
+        $r = $this->db->insert($this->db->dbprefix('users'), $data);
+        if ($r) {
+            return $this->db->insert_id();
+        }
+        return $r;
     }
 
     function save_user($post = array())
@@ -208,7 +212,11 @@ class User_model extends CI_Model
             }
         }
         $this->db->where('user_id', $post['user_id']);
-        return $this->db->update($this->db->dbprefix('users'), $data);
+        $r = $this->db->update($this->db->dbprefix('users'), $data);
+        if ($r) {
+            return $post['user_id'];
+        }
+        return $r;
     }
 
     public function del_user($id = null)

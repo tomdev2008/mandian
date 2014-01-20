@@ -18,6 +18,7 @@ class Index extends CI_Admin
     {
         parent::check_admin();
         $data['user_name'] = $this->session->userdata('user_name');
+        $data['user_id'] = $this->session->userdata('user_id');
         $data['role_name'] = $this->session->userdata('role_name');
         $data['pc_hash'] = $this->pc_hash;
         $data['tree_list'] = parent::admin_menu();
@@ -28,6 +29,7 @@ class Index extends CI_Admin
     {
         parent::check_admin();
         $data['user_name'] = $this->session->userdata('user_name');
+        $data['user_id'] = $this->session->userdata('user_id');
         $data['role_name'] = $this->session->userdata('role_name');
 
         $this->view('/admin/public/pager_header');
