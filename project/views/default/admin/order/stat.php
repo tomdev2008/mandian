@@ -66,7 +66,7 @@
             formatter: function() {
                 var s = '';
                 if (this.series.name) { // the pie chart
-                    s = '['+ this.series.name +']: '+ this.y;
+                    s = '['+ this.series.name +']: '+ this.y + '/'+ this.x;
                 }
                 return s;
             }
