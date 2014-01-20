@@ -110,6 +110,14 @@ class Order_bll extends CI_Bll
         return $this->order_model->get_settlements_by_id($id);
     }
 
+    function get_settlements_by_order_id($id = null)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        return $this->order_model->get_settlements_by_order_id($id);
+    }
+
     function settlements_del($id = null)
     {
         if (empty($id)) {

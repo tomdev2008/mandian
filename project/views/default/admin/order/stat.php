@@ -5,38 +5,52 @@
 <body>
     <!--内容区-->
     <!--查询表单-->
+    <form name="frm" id="form1"   method="post">
         <table width="100%" cellspacing="0" class="search-form">
             <tbody>
             <tr>
                 <td>
                     <div class="explain-col">
-                            <select id="select-time">
-                                <option value="0">--请选择--</option>
-                                <option value="prevfy">上财年</option>
-                                <option value="thisfy">本财年</option>
-                                <option value="nextfy">下财年</option>
-                                <option value="prevfq">上季度</option>
-                                <option value="thisfq">本季度</option>
-                                <option value="nextfq">下季度</option>
-                            </select>
-                            <input type="text" size="8" id="start_time"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">-
-                            <input type="text" size="8" id="end_time"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">
+                        <select id="select-time">
+                            <option value="0">--快速设置--</option>
+                            <option value="prevfy">上财年</option>
+                            <option value="thisfy">本财年</option>
+                            <option value="nextfy">下财年</option>
+                            <option value="prevfq">上季度</option>
+                            <option value="thisfq">本季度</option>
+                            <option value="nextfq">下季度</option>
+                        </select>
+                        <input type="text" size="8" id="start_time" name="start_date"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">-
+                        <input type="text" size="8" id="end_time" name="end_date"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">
+                        &nbsp;
+                        <select id="xtype" name="xtype">
+                            <option value="0">--浏览方式--</option>
+                            <option value="m">x-月</option>
+                            <option value="d">x-日</option>
+                        </select>
                         <input type="button" id="btn" class="button" value="生成报表">
                     </div>
                 </td>
             </tr>
             </tbody>
         </table>
+        </form>
     <!--/查询表单-->
-
-    <div id="container" style="width: 100%; height: 400px;"></div>
-
-
+    <div id="container1" style="width: 100%; height: 260px;"></div>
+    <div id="container2" style="width: 100%; height: 260px;"></div>
+    <div id="container3" style="width: 100%; height: 260px;"></div>
 </div>
 </body>
 <!--/内容区-->
 
 <script src="/public/resource/js/sea-modules/alias/jqPlot/js/jquery.1.7.1.js"></script>
+
+<!-- easyui -->
+<link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/default/easyui.css" rel="stylesheet"/>
+<link href="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/themes/icon.css" rel="stylesheet"/>
+<script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
+<script src="/public/resource/js/sea-modules/alias/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
+
 <script src="/public/resource/js/sea-modules/alias/jqPlot/js/highcharts.js"></script>
 <script src="/public/resource/js/sea-modules/alias/jqPlot/js/modules/exporting.js"></script>
 <!-- My97DatePicker -->
@@ -44,60 +58,56 @@
 <script type="text/javascript">
     var opt = {
         chart: {
-            renderTo: 'container',
-            type: 'column'
+            renderTo: 'container'
         },
         title: {
-            text: '常用报表'
-        },
-        subtitle: {
-            text: null
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '收入 (元)'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            backgroundColor: '#FFFFFF',
-            align: 'left',
-            verticalAlign: 'top',
-            floating: true,
-            shadow: true
+            text: '订单基本报表'
         },
         tooltip: {
             formatter: function() {
-                return  this.x +': ￥'+ this.y;
-            }
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
+                var s = '';
+                if (this.series.name) { // the pie chart
+                    s = '['+ this.series.name +']: '+ this.y;
+                }
+                return s;
             }
         }
     };
 
     $(function () {
         $('#btn').click(function(){
+            var win = $.messager.progress({
+                title:'提示',
+                msg:'数据加载中...'
+            });
             var starDate = $('#start_time').val();
             var endDate = $('#end_time').val();
-
-            if(starDate == '' || endDate == ''){
+            var xtype = $('#xtype').val();
+            if(starDate == '' || endDate == '' || xtype ==''){
                 return;
             }
             $.ajax({
                 url: '<?php echo for_url('admin', 'order', 'stat_get') ?>',
                 type: 'post',
-                data: 'start_date=' + starDate + '&end_date=' + endDate + '&order_state=',
+                data: $('#form1').serialize(),
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data)
                     opt.xAxis = data.xAxis;
-                    opt.series = data.series;
+
+                    opt.series = data.series1;
+                    opt.chart.renderTo = 'container1';
                     chart = new Highcharts.Chart(opt);
+
+                    console.log(data.series2)
+                    opt.series = data.series2;
+                    opt.chart.renderTo = 'container2';
+                    chart = new Highcharts.Chart(opt);
+
+                    console.log(data.series3)
+                    opt.series = data.series3;
+                    opt.chart.renderTo = 'container3';
+                    chart = new Highcharts.Chart(opt);
+                    $.messager.progress('close');
                 },
                 error: function () {
                     alert('出错了');

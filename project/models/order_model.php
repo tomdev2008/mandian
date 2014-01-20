@@ -41,6 +41,28 @@ class Order_model extends CI_Model
      * @return mixed
      */
 
+    function get_settlements_by_order_id($id = null)
+    {
+        if (empty($id)) {
+            return false;
+        }
+        $this->db->where($this->db->dbprefix('settlements') . '.order_id', intval($id));
+
+        $select = $this->db->dbprefix('settlements') . '.*,'
+            . $this->db->dbprefix('product') . '.pro_name,'
+            . $this->db->dbprefix('order') . '.*';
+        $this->db->select($select);
+        $this->db->from($this->db->dbprefix('settlements'));
+        $this->db->join($this->db->dbprefix('order'), $this->db->dbprefix('order') . '.order_id = ' . $this->db->dbprefix('settlements') . '.order_id', 'left');
+        $this->db->join($this->db->dbprefix('product'), $this->db->dbprefix('product') . '.pro_id = ' . $this->db->dbprefix('order') . '.pro_id', 'left');
+        $this->db->where($this->db->dbprefix('order') . '.enabled', 1);
+        $this->db->order_by($this->db->dbprefix('settlements') . '.settlement_id', "desc");
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+
+
     function get_settlements_by_id($id = null)
     {
         if (empty($id)) {
@@ -127,7 +149,11 @@ class Order_model extends CI_Model
             $this->db->like($this->db->dbprefix('product') . '.pro_name', $pro_name);
         }
         if (!empty($order_state)) {
-            $this->db->where($this->db->dbprefix('order') . '.order_state', $order_state);
+            if(is_array($order_state)){
+                $this->db->where_in($this->db->dbprefix('order') . '.order_state', $order_state);
+            }else{
+                $this->db->where($this->db->dbprefix('order') . '.order_state', $order_state);
+            }
         }
         if (!empty($contact_name)) {
             $this->db->like($this->db->dbprefix('order') . '.contact_name', $contact_name);
