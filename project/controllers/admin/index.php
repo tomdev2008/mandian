@@ -20,7 +20,6 @@ class Index extends CI_Admin
         $data['user_name'] = $this->session->userdata('user_name');
         $data['user_id'] = $this->session->userdata('user_id');
         $data['role_name'] = $this->session->userdata('role_name');
-        $data['pc_hash'] = $this->pc_hash;
         $data['tree_list'] = parent::admin_menu();
         $this->view('/admin/public/index', $data);
     }
@@ -32,6 +31,9 @@ class Index extends CI_Admin
         $data['user_id'] = $this->session->userdata('user_id');
         $data['role_name'] = $this->session->userdata('role_name');
 
+        $this->load->bll('system_bll');
+        $data['data']['log_errors_count'] = $this->system_bll->get_log_list_count();
+
         $this->view('/admin/public/pager_header');
         $this->view('/admin/public/home', $data);
         $this->view('/admin/public/pager_footer');
@@ -42,7 +44,8 @@ class Index extends CI_Admin
      * 验证码
      * ---------------------------------------------------
      */
-    function verify_image() {
+    function verify_image()
+    {
 
         $conf['name'] = 'verify_code'; //作为配置参数
         $this->load->library('captcha', $conf);
@@ -79,20 +82,16 @@ class Index extends CI_Admin
             showmessage('验证码为空，请重试');
         }
         if (strcmp($verify_code, $_SESSION['verify_code']) !== 0) {
-            $this->log->write_log('error', '登录失败_验证码不对[' . $user_name . ']');
             showmessage('验证码验证失败，请重试');
         }
 
         if (empty($user_name) || empty($password)) {
-            $this->log->write_log('error', '登录失败_用户名密码空[' . $user_name . ']');
             showmessage('用户名、密码不能为空');
         }
         $r = $this->user_bll->login($user_name, $password);
         if (!$r) {
-            $this->log->write_log('ERROR', '登录失败_用户名密码不对[' . $user_name . ']');
             showmessage('登录失败，请重新登录。');
         }
-        $pc_hash = $this->session->userdata('pc_hash');
         showmessage('登录成功，正在跳转……', for_url('admin', 'index', 'index'));
     }
 

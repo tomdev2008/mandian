@@ -49,8 +49,19 @@
                         )</span></td>
             </tr>
         </table>
-        <!--/表格-->
+        <table width="100%" class="table-form contentWrap">
+            <thead>
+            <tr>
+                <th colspan="2">系统监测</th>
+            </tr>
+            </thead>
 
+            <tr>
+                <td width="120" class="er">系统日志</td>
+                <td width="380" class="fl">今天有<b><?= $data['log_errors_count']; ?></b>个警告</td>
+            </tr>
+        </table>
+        <!--/表格-->
     </div>
     <!--/内容-->
 </div>
