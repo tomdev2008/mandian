@@ -96,17 +96,16 @@
 
                     opt.series = data.series1;
                     opt.chart.renderTo = 'container1';
-                    chart = new Highcharts.Chart(opt);
+                    Highcharts.Chart(opt);
 
-                    console.log(data.series2)
                     opt.series = data.series2;
                     opt.chart.renderTo = 'container2';
-                    chart = new Highcharts.Chart(opt);
+                    new Highcharts.Chart(opt);
 
-                    console.log(data.series3)
                     opt.series = data.series3;
                     opt.chart.renderTo = 'container3';
-                    chart = new Highcharts.Chart(opt);
+                    new Highcharts.Chart(opt);
+
                     $.messager.progress('close');
                 },
                 error: function () {

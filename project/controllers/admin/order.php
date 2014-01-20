@@ -255,17 +255,17 @@ class Order extends CI_Admin
             'name' => '有效订单数',
             'data' => $data_valid_order,
         );
-        $result_json['series3'][] = array(
+        $result_json['series2'][] = array(
             'type' => 'column',
             'name' => '客单价',
             'data' => $data_travller_price,
         );
-        $result_json['series2'][] = array(
+        $result_json['series3'][] = array(
             'type' => 'spline',
             'name' => '总金额',
             'data' => $data_valid_price,
         );
-        $result_json['series2'][] = array(
+        $result_json['series3'][] = array(
             'type' => 'spline',
             'name' => '毛利润',
             'data' => $data_gross_margin,
