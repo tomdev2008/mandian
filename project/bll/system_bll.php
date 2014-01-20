@@ -359,8 +359,8 @@ class System_bll extends CI_Bll
         $offset = ($page - 1) * $rows;
         $data = array();
         include($log_path);
-        $data = array_slice($data, $offset, $rows);
-        return $data['ERROR'];
+        $data = array_slice($data['ERROR'], $offset, $rows);
+        return $data;
     }
 
     function get_log_list_count($date = null)
