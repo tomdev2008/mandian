@@ -4,59 +4,34 @@
 </style>
 <body>
     <!--内容区-->
-<div class="middle-wrap">
-    <!--导航-->
-    <div class="lines-wrap">
-        <p>修改酒店信息</p>
-    </div>
-    <!--/导航-->
-    <!--内容-->
-    <div class="content-wrap">
-        <!--表格-->
-        <table width="100%" class="table-form contentWrap">
+    <!--查询表单-->
+        <table width="100%" cellspacing="0" class="search-form">
             <tbody>
             <tr>
-                <td width="80">时间</td>
                 <td>
-                    <select id="select-time">
-                        <option value="0">--请选择--</option>
-                        <option value="prevfy">上财年</option>
-                        <option value="thisfy">本财年</option>
-                        <option value="nextfy">下财年</option>
-                        <option value="prevfq">上季度</option>
-                        <option value="thisfq">本季度</option>
-                        <option value="nextfq">下季度</option>
-                    </select>
-                    <input type="text" size="8" id="start_time"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">-
-                    <input type="text" size="8" id="end_time"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">
-
-                </td width="420">
-                <td width="80">订单状态</td>
-                <td width="420">
-                    <select id="order_state">
-                        <option value="0">全部</option>
-                        <option value="1">未支付</option>
-                        <option value="2">未付款，已确认</option>
-                        <option value="3">已支付已预定</option>
-                        <option value="4">交易成功</option>
-                        <option value="5">交易关闭</option>
-                        <option value="6">退款中</option>
-                        <option value="7">付款超时</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <input type="button" id="btn" class="button" value="生成报表">
+                    <div class="explain-col">
+                            <select id="select-time">
+                                <option value="0">--请选择--</option>
+                                <option value="prevfy">上财年</option>
+                                <option value="thisfy">本财年</option>
+                                <option value="nextfy">下财年</option>
+                                <option value="prevfq">上季度</option>
+                                <option value="thisfq">本季度</option>
+                                <option value="nextfq">下季度</option>
+                            </select>
+                            <input type="text" size="8" id="start_time"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">-
+                            <input type="text" size="8" id="end_time"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">
+                        <input type="button" id="btn" class="button" value="生成报表">
+                    </div>
                 </td>
             </tr>
             </tbody>
         </table>
-        <!--/表格-->
+    <!--/查询表单-->
 
-        <div id="container" style="width: 100%; height: 400px;"></div>
-    </div>
-    <!--/内容-->
+    <div id="container" style="width: 100%; height: 400px;"></div>
+
+
 </div>
 </body>
 <!--/内容区-->
@@ -109,7 +84,6 @@
         $('#btn').click(function(){
             var starDate = $('#start_time').val();
             var endDate = $('#end_time').val();
-            var t = $('#order_state').val();
 
             if(starDate == '' || endDate == ''){
                 return;
@@ -117,7 +91,7 @@
             $.ajax({
                 url: '<?php echo for_url('admin', 'order', 'stat_get') ?>',
                 type: 'post',
-                data: 'start_date=' + starDate + '&end_date=' + endDate + '&order_state=' + t,
+                data: 'start_date=' + starDate + '&end_date=' + endDate + '&order_state=',
                 dataType: 'json',
                 success: function (data) {
                     console.log(data)
