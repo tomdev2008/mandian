@@ -360,7 +360,7 @@ class System_bll extends CI_Bll
         $data = array();
         include($log_path);
         $data = array_slice($data, $offset, $rows);
-        return $data;
+        return $data['ERROR'];
     }
 
     function get_log_list_count($date = null)
@@ -372,7 +372,7 @@ class System_bll extends CI_Bll
         }
         $data = array();
         include($log_path);
-        return count($data);
+        return count($data['ERROR']);
     }
 
 }

@@ -59,7 +59,7 @@
             </tfoot>
             <tbody>
             <?php
-            foreach($rows['ERROR'] as $key => $val){
+            foreach($rows as $key => $val){
                 echo '<tr>';
                 echo '<td>'.$key.'</td>';
                 echo '<td class="left">'.$val.'</td>';
