@@ -17,10 +17,10 @@
                             <option value="thisfy">本财年</option>
                             <option value="prevfq">上季度</option>
                             <option value="thisfq">本季度</option>
- 
+
                         </select>
-                        <input type="text" size="8" id="start_time" name="start_date"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">-
-                        <input type="text" size="8" id="end_time" name="end_date"  onfocus="WdatePicker({dateFmt:'yyyy-mm-dd'})" class="input-text">
+                        <input type="text" size="8" id="start_time" name="start_date"  onfocus="WdatePicker()" class="input-text">-
+                        <input type="text" size="8" id="end_time" name="end_date"  onfocus="WdatePicker()" class="input-text">
                         &nbsp;
                         分组：
                         <select id="xtype" name="xtype">
