@@ -146,8 +146,8 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <input type="submit" id="btn" class="button" value="提交">
-                    <input type="button" id="btn" class="button" value="返回" onclick="history.back();">
+                    <input type="submit" id="btn" class="btn btn-success" value="提交">
+                    <input type="button" id="btn" class="btn" value="返回" onclick="history.back();">
                     <input type="hidden" name="liner[liner_id]" value="<?php echo $data['liner_id'] ?>">
                 </td>
             </tr>

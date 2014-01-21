@@ -104,6 +104,9 @@
         if ($('#tabs-el').tabs('exists',name)){
             $('#tabs-el').tabs('close', name);
         }
+        if(plugin == '//'){
+            return;
+        }
         var Body = $(window);
         var heights = Body.height() - 110;
         $('#tabs-el').tabs('add',{

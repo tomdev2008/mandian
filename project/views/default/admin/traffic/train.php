@@ -8,7 +8,7 @@
         <tr>
             <td>
                 <div class="explain-col">
-                    <input onclick="location.href = '<?php echo for_url('admin','traffic','train_edit')?>';" type="submit" value="添加火车车次" class="button" name="search">
+                    <input onclick="location.href = '<?php echo for_url('admin','traffic','train_edit')?>';" type="submit" value="添加火车车次" class="btn btn-success" name="search">
                 </div>
             </td>
         </tr>

@@ -27,7 +27,7 @@
                             <option value="m" selected>月</option>
                             <option value="d">日</option>
                         </select>
-                        <input type="button" id="btn" class="button" value="生成报表">
+                        <input type="button" id="btn" class="btn btn-success btn-mini" value="生成报表">
                     </div>
                 </td>
             </tr>

@@ -265,8 +265,8 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <input type="submit" rel="btn" class="button" value="保存并下一步">
-                    <input type="button" id="btn" class="button" value="返回列表" onclick="history.back();">
+                    <input type="submit" rel="btn" class="btn btn-success" value="保存并下一步">
+                    <input type="button" id="btn" class="btn" value="返回列表" onclick="history.back();">
                     <input type="hidden" name="liner[pro_id]" value="<?php echo $data['pro_id'] ?>">
                 </td>
             </tr>

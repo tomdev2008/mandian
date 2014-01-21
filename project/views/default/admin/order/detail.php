@@ -86,8 +86,8 @@
             </tr>
             <tr>
                 <td>
-                    <a href="<?php echo for_url('admin','order','edit', array($order['order_id'])) ?>" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" >修改订单</a>
-                    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-options'">生成结算单</a>
+                    <a href="<?php echo for_url('admin','order','edit', array($order['order_id'])) ?>" class="btn" >修改订单</a>
+                    <a href="#" class="btn btn-warning" data-options="iconCls:'icon-options'">生成结算单</a>
                 </td>
             </tr>
             </tbody>
@@ -127,7 +127,7 @@
                     <label>房间数：</label><?php echo $order['total_room']; ?>人
                     <label>同意拼房：</label><?php echo ( $order['flatshare'] == 1)? '是' : '否'; ?>
 
-                    <a href="<?php echo for_url('admin','order','user_edit', array($order['order_id'])) ?>" data-options="iconCls:'icon-add'" class="easyui-linkbutton">添加旅客</a>
+                    <a href="<?php echo for_url('admin','order','user_edit', array($order['order_id'])) ?>" data-options="iconCls:'icon-add'" class="btn btn-mini btn-success">添加旅客</a>
                 </td>
             </tr>
             <?php
@@ -135,8 +135,8 @@
                 echo '<tr><td> ';
                 echo '<label>游客类型：</label>', ($user['is_adults'])?'成人 ' :'儿童 ' ,'<label>姓名：</label>',$user['user_name'],'<br/>';
                 echo '<label>证件类型：</label>',$user['card_type'],' <label>证件号码：</label>',$user['card_num'],'<br/>';
-                echo '<a href="',for_url('admin','order','user_edit', array($order['order_id'], $user['id'])) ,'" class="easyui-linkbutton" data-options="iconCls:\'icon-edit\'">修改</a>';
-                echo '<a href="javascript:delUser(',$order['order_id'],',', $user['id'] ,');" data-options="iconCls:\'icon-add\'" class="easyui-linkbutton">删除</a>';
+                echo '<a href="',for_url('admin','order','user_edit', array($order['order_id'], $user['id'])) ,'"  class="btn btn-mini">修改</a>&nbsp;';
+                echo '<a href="javascript:delUser(',$order['order_id'],',', $user['id'] ,');"  class="btn btn-mini btn-warning">删除</a>';
                 echo '</td></tr>';
             }
             ?>
@@ -159,46 +159,8 @@
 </div>
 </body>
 <!--/内容区-->
-
-
-<!-- ueditor -->
-<script type="text/javascript" charset="utf-8" src="/public/resource/js/sea-modules/alias/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/public/resource/js/sea-modules/alias/ueditor/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="/public/resource/js/sea-modules/alias/ueditor/lang/zh-cn/zh-cn.js"></script>
-
-<!-- formValidator-4.1.0.js -->
-<script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidator-4.1.0.js" type="text/javascript" charset="UTF-8"></script>
-<script src="/public/resource/js/sea-modules/alias/formValidator4.1.0/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
 <script type="text/javascript">
     $(function(){
-        //编辑器
-        UE.getEditor("hotel_info");
-
-        //验证
-        $.formValidator.initConfig({formID:"form1",theme:'ArrowSolidBox',mode:'AutoTip',onError:function(msg){
-            _alert(msg,'error')
-        }, onSuccess: function(){
-            $("#hotel_info").val(UE.getEditor('hotel_info').getContent());
-            doForm($('#form1').attr('action'),$('#form1').serialize(), function(data){
-                _alert(data.msg, function(){
-                    if(data.state){
-                        location.href = '<?php echo for_url('admin', 'hotel','index'); ?>';
-                    }
-                })
-                return ;
-            });
-        },inIframe:true});
-
-        $("#hotel_name").formValidator({onShow:"请输入名称",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"}).defaultPassed();
-        $("#hotel_address").formValidator({onShow:"请输入名称",onFocus:"不能为空",onCorrect:""}).inputValidator({min:1,onError:"不能为空,请确认"}).defaultPassed();
-        $("#hotel_nights").formValidator({onShow:"请输入的入住天数",onFocus:"只能输入数字哦",onCorrect:"正确"}).inputValidator({min:1,type:"value",onErrormin:"你输入的值必须大于等于1",onError:"请确认"}).defaultPassed();
-        $.formValidator.reloadAutoTip();
-
-        $('#form1').submit(function(){
-
-            return false;
-        });
-    });
 
     /**
      * 用户删除
