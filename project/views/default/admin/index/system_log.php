@@ -70,8 +70,6 @@
             </tbody>
         </table>
 
-        <div class="btn">
-        </div>
     </div>
     <!--/列表-->
 </body>

@@ -371,7 +371,7 @@ class System_bll extends CI_Bll
             return 0;
         }
         $data = array();
-        include($log_path);
+        @include($log_path);
         return count($data['ERROR']);
     }
 

@@ -96,7 +96,7 @@ class CI_Log {
 			return FALSE;
 		}
 
-		$message .= '$data[\''.$level.'\'][\''.date($this->_date_fmt). '\'] = \''. ($msg)."';\n";
+		$message .= '$data[\''.$level.'\'][\''.date($this->_date_fmt). '\'] = \''. quotes_to_entities($msg)."';\n";
 
 		flock($fp, LOCK_EX);
 		fwrite($fp, $message);
