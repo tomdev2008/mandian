@@ -87,7 +87,12 @@
             <tr>
                 <td>
                     <a href="<?php echo for_url('admin','order','edit', array($order['order_id'])) ?>" class="btn" >修改订单</a>
-                    <a href="#" class="btn btn-warning" data-options="iconCls:'icon-options'">生成结算单</a>
+                    <?php if(empty($settlement)){ ?>
+                        <a href="<?php echo for_url('admin','order','settlements_edit', array($order['order_id'])) ?>"  class="btn btn-warning"  >生成结算单</a>
+                    <?php }else{ ?>
+                        <a href="<?php echo for_url('admin','order','settlements_edit', array($order['order_id'], $settlement['settlement_id'])) ?>"  class="btn btn-warning"  >编辑结算单</a>
+                        <a href="javascript:delSettlement();"  class="btn btn-danger"  >删除结算单</a>
+                    <?php } ?>
                 </td>
             </tr>
             </tbody>
@@ -160,8 +165,6 @@
 </body>
 <!--/内容区-->
 <script type="text/javascript">
-    $(function(){
-
     /**
      * 用户删除
      * @param id
@@ -169,6 +172,11 @@
     function delUser(order_id, id){
         _confirm('确认删除？',function(){
             location.href = '<?php echo for_url('admin','order','user_del'); ?>'+ order_id + '/' + id;
+        });
+    }
+    function delSettlement(){
+        _confirm('确认删除？',function(){
+            location.href = '<?php echo for_url('admin','order','settlements_del', array($settlement['settlement_id'])) ?>';
         });
     }
 </script>

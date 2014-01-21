@@ -57,8 +57,8 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <input type="submit" id="btn" class="button" value="提交">
-                    <input type="button" id="btn" class="button" value="返回" onclick="location.href='<?php echo for_url('admin','order','detail', array($data['order_id'])) ?>';">
+                    <input type="submit" id="btn" class="btn btn-mini" value="提交">
+                    <input type="button" id="btn" class="btn btn-mini" value="返回" onclick="location.href='<?php echo for_url('admin','order','detail', array($data['order_id'])) ?>';">
                     <input type="hidden" name="order[order_id]" value="<?php echo $data['order_id'] ?>">
                     <input type="hidden" name="order[id]" value="<?php echo $data['id'] ?>">
                 </td>

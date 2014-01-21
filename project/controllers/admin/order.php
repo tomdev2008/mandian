@@ -32,6 +32,9 @@ class Order extends CI_Admin
         $this->load->bll('order_bll');
         $order = $this->order_bll->get_by_id($order_id);
         $order_users = $this->order_bll->get_order_users_id($order_id);
+
+        $data['settlement'] = $this->order_bll->get_settlements_by_order_id($order_id);
+
         $data['order_id'] = $order_id;
         $data['order'] = $order;
         $data['order_users'] = $order_users;
@@ -298,6 +301,75 @@ class Order extends CI_Admin
         $this->view('/admin/public/pager_header');
         $this->view('/admin/order/settlements', $r);
         $this->view('/admin/public/pager_footer');
+    }
+
+    function settlements_edit($order_id = null, $settlement_id = null)
+    {
+        if (empty($order_id)) {
+            showmessage('出错了');
+        }
+        $this->load->bll('order_bll');
+        $order = $this->order_bll->get_by_id($order_id);
+
+        if(!empty($settlement_id)){
+            $data['settlement'] = $this->order_bll->get_settlements_by_id($settlement_id);
+            $suppliers = array();
+            foreach(explode(',', $data['settlement']['supplier_ids']) as $id){
+                $suppliers[] = $this->order_bll->get_supplier_by_id($id);
+            }
+            $data['settlement']['suppliers'] = $suppliers;
+        }
+        $data['income'] = $order['total_price'];
+        $data['order_id'] = $order_id;
+        $data['settlement_id'] = $settlement_id;
+
+        $this->view('/admin/public/pager_header');
+        $this->view('/admin/order/settlements_edit', $data);
+        $this->view('/admin/public/pager_footer');
+    }
+
+    function settlements_save()
+    {
+        $this->load->bll('order_bll');
+        $order = $this->input->get_post('order');
+        $supplier = array();
+        foreach( $order['supplier'] as $key => $val){
+            foreach( $val as $k => $v){
+                $supplier[$k][$key] = $v;
+            }
+        }
+        $supplier_ids = array();
+        $expense = 0;
+        foreach($supplier as $val){
+            if($val['supplier_name'] && $val['money']){
+                $r = $this->order_bll->save_supplier($val);
+                if(!$r){
+                    exit('{"state":false,"msg":"供应商添加失败"}');
+                }
+                $expense += $val['money'];
+                $supplier_ids[] = $r;
+            }else{
+                exit('{"state":false,"msg":"供应商名称，花费不能为空"}');
+            }
+        }
+        $gross_margin = $order['income'] - $expense;
+        $data = array(
+            'settlement_id' => $order['settlement_id'],
+            'order_id' => $order['order_id'],
+            'supplier_ids' => implode(',', $supplier_ids),
+            'income' => $order['income'],
+            'expense' => $expense,
+            'gross_margin' => $gross_margin,
+            'gross_profit_margin' => (number_format(($gross_margin / $order['income']), 4) * 100) . '%',
+            'insurance' => $order['insurance'],
+            'fees' => $order['fees'],
+            'profit' => $gross_margin - ($order['insurance'] + $order['fees']),
+        );
+        $r = $this->order_bll->save_settlements($data);
+        if (!$r) {
+            exit('{"state":false,"msg":"结算单编辑失败"}');
+        }
+        exit('{"state":true,"msg":"结算单编辑成功"}');
     }
 
     function settlements_detail($id = null)

@@ -126,6 +126,14 @@ class Order_bll extends CI_Bll
         return $this->order_model->settlements_del($id);
     }
 
+    function save_settlements($post = array())
+    {
+        if(empty($post['settlement_id'])){
+            return $this->order_model->insert_settlements($post);
+        }else{
+            return $this->order_model->save_settlements($post);
+        }
+    }
     /**
      * 获取供应商
      * @param null $id
@@ -137,5 +145,14 @@ class Order_bll extends CI_Bll
             return false;
         }
         return $this->order_model->get_supplier_by_id($id);
+    }
+
+    function save_supplier($post = array())
+    {
+        if(empty($post['supplier_id'])){
+            return $this->order_model->insert_supplier($post);
+        }else{
+            return $this->order_model->save_supplier($post);
+        }
     }
 }

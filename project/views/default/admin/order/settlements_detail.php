@@ -99,7 +99,7 @@
             echo '<td colspan="2">',$val['supplier_name'],'</td>';
             echo '<td colspan="2">',$val['money_explain'],'</td>';
             echo '<td>',$val['money'],'</td>';
-            echo '<td colspan="2">',$val['supplier_name'],'</td>';
+            echo '<td colspan="2">',$val['remark'],'</td>';
             echo '</tr>';
         }
     ?>          <!-- 利润表-->

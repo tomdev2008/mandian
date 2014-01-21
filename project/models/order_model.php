@@ -34,12 +34,69 @@ class Order_model extends CI_Model
         return $query->row_array();
     }
 
+    function insert_supplier($post)
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'supplier_id') {
+                $data[$key] = $val;
+            }
+        }
+        $r = $this->db->insert($this->db->dbprefix('supplier'), $data);
+        if($r){
+            return $this->db->insert_id();
+        }
+        return false;
+    }
+
+    function save_supplier($post)
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'supplier_id') {
+                $data[$key] = $val;
+            }
+        }
+        $this->db->where('supplier_id', $post['supplier_id']);
+        $r = $this->db->update($this->db->dbprefix('supplier'), $data);
+        if($r){
+            return $post['supplier_id'];
+        }
+        return false;
+    }
+
     /**
      * 结算单
      * @param null $page
      * @param null $rows
      * @return mixed
      */
+    function insert_settlements($post)
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'settlement_id') {
+                $data[$key] = $val;
+            }
+        }
+        $r = $this->db->insert($this->db->dbprefix('settlements'), $data);
+        if($r){
+            return $this->db->insert_id();
+        }
+        return false;
+    }
+
+    function save_settlements($post)
+    {
+        foreach ($post as $key => $val) {
+            if ($key != 'settlement_id') {
+                $data[$key] = $val;
+            }
+        }
+        $this->db->where('settlement_id', $post['settlement_id']);
+        $r = $this->db->update($this->db->dbprefix('settlements'), $data);
+        if($r){
+            return $post['settlement_id'];
+        }
+        return false;
+    }
 
     function get_settlements_by_order_id($id = null)
     {
@@ -60,7 +117,6 @@ class Order_model extends CI_Model
         $query = $this->db->get();
         return $query->row_array();
     }
-
 
 
     function get_settlements_by_id($id = null)
@@ -149,9 +205,9 @@ class Order_model extends CI_Model
             $this->db->like($this->db->dbprefix('product') . '.pro_name', $pro_name);
         }
         if (!empty($order_state)) {
-            if(is_array($order_state)){
+            if (is_array($order_state)) {
                 $this->db->where_in($this->db->dbprefix('order') . '.order_state', $order_state);
-            }else{
+            } else {
                 $this->db->where($this->db->dbprefix('order') . '.order_state', $order_state);
             }
         }
