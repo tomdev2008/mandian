@@ -48,16 +48,13 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-//$db['default']['hostname'] = ' ';
 $db['default']['hostname'] = '127.0.0.1';
 $db['default']['username'] = 'root';
-//$db['default']['password'] = 'mandian@321';
 $db['default']['password'] = '123456';
-//$db['default']['database'] = 'mandianDB';
 $db['default']['database'] = 'momo-crm';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'crm_';
-$db['default']['pconnect'] = TRUE;
+$db['default']['pconnect'] = FALSE;
 $db['default']['db_debug'] = FALSE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
@@ -66,6 +63,23 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+
+
+$db['production']['hostname'] = '114.111.162.220';
+$db['production']['username'] = 'root';
+$db['production']['password'] = 'mandian@321';
+$db['production']['database'] = 'mandianDB';
+$db['production']['dbdriver'] = 'mysql';
+$db['production']['dbprefix'] = 'crm_';
+$db['production']['pconnect'] = FALSE;
+$db['production']['db_debug'] = FALSE;
+$db['production']['cache_on'] = FALSE;
+$db['production']['cachedir'] = '';
+$db['production']['char_set'] = 'utf8';
+$db['production']['dbcollat'] = 'utf8_general_ci';
+$db['production']['swap_pre'] = '';
+$db['production']['autoinit'] = TRUE;
+$db['production']['stricton'] = FALSE;
 
 
 /* End of file database.php */
