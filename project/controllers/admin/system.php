@@ -53,7 +53,6 @@ class System extends CI_Admin
     {
         $this->load->bll('system_bll');
         $r['data'] = $this->system_bll->get_system_tree_list();
-        $r['current_pos'] = $this->current_pos();
         $this->view('/admin/public/pager_header');
         $this->view('/admin/index/system_list', $r);
         $this->view('/admin/public/pager_footer');
@@ -86,7 +85,6 @@ class System extends CI_Admin
         );
         $data['data'] = $user;
         $data['syslist'] = $this->system_bll->get_system_list(array('sys_parent_id' => 0));
-        $data['current_pos'] = $this->current_pos();
         $this->view('/admin/public/pager_header');
         $this->view('/admin/index/system_edit', $data);
         $this->view('/admin/public/pager_footer');
@@ -100,7 +98,6 @@ class System extends CI_Admin
         if ($user) {
             $data['data'] = $user;
             $data['syslist'] = $this->system_bll->get_system_list(array('sys_parent_id' => 0));
-            $data['current_pos'] = $this->current_pos();
             $this->view('/admin/public/pager_header');
             $this->view('/admin/index/system_edit', $data);
             $this->view('/admin/public/pager_footer');

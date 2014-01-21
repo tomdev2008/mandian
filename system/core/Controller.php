@@ -183,23 +183,7 @@ class CI_Admin extends CI_Action
         $this->load->bll('user_bll');
         $array = $this->user_bll->get_user_role_access_header($role_id);
         return $array;
-    }
-
-    /**
-     * -------------------------
-     * 当前位置
-     * @param $id 菜单id
-     * -------------------------
-     */
-    function current_pos()
-    {
-        $this->load->bll('system_bll');
-        $act = $this->system_bll->get_sys_by_action($this->router->module, $this->router->class, $this->router->method);
-        if ($act) {
-            return $act['sys_name'] . '>' . $act['p_name'];
-        }
-        return '';
-    }
+    } 
 
     /**
      * -------------------------

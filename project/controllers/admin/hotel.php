@@ -29,7 +29,6 @@ class Hotel extends CI_Admin
         $rows = 20;
         $r['rows'] = $this->hotel_bll->get_hotel_list($page, $rows);
         $r['total'] = ceil( $this->hotel_bll->get_hotel_list_count() / $rows);
-        $r['current_pos'] = $this->current_pos();
 
         $this->view( '/admin/public/pager_header');
         $this->view( '/admin/hotel/index', $r);
@@ -43,7 +42,6 @@ class Hotel extends CI_Admin
             $this->load->bll('hotel_bll');
             $hotel = $this->hotel_bll->get_hotel_by_id($id);
             $data['data'] = $hotel;
-            $data['current_pos'] = $this->current_pos();
 
         }
         $this->view( '/admin/public/pager_header');

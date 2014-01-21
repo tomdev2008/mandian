@@ -25,7 +25,6 @@ class User extends CI_Admin
         $rows = 20;
         $r['rows'] = $this->user_bll->get_user_list($page, $rows);
         $r['total'] = ceil( $this->user_bll->get_user_list_count() / $rows);
-        $r['current_pos'] = $this->current_pos();
 
         $this->view( '/admin/public/pager_header');
         $this->view( '/admin/index/user_list', $r);
@@ -37,7 +36,6 @@ class User extends CI_Admin
 
         $user = array('user_id' => '', 'user_name' => '', 'password' => '', 'email' => '', 'enabled' => 1);
         $data['data'] = $user;
-        $data['current_pos'] = $this->current_pos();
         $this->view( '/admin/public/pager_header');
         $this->view( '/admin/index/user_edit', $data);
         $this->view( '/admin/public/pager_footer');
@@ -49,7 +47,6 @@ class User extends CI_Admin
         $user = $this->user_bll->get_user_by_id($id);
         if ($user) {
             $data['data'] = $user;
-            $data['current_pos'] = $this->current_pos();
             $this->view( '/admin/public/pager_header');
             $this->view( '/admin/index/user_edit', $data);
             $this->view( '/admin/public/pager_footer');

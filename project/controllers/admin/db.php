@@ -18,7 +18,6 @@ class Db extends CI_Admin
         $this->load->bll('system_bll');
         $data['type'] = 'backup';
         $data['file_list'] = $this->system_bll->get_backup_list();
-        $data['current_pos'] = $this->current_pos();
         $this->view('/admin/public/pager_header');
         $this->view('/admin/index/system_sqldump', $data);
         $this->view('/admin/public/pager_footer');

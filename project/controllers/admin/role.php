@@ -21,7 +21,6 @@ class Role extends CI_Admin
         $r['rows'] = $this->user_bll->get_role_list($page, $rows);
         $r['total'] = ceil( $this->user_bll->get_role_list_count() / $rows);
 
-        $r['current_pos'] = $this->current_pos();
         $this->view( '/admin/public/pager_header');
         $this->view( '/admin/index/role_list', $r);
         $this->view( '/admin/public/pager_footer');
@@ -32,7 +31,6 @@ class Role extends CI_Admin
 
         $user = array('role_id' => '', 'role_name' => '', 'enabled' => '');
         $data['data'] = $user;
-        $data['current_pos'] = $this->current_pos();
         $this->view( '/admin/public/pager_header');
         $this->view( '/admin/index/role_edit', $data);
         $this->view( '/admin/public/pager_footer');
@@ -44,7 +42,6 @@ class Role extends CI_Admin
         $user = $this->user_bll->get_role_by_id($id);
         if ($user) {
             $data['data'] = $user;
-            $data['current_pos'] = $this->current_pos();
             $this->view( '/admin/public/pager_header');
             $this->view( '/admin/index/role_edit', $data);
             $this->view( '/admin/public/pager_footer');
@@ -106,7 +103,6 @@ class Role extends CI_Admin
         }
         $data['user'] = $user;
         $data['roles'] = $this->user_bll->get_role_list();
-        $data['current_pos'] = $this->current_pos();
         $this->view( '/admin/public/pager_header');
         $this->view('/admin/index/system_role', $data);
         $this->view( '/admin/public/pager_footer');
@@ -147,7 +143,6 @@ class Role extends CI_Admin
         $data['role'] = $user;
         $data['syslist'] = $r;
         $data['role_id'] = $id;
-        $data['current_pos'] = $this->current_pos();
 
         $this->view( '/admin/public/pager_header');
         $this->view('/admin/index/system_access', $data);
