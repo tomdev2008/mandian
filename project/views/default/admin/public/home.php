@@ -32,11 +32,6 @@
             </tr>
 
             <tr>
-                <td class="er">PHP配置文件</td>
-                <td class="fl"><?= $Info['php_ini_file'] ?></td>
-            </tr>
-
-            <tr>
                 <td class="er">服务器主目录</td>
                 <td class="fl"><?= _SERVER('DOCUMENT_ROOT') ?></td>
             </tr>
@@ -68,6 +63,7 @@
 </body>
 <!--/内容区-->
 <?php
+
 function _SERVER($n)
 {
     return isset($_SERVER[$n]) ? $_SERVER[$n] : '[undefine]';
