@@ -45,8 +45,8 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" id="btn" class="button" value="备份数据库">
-                        <input onclick="flushdb()" type="submit" value="清空备份" class="button" name="search">
+                        <input type="submit" id="btn" class="btn" value="备份数据库">
+                        <input onclick="flushdb()" type="submit" value="清空备份" class="btn btn-success" name="search">
                     </td>
                 </tr>
                 </tbody>

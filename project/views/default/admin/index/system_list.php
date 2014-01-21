@@ -7,7 +7,7 @@
         <tr>
             <td>
                 <div class="explain-col">
-                    <input onclick="location.href = '<?php echo for_url('admin','system','system_add')?>';" type="submit" value="添加系统模块" class="button" name="search">
+                    <input onclick="location.href = '<?php echo for_url('admin','system','system_add')?>';" type="submit" value="添加系统模块" class="btn btn-success" name="search">
                 </div>
             </td>
         </tr>

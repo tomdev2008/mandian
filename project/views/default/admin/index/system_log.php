@@ -8,8 +8,8 @@
                 <td>
                     <div class="explain-col">
                         日期：<input type="text" value="<?php echo $date; ?>" size="10" class="input-text" onfocus="WdatePicker()" name="date">
-                        <input type="submit" id="btn" class="button" value="查询">
-                        <input type="button" id="clearLog" class="button" value="清空日志">
+                        <input type="submit" id="btn" class="btn btn-success" value="查询">
+                        <input type="button" id="clearLog" class="btn btn-danger" value="清空日志">
                     </div>
                 </td>
             </tr>

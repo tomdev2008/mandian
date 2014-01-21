@@ -99,8 +99,8 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" id="btn" class="button" value="保存站点信息">
-                        <input type="button" class="button" value="更新缓存" onclick="location.href='<?php echo for_url('admin','system','site_setting_cache') ?>';">
+                        <input type="submit" id="btn" class="btn btn-success" value="保存站点信息">
+                        <input type="button" class="btn" value="更新缓存" onclick="location.href='<?php echo for_url('admin','system','site_setting_cache') ?>';">
                     </td>
                 </tr>
                 </tbody>

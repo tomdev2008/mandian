@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="submit" id="btn" class="button" value="提交">
+                    <input type="submit" id="btn" class="btn btn-success" value="提交">
                     <input type="hidden" name="user_id" value="<?php echo $user['user_id'] ?>">
                 </td>
             </tr>

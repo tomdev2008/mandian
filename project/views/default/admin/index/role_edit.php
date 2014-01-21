@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <input type="submit" id="btn" class="button" value="提交">
+                    <input type="submit" id="btn" class="btn btn-success" value="提交">
                     <input type="hidden" name="role[role_id]" value="<?php echo $data['role_id'] ?>">
                 </td>
             </tr>
