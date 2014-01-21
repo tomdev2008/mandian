@@ -183,7 +183,7 @@ class CI_Admin extends CI_Action
         $this->load->bll('user_bll');
         $array = $this->user_bll->get_user_role_access_header($role_id);
         return $array;
-    } 
+    }
 
     /**
      * -------------------------
