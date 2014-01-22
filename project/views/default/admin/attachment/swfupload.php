@@ -21,8 +21,8 @@
                         </fieldset>
                     </div>
                     <div class="tab-content-title">
-                        <input type="button" value="确定" id="selectBtn" />
-                        <input type="button" value="取消" />
+                        <input type="button" value="确定" id="selectBtn" class="btn" />
+                        <input type="button" value="取消" class="btn" />
                     </div>
                 </div>
             </div>

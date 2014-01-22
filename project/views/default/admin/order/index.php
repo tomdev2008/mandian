@@ -28,7 +28,7 @@
                     联系人：<input type="text" value="<?php echo $filter['contact_name']; ?>" size="10" class="input-text" name="order[contact_name]">
                     下单时间：<input type="text" onfocus="WdatePicker()" value="<?php echo $filter['start_time']; ?>" size="5" class="input-text" name="order[start_time]">
                     到<input type="text" onfocus="WdatePicker()" value="<?php echo $filter['end_time']; ?>" size="5" class="input-text" name="order[end_time]">
-                    <input type="submit" id="btn" class="button" value="查询">
+                    <input type="submit" id="btn" class="btn" value="查询">
                 </div>
             </td>
         </tr>
