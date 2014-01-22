@@ -87,11 +87,15 @@
             <tr>
                 <td>
                     <a href="<?php echo for_url('admin','order','edit', array($order['order_id'])) ?>" class="btn" >修改订单</a>
-                    <?php if(empty($settlement)){ ?>
+                    <?php if(empty($settlement) && ($order['order_state'] > 3)){ ?>
                         <a href="<?php echo for_url('admin','order','settlements_edit', array($order['order_id'])) ?>"  class="btn btn-warning"  >生成结算单</a>
-                    <?php }else{ ?>
+                    <?php }elseif(!empty($settlement) && ($order['order_state'] > 3)){ ?>
                         <a href="<?php echo for_url('admin','order','settlements_edit', array($order['order_id'], $settlement['settlement_id'])) ?>"  class="btn btn-warning"  >编辑结算单</a>
                         <a href="javascript:delSettlement();"  class="btn btn-danger"  >删除结算单</a>
+                    <?php } ?>
+
+                    <?php if($order['order_state'] < 3){ ?>
+                        <a href="javascript:changeOrderState();"  class="btn btn-info"  >确认付款</a>
                     <?php } ?>
                 </td>
             </tr>
@@ -177,6 +181,11 @@
     function delSettlement(){
         _confirm('确认删除？',function(){
             location.href = '<?php echo for_url('admin','order','settlements_del', array($settlement['settlement_id'])) ?>';
+        });
+    }
+    function changeOrderState(){
+        _confirm('确认付款？',function(){
+            location.href = '<?php echo for_url('admin','order','change_order_state', array($order['order_id'])) ?>';
         });
     }
 </script>

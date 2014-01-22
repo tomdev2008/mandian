@@ -277,6 +277,22 @@ class Order extends CI_Admin
         exit($this->json->encode($result_json));
     }
 
+    function change_order_state($order_id = null)
+    {
+        if(empty($order_id)){
+            showmessage('出错了');
+        }
+        $this->load->bll('order_bll');
+        $order['order_id'] = $order_id;
+        $order['order_state'] = 3;
+        $r = $this->order_bll->update($order);
+        if ($r)  {
+            showmessage('删除成功', for_url('admin', 'order', 'detail', array($order_id)));
+        } else {
+            showmessage('编辑失败');
+        }
+    }
+
     /**
      * --------------------------------
      * 结算单管理
