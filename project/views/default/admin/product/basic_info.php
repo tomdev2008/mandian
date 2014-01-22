@@ -290,7 +290,7 @@
                 <td colspan="2">
                     <div id="p" class="easyui-panel" title="只能选择一个图片" style="width:560px;padding:5px;">
                         <p>
-                            <a href="javascript:picHelper.flashuploadMain();" id="add-com" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加图片</a>[双击删除图片]
+                            <a href="javascript:picHelper.flashuploadMain();" id="add-com" class="btn btn-small">添加图片</a>[双击删除图片]
                             <ul class="attachment-list" id="fsUploadProgress">
                                 <script type="text/javascript">
                                     $(function(){
@@ -307,7 +307,7 @@
                 <td colspan="2">
                     <div id="p" class="easyui-panel" title="可选择多图片" style="width:560px;padding:5px;">
                         <p>
-                            <a href="javascript:picHelper.flashuploadSub();" id="add-com" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加图片</a>[双击删除图片]
+                            <a href="javascript:picHelper.flashuploadSub();" id="add-com"  class="btn btn-small">添加图片</a>[双击删除图片]
                         <ul class="attachment-list" id="fsUploadProgressSub">
                             <script type="text/javascript">
                                 $(function(){
